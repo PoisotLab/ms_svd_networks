@@ -23,7 +23,6 @@ function LinearAlgebra.svd(N::T) where {T<:DeterministicNetwork}
     return svd(N.A)
 end
 
-
 ##FIGURE 1##
 #Size vs Rank
 
@@ -45,11 +44,6 @@ each of which does one thing -
 or you can look into the CSV and DataFrame paackages,
 and use this as a way to store your results.=#
 
-#Here we could plot Rank and Entropy
-scatter(rank.(bipart), svd_entropy.(bipart))
-xlabel!("Rank");
-ylabel!("Entropy");
-
 #= NOTE This is also a variant of having a specific method depending on the type of arguments
  - a.k.a. dispatch - it's a super important mechanism in Julia
  (and multiple dispatch even more so!) =#
@@ -62,16 +56,30 @@ function maxrank(N::T) where {T <: UnipartiteNetwork}
     return richness(N)
 end
 
-scatter(maxrank.(bipart) .- rank.(bipart) , svd_entropy.(bipart))
-xlabel!("Rank defficiency")
-ylabel!("Entropy")
+#📊 Here we could plot Entropy and various measures of Rank
+plot(
+    scatter(richness.(bipart) , svd_entropy.(bipart),
+        xlabel = "Richness", ylabel = "Entropy", legend = false),
+    scatter(rank.(bipart), svd_entropy.(bipart),
+        xlabel = "Rank", legend = false),
+    scatter(maxrank.(bipart) .- rank.(bipart) , svd_entropy.(bipart),
+        xlabel = "Rank defficiency", ylabel = "Entropy", legend = false),
+    scatter((maxrank.(bipart) .- rank.(bipart))./maxrank.(bipart) , svd_entropy.(bipart),
+        xlabel = "Rank defficiency (relative)", legend = false)
+)
+
+#savefig(joinpath("figures", "fig1.png"))
+
+#=
+plot(
+    scatter(maxrank.(bipart) .- rank.(bipart) , svd_entropy.(bipart),
+        xlabel = "Rank defficiency", ylabel = "Entropy", legend = false),
+    scatter((maxrank.(bipart) .- rank.(bipart))./maxrank.(bipart) , svd_entropy.(bipart),
+        xlabel = "Rank defficiency (relative)", legend = false)
+)=#
 
 
-scatter((maxrank.(bipart) .- rank.(bipart))./maxrank.(bipart) , svd_entropy.(bipart))
-xlabel!("Rank defficiency (relative)")
-ylabel!("Entropy")
-
-##COMPARING ENTROPY TO OTHER MEASURES##
+##📊 COMPARING ENTROPY TO OTHER MEASURES##
 
 plot(
     #🐣 Nestedness
@@ -86,13 +94,26 @@ plot(
     #⇵ Linkage density
     scatter(linkage_density.(bipart),svd_entropy.(bipart),
         xlabel = "Linkage density", legend = false)
+    #=🐣 Nestedness
+    scatter(η.(bipart), rank.(bipart),
+        xlabel = "Nestedness", ylabel = "Rank", legend = false),
+    #↕ Number of links
+    scatter(links.(bipart),rank.(bipart),
+        xlabel = "Number of links", legend = false),
+    #🔀 Connectance
+        scatter(connectance.(bipart),rank.(bipart),
+        xlabel = "Connectance", ylabel = "Rank", legend = false),
+    #⇵ Linkage density
+    scatter(linkage_density.(bipart),rank.(bipart),
+        xlabel = "Linkage density", legend = false)=#
 )
 
-##INCORPORATING EXTINCTIONS
+#savefig(joinpath("figures", "fig2.png"))
+
+##💀INCORPORATING EXTINCTIONS
 
 #FUNCTION FROM POISOT 2019
-#= This simulates extinctions
-by removing a RANDOM indiv =#
+#= This simulates extinctions by removing a RANDOM indiv =#
 
 function extinctions(N::T) where {T<:AbstractBipartiteNetwork}
     # We start by making a copy of the network to extinguish
