@@ -82,6 +82,8 @@ plot(scatter(richness.(Bs), rank.(Bs),
     scatter(richness.(Bs), svd_entropy.(Bs),
         xlabel="Richness", ylabel="Entropy", legend=false, dpi=300))
 
+savefig(joinpath("figures", "size_v_rank.png"))
+
 # 📊 Here we could plot Entropy and various measures of Rank
 plot(
     scatter(richness.(Bs) , svd_entropy.(Bs),
@@ -93,6 +95,8 @@ plot(
     scatter((maxrank.(Bs) .- rank.(Bs)) ./ maxrank.(Bs) , svd_entropy.(Bs),
         xlabel="Rank defficiency (relative)", legend=false, dpi=300)
 )
+
+savefig(joinpath("figures", "entropy_v_rank.png"))
 
 ##📊 COMPARING ENTROPY TO OTHER MEASURES##
 
@@ -109,12 +113,17 @@ plot(
     # Linkage density
     scatter(linkage_density.(Bs),svd_entropy.(Bs),
         xlabel="Linkage density", ylabel="Entropy", legend=false, dpi=300),
+    # Spectral radius
+    scatter(ρ.(Bs), svd_entropy.(Bs),
+        xlabel="Spectral radius", ylabel="Entropy", legend=false, dpi=300),
     # Ive added the last two just because I could - doesn't mean I should
     scatter(heterogeneity.(Ns), svd_entropy.(Bs),
         xlabel="Heterogeneity", legend=false, dpi=300),
     scatter(symmetry.(Ns), svd_entropy.(Bs),
         xlabel="Symmetry", legend=false, dpi=300)
 )
+
+savefig(joinpath("figures", "entropy_v_others.png"))
 
 ##💀INCORPORATING EXTINCTIONS
 
@@ -197,25 +206,26 @@ end
 #= 📊 SVD Entropy vs prop of spp removed
     (❗need to change the x axis to be more intuitive)
     only using 10 networks for ease of visuals =#
-scatter()
-for i = 1:10
-    scatter!((richness.(extinctions_systematic(Bs[i]); dims=2) / richness(Bs[i]; dims=2)),
-        svd_entropy.(extinctions_systematic(Bs[i])), legend=false)
+plot1 = scatter(title="Most connected")
+plot2 = scatter(title="Least connected")
+plot3 = scatter(title="Random")
+for B in Bs
+    plot!(plot1, (richness.(extinctions_systematic(B); dims=2) / richness(B; dims=2)),
+        svd_entropy.(extinctions_systematic(B)), legend=false, c=:grey, alpha=0.5)
+    plot!(plot2, richness.(extinctions_systematic_least(B)) / richness(B),
+        svd_entropy.(extinctions_systematic_least(B)), legend=false, c=:grey, alpha=0.5)
+    plot!(plot3, richness.(extinctions(B)) / richness(B), svd_entropy.(extinctions(B)), legend=false, c=:grey, alpha=0.5)
 end
-plot3 = scatter!(title="Systematic - most", xlabel="Propotion of species removed")
-scatter()
-for i = 1:10
-    scatter!(richness.(extinctions_systematic_least(Bs[i])) / richness(Bs[i]),
-        svd_entropy.(extinctions_systematic_least(Bs[i])), legend=false)
+
+# Remember that plots are objects that can be modified!
+
+for p in [plot1, plot2, plot3]
+    yaxis!(p, (0.6, 1.0), "Entropy")
 end
-plot2 = scatter!(title="Systematic - least", ylabel="Entropy")
-scatter()
-for i = 1:10
-    scatter!(richness.(extinctions(Bs[i])) / richness(Bs[i]), svd_entropy.(extinctions(Bs[i])), legend=false)
-end
-plot1 = scatter!(title="Random")
 
 plot(plot1, plot2, plot3)
+
+savefig(joinpath("figures", "extinctions_raw.png"))
 
 ###Resilliance - Calculating the area under the curve###
 # look at trapezoidrule...
