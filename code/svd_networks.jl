@@ -21,19 +21,44 @@ using StatsBase
 ## Using the Web Of Life dataset
 raw_wol = [web_of_life(x.ID) for x in web_of_life()]
 Bs = convert.(BipartiteNetwork, raw_wol)
-filter!(B -> richness(B) < 200, Bs)[web_of_life(id) for id in ids]
+filter!(B -> richness(B) < 200, Bs)
+Ns = convert.(UnipartiteNetwork, Bs)
 
-unipart = convert.(UnipartiteNetwork, Bs)
+# This is a convention from EcologicalNetworks, but I mostly tend to use B for
+# bipartite, N for unipartite or any general network, R for random, and P for
+# probabilist - I have reformated the code so that it follows this convention,
+# this is also less typing
 
+## Redefine methods for rank and svd
+
+# The new methods work on the abstract (union? can't remember how it's defined)
+# type DeterministicNetwork --- the syntax with """ is a standard way to
+# document a function in Julia, so if you do ?rank, you will now see these
+# methods
+
+"""
+    LinearAlgebra.rank(N::T) where {T <: DeterministicNetwork}
+
+Returns the rank of the adjacency matrix of a deterministic ecological network.
+"""
 function LinearAlgebra.rank(N::T) where {T <: DeterministicNetwork}
     return rank(N.A)
 end
 
+"""
+    LinearAlgebra.svd(N::T) where {T <: DeterministicNetwork}
+
+Performs Singular Value Decomposition on the adjacency matrix of a deterministic network
+"""
 function LinearAlgebra.svd(N::T) where {T <: DeterministicNetwork}
     return svd(N.A)
 end
 
-# Entropy based on SVD
+## Entropy based on SVD
+
+"""
+Left as an exercise to the reader 😉
+"""
 function svd_entropy(N::T) where {T <: DeterministicNetwork}
     F = svd(N)
     Λ = F.S[1:rank(N)]
@@ -85,9 +110,9 @@ plot(
     scatter(linkage_density.(Bs),svd_entropy.(Bs),
         xlabel="Linkage density", ylabel="Entropy", legend=false, dpi=300),
     # Ive added the last two just because I could - doesn't mean I should
-    scatter(heterogeneity.(unipart), svd_entropy.(Bs),
+    scatter(heterogeneity.(Ns), svd_entropy.(Bs),
         xlabel="Heterogeneity", legend=false, dpi=300),
-    scatter(symmetry.(unipart), svd_entropy.(Bs),
+    scatter(symmetry.(Ns), svd_entropy.(Bs),
         xlabel="Symmetry", legend=false, dpi=300)
 )
 
