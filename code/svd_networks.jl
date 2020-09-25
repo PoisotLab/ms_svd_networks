@@ -13,6 +13,7 @@ using Statistics
 using Plots
 using StatsBase
 
+
 # For this type of projets, calling packages with using is fine, as the
 # namespace is never going to get very big - one situation where you would want
 # to use import instead is if you were using a package only in a single line
@@ -57,7 +58,9 @@ end
 ## Entropy based on SVD
 
 """
-Left as an exercise to the reader 😉
+    svd_entropy(N::T) where {T <: DeterministicNetwork}
+
+Returns the entropy of the adjacency matrix of a deterministic network using the singular values from a Singualr Value Decomposition
 """
 function svd_entropy(N::T) where {T <: DeterministicNetwork}
     F = svd(N)
@@ -66,16 +69,25 @@ function svd_entropy(N::T) where {T <: DeterministicNetwork}
     return -sum(λ .* log.(λ)) * 1 / log(length(λ))
 end
 
+"""
+    maxrank(N::T) where {T <: BipartiteNetwork}
+
+Returns the maximum possible rank of a Bipartite Network
+"""
 function maxrank(N::T) where {T <: BipartiteNetwork}
     return minimum(size(N))
 end
 
+"""
+    maxrank(N::T) where {T <: UnipartiteNetwork}
+
+Returns the maximum possible rank of a Unipartite Network
+"""
 function maxrank(N::T) where {T <: UnipartiteNetwork}
     return richness(N)
 end
 
-##FIGURE 1##
-###📊 Size vs Rank
+## 📊 Size vs Rank
 
 plot(scatter(richness.(Bs), rank.(Bs),
         xlabel="Richness", ylabel="Rank", legend=false, dpi=300),
@@ -125,11 +137,15 @@ plot(
 
 savefig(joinpath("figures", "entropy_v_others.png"))
 
-##💀INCORPORATING EXTINCTIONS
+## 💀INCORPORATING EXTINCTIONS
 
 # FUNCTION FROM POISOT 2019
-#= This simulates extinctions by removing a RANDOM indiv =#
+"""
+    extinctions(N::T) where {T <: AbstractBipartiteNetwork}
 
+This returns a vector of bipartite ecological networks simulating an extinction trajectory, where each network is the result of
+removing a random individual from the preceeding network
+"""
 function extinctions(N::T) where {T <: AbstractBipartiteNetwork}
     # We start by making a copy of the network to extinguish
     Y = [copy(N)]
@@ -150,12 +166,12 @@ function extinctions(N::T) where {T <: AbstractBipartiteNetwork}
     return Y
 end
 
-#= modification of extinction function to remove ROW species with the highest number of interactions
-    currently this is based on ProbabilityWeights
-    ❗TO CHECK: Does it seem 'fair' to use # of interactions or should we look at something like degree()
-                Do we want species removal to be proababilistic or 'absolute'
-                Maybe need to only make probabilistic when more than one max/min value =#
+"""
+    extinctions_systematic(N::T) where {T <: AbstractBipartiteNetwork}
 
+This returns a vector of bipartite ecological networks simulating an extinction trajectory, where each network is the result of
+removing the most connected individual from the preceeding network
+"""
 function extinctions_systematic(N::T) where {T <: AbstractBipartiteNetwork}
     # We start by making a copy of the network to extinguish
     Y = [copy(N)];
@@ -179,14 +195,18 @@ function extinctions_systematic(N::T) where {T <: AbstractBipartiteNetwork}
     return Y
 end
 
-#= we can 'flip' this to remove the LEAST connected species
-    here we simply inverse the ProbabilityWeight =#
+"""
+    extinctions_systematic_least(N::T) where {T <: AbstractBipartiteNetwork}
+
+This returns a vector of bipartite ecological networks simulating an extinction trajectory, where each network is the result of
+removing the least connected individual from the preceeding network
+"""
 function extinctions_systematic_least(N::T) where {T <: AbstractBipartiteNetwork}
     # We start by making a copy of the network to extinguish
     Y = [copy(N)];
     # While there is at least one species remaining...
     while richness(last(Y)) > 1
-        # sum the number of interactions by col (i.e ⬆ connectance), inverse and convert to ProbabilityWeight
+        # sum the number of interactions by col (i.e ⬆ connectance), INVERSE and convert to ProbabilityWeight
         w = ProbabilityWeights(vec(1 ./ sum(last(Y), dims=1) ./ sum(sum(last(Y), dims=1))))
         # We remove the species based on probability weighting (w)
         remain =  sample(
@@ -203,9 +223,8 @@ function extinctions_systematic_least(N::T) where {T <: AbstractBipartiteNetwork
     return Y
 end
 
-#= 📊 SVD Entropy vs prop of spp removed
-    (❗need to change the x axis to be more intuitive)
-    only using 10 networks for ease of visuals =#
+## 📊 SVD Entropy vs proportion of spp removed
+    (❗need to change the x axis to be more intuitive) =#
 plot1 = scatter(title="Most connected")
 plot2 = scatter(title="Least connected")
 plot3 = scatter(title="Random")
@@ -227,5 +246,102 @@ plot(plot1, plot2, plot3)
 
 savefig(joinpath("figures", "extinctions_raw.png"))
 
-###Resilliance - Calculating the area under the curve###
-# look at trapezoidrule...
+## 📊 Extinction Curves
+
+plot4 = scatter(title="Most connected")
+plot5 = scatter(title="Least connected")
+plot6 = scatter(title="Random")
+for B in Bs
+    plot!(plot4, richness.(extinctions_systematic(B))/richness(B),
+    (richness(B) .- richness.(extinctions_systematic(B)))/richness(B), legend=false, c=:grey, alpha=0.5)
+    plot!(plot5, richness.(extinctions_systematic_least(B))/richness(B),
+    (richness(B) .- richness.(extinctions_systematic_least(B)))/richness(B), legend=false, c=:grey, alpha=0.5)
+    plot!(plot6, richness.(extinctions(B))/richness(B),
+    (richness(B) .- richness.(extinctions(B)))/richness(B), legend=false, c=:grey, alpha=0.5)
+end
+for p in [plot4, plot5, plot6]
+    yaxis!(p, "Proprtion of species remaining")
+    xaxis!(p, "Proprtion of species removed")
+end
+
+plot(plot4, plot5, plot6)
+
+savefig(joinpath("figures", "extinction_curves.png"))
+
+## Calculating the Area under the species extinction curve (AUC)
+
+#=Following the trapezoidal rule we can construct ⟂ trapezoids between known points of the curve
+    and calculate the sum of their areas
+    The area of a trapezoid can be defined as:
+                    Area = 0.5(Δ𝑥)(𝑦ᵢ+𝑦ᵢ₋₁)
+                         where Δ𝑥 = 𝑥ᵢ - 𝑥ᵢ₋₁
+    In this instance 𝑦 would be the proportion of species remaining in the network and
+    𝑥 the proportion of species remaining in the network =#
+
+#=
+    Using this logic we would use the 'inner' values of (for example) the vector of 𝑦 values
+    twice and the 'outer' values only once. Thus we could have two copies of the 𝑦-axis vector
+    but remove the first element from one vector and the final element from the second vector and
+    calculate the sum of the pairs. This would also apply for the 𝑥-axis values. We could then calculate
+    the area of the individual trapezoids and then summate said areas to get the total AUC.
+=#
+
+"""
+    auc_most(N::T) where {T <: DeterministicNetwork}
+
+Returns the area under a species extinction curve where the most connected species are removed, this is calcualted following the trapezoidal rule
+"""
+function auc_most(N::T) where {T <: DeterministicNetwork}
+    #Calculate the proprotion of species REMAINING i.e. the 𝑌 axis
+    Y = richness.(extinctions_systematic(N))/richness(N)
+    #Calculate the proprtion of species REMOVED i.e. the 𝘟 axis
+    X = (richness(N) .- richness.(extinctions_systematic(N)))/richness(N)
+    return sum((collect(Iterators.rest(Y, 2)) #= 'remove' the first element =# + collect(Iterators.take(Y, length(Y)-1)#= 'remove' the final element =#)).*
+    ((collect(Iterators.rest(X, 2)) - collect(Iterators.take(X, length(X)-1)))./2))
+end
+
+"""
+    auc_least(N::T) where {T <: DeterministicNetwork}
+
+Returns the area under a species extinction curve where the least connected species are removed, this is calcualted following the trapezoidal rule
+"""
+function auc_least(N::T) where {T <: DeterministicNetwork}
+    #Calculate the proprotion of species REMAINING i.e. the 𝑌 axis
+    Y = richness.(extinctions_systematic_least(N))/richness(N)
+    #Calculate the proprtion of species REMOVED i.e. the 𝘟 axis
+    X = (richness(N) .- richness.(extinctions_systematic_least(N)))/richness(N)
+    return sum((collect(Iterators.rest(Y, 2)) + collect(Iterators.take(Y, length(Y)-1))).*
+    ((collect(Iterators.rest(X, 2)) - collect(Iterators.take(X, length(X)-1)))./2))
+end
+
+"""
+    auc_random(N::T) where {T <: DeterministicNetwork}
+
+Returns the area under a species extinction curve where random species are removed, this is calcualted following the trapezoidal rule
+"""
+function auc_random(N::T) where {T <: DeterministicNetwork}
+    #Calculate the proprotion of species REMAINING i.e. the 𝑌 axis
+    Y = richness.(extinctions(N))/richness(N)
+    #Calculate the proprtion of species REMOVED i.e. the 𝘟 axis
+    X = (richness(N) .- richness.(extinctions(N)))/richness(N)
+    return sum((collect(Iterators.rest(Y, 2)) + collect(Iterators.take(Y, length(Y)-1))).*
+    ((collect(Iterators.rest(X, 2)) - collect(Iterators.take(X, length(X)-1)))./2))
+end
+
+## 📊 Resilience vs Entropy
+
+plot7 = scatter(title="Most connected")
+plot8 = scatter(title="Least connected")
+plot9 = scatter(title="Random")
+    scatter!(plot7, auc_most.(Bs),svd_entropy.(Bs), legend=false, c=:grey, alpha=0.5)
+    scatter!(plot8, auc_least.(Bs),svd_entropy.(Bs), legend=false, c=:grey, alpha=0.5)
+    scatter!(plot9, auc_random.(Bs),svd_entropy.(Bs), legend=false, c=:grey, alpha=0.5)
+for p in [plot7, plot8, plot9]
+    yaxis!(p, "Entropy")
+    xaxis!(p, "AUC ≈ Resilience")
+end
+plot(plot7, plot8, plot9)
+
+savefig(joinpath("figures", "entropy_v_AUC.png"))
+
+## End of script
