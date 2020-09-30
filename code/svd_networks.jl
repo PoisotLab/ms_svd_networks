@@ -137,7 +137,7 @@ plot(
 
 savefig(joinpath("figures", "entropy_v_others.png"))
 
-## 💀INCORPORATING EXTINCTIONS
+## 💀 INCORPORATING EXTINCTIONS
 
 # FUNCTION FROM POISOT 2019
 """
@@ -224,7 +224,7 @@ function extinctions_systematic_least(N::T) where {T <: AbstractBipartiteNetwork
 end
 
 ## 📊 SVD Entropy vs proportion of spp removed
-    (❗need to change the x axis to be more intuitive) =#
+#=    (❗need to change the x axis to be more intuitive) =#
 plot1 = scatter(title="Most connected")
 plot2 = scatter(title="Least connected")
 plot3 = scatter(title="Random")
@@ -285,6 +285,27 @@ savefig(joinpath("figures", "extinction_curves.png"))
     calculate the sum of the pairs. This would also apply for the 𝑥-axis values. We could then calculate
     the area of the individual trapezoids and then summate said areas to get the total AUC.
 =#
+
+#= NOTE from TP
+
+It's a lot better to define one function for the AUC, and then apply it to the
+simulation. Writing a general, re-usable function is a huge time saver, and also
+a best practice. You should re-write the functions to use this.
+
+=#
+
+"""
+    TODO
+"""
+function auc(x::Vector{T}, y::Vector{T}) where {T <: Number}
+    @assert length(x) == length(y)
+    area = 0.0
+    for i in 2:length(x)
+        area += 0.5 * (x[i] - x[i-1])*(y[i]+y[i-1])
+    end
+    return area
+end
+
 
 """
     auc_most(N::T) where {T <: DeterministicNetwork}
