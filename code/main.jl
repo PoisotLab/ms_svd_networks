@@ -10,8 +10,12 @@ Pkg.activate("code")
 using LinearAlgebra
 using EcologicalNetworks
 using Statistics
-using Plots
+#using Plots
 using StatsBase
+using Gadfly
+using Cairo
+using Fontconfig
+using DataFrames
 
 ## Import the functions and methods we need
 include(joinpath(pwd(), "code", "lib", "main.jl"))
@@ -23,38 +27,67 @@ Bs = convert.(BipartiteNetwork, raw_wol)
 filter!(B -> richness(B) < 200, Bs)
 Ns = convert.(UnipartiteNetwork, Bs)
 
-# This is a convention from EcologicalNetworks, but I mostly tend to use B for
-# bipartite, N for unipartite or any general network, R for random, and P for
-# probabilist - I have reformated the code so that it follows this convention,
-# this is also less typing
-
-
 ## 📊 Size vs Rank
 
-plot(scatter(richness.(Bs), rank.(Bs),
+#=Plots.plot(scatter(richness.(Bs), rank.(Bs),
         xlabel="Richness", ylabel="Rank", legend=false, dpi=300),
     scatter(richness.(Bs), svd_entropy.(Bs),
         xlabel="Richness", ylabel="Entropy", legend=false, dpi=300))
 
-savefig(joinpath("figures", "size_v_rank.png"))
+savefig(joinpath("figures", "size_v_rank.png"))=#
+
+Outputs = DataFrame(Richness = richness.(Bs),
+                    Rank = rank.(Bs),
+                    Entropy = svd_entropy.(Bs),
+                    RankDefficiency = (maxrank.(Bs) .- rank.(Bs)),
+                    RankDefficiencyRel = ((maxrank.(Bs) .- rank.(Bs)) ./ maxrank.(Bs)),
+                    Nestedness = η.(Bs),
+                    SpectralRadiance = ρ.(Bs),
+                    InteractionType = [y[:Type_of_interactions] for y in web_of_life()]);
+
+draw(PNG(joinpath("figures", "size_v_rank.png"), 30cm, 10cm, dpi=300),
+        hstack(plot(Outputs, x=:Richness, y=:Rank, color=:InteractionType, Geom.point,
+            Theme(key_position=:none), alpha = [0.6]),
+            plot(Outputs, x=:Entropy, y=:Rank, color=:InteractionType, Geom.point,
+            Theme(key_position=:none), alpha = [0.6]),
+            plot(Outputs, color=:InteractionType, Geom.blank,
+                Guide.colorkey(title="Interaction Type", pos = [0.2,1.5]))))
 
 # 📊 Here we could plot Entropy and various measures of Rank
-plot(
-    scatter(richness.(Bs) , svd_entropy.(Bs),
+
+draw(PNG(joinpath("figures", "entropy_v_rank.png"), 20cm, 20cm, dpi = 300),
+    vstack(hstack(plot(Outputs, x=:Richness, y=:Entropy, Geom.point),
+                plot(Outputs, x=:Rank, y=:Entropy, Geom.point)),
+            hstack(plot(Outputs, x=:RankDefficiency, y=:Entropy, Geom.point, Guide.xlabel("Rank Defficiency")),
+                plot(Outputs, x=:RankDefficiencyRel, y=:Entropy, Geom.point, Guide.xlabel("Rank Defficiency (relative)")))))
+
+#=Plots.plot(
+    Plots.scatter(richness.(Bs) , svd_entropy.(Bs),
         xlabel="Richness", ylabel="Entropy", legend=false, dpi=300),
-    scatter(rank.(Bs), svd_entropy.(Bs),
+    Plots.scatter(rank.(Bs), svd_entropy.(Bs),
         xlabel="Rank", legend=false, dpi=300),
-    scatter(maxrank.(Bs) .- rank.(Bs) , svd_entropy.(Bs),
+    Plots.scatter(maxrank.(Bs) .- rank.(Bs) , svd_entropy.(Bs),
         xlabel="Rank defficiency", ylabel="Entropy", legend=false, dpi=300),
-    scatter((maxrank.(Bs) .- rank.(Bs)) ./ maxrank.(Bs) , svd_entropy.(Bs),
+    Plots.scatter((maxrank.(Bs) .- rank.(Bs)) ./ maxrank.(Bs) , svd_entropy.(Bs),
         xlabel="Rank defficiency (relative)", legend=false, dpi=300)
 )
 
-savefig(joinpath("figures", "entropy_v_rank.png"))
+savefig(joinpath("figures", "entropy_v_rank.png"))=#
 
 ##📊 COMPARING ENTROPY TO OTHER MEASURES##
 
-plot(
+draw(PNG(joinpath("figures", "entropy_v_others.png"), 20cm, 20cm, dpi = 300),
+    vstack(hstack(plot(Outputs, x=:Nestedness, y=:Entropy, color=:InteractionType, Geom.point,
+                    Theme(key_position=:none), alpha = [0.6]),
+                plot(Outputs, x=:Nestedness, y=:RankDefficiencyRel, color=:InteractionType, Geom.point,
+                    Theme(key_position=:none), alpha = [0.6], Guide.xlabel("Number of Links"))),
+            hstack(plot(Outputs, x=:SpectralRadiance, y=:Entropy, color=:InteractionType, Geom.point,
+                    Theme(key_position=:none), alpha = [0.6]),
+                plot(Outputs, x=:SpectralRadiance, y=:RankDefficiencyRel, color=:InteractionType, Geom.point,
+                    Theme(key_position=:none), alpha = [0.6]))))
+
+
+#=plot(
     # 🐣 Nestedness
     scatter(η.(Bs), svd_entropy.(Bs),
         xlabel="Nestedness", ylabel="Entropy", legend=false, dpi=300),
@@ -77,7 +110,7 @@ plot(
         xlabel="Symmetry", legend=false, dpi=300)
 )
 
-savefig(joinpath("figures", "entropy_v_others.png"))
+savefig(joinpath("figures", "entropy_v_others.png"))=#
 
 ## 💀 INCORPORATING EXTINCTIONS
 
@@ -88,6 +121,7 @@ savefig(joinpath("figures", "entropy_v_others.png"))
 This returns a vector of bipartite ecological networks simulating an extinction trajectory, where each network is the result of
 removing a random individual from the preceeding network
 """
+
 function extinctions(N::T) where {T <: AbstractBipartiteNetwork}
     # We start by making a copy of the network to extinguish
     Y = [copy(N)]
@@ -111,106 +145,96 @@ end
 
 
 ## 📊 SVD Entropy vs proportion of spp removed
-#=    (❗need to change the x axis to be more intuitive) =#
-plot1 = scatter(title="Most connected")
+
+#=plot1 = scatter(title="Most connected")
 plot2 = scatter(title="Least connected")
 plot3 = scatter(title="Random")
 for B in Bs
-    plot!(plot1, (richness.(extinctions_systematic(B); dims=2) / richness(B; dims=2)),
-        svd_entropy.(extinctions_systematic(B)), legend=false, c=:grey, alpha=0.5)
-    plot!(plot2, richness.(extinctions_systematic_least(B)) / richness(B),
-        svd_entropy.(extinctions_systematic_least(B)), legend=false, c=:grey, alpha=0.5)
-    plot!(plot3, richness.(extinctions(B)) / richness(B), svd_entropy.(extinctions(B)), legend=false, c=:grey, alpha=0.5)
+    Plots.plot!(plot1, (richness(B) .- richness.(extinctions_systematic(B)))/richness(B),
+        svd_entropy.(extinctions_systematic(B)), legend=false, c=:grey, alpha=0.5, dpi = 300)
+    Plots.plot!(plot2, (richness(B) .- richness.(extinctions_systematic_least(B)))/richness(B),
+        svd_entropy.(extinctions_systematic_least(B)), legend=false, c=:grey, alpha=0.5, dpi = 300)
+    Plots.plot!(plot3, (richness(B) .- richness.(extinctions(B)))/richness(B), svd_entropy.(extinctions(B)), legend=false, c=:grey, alpha=0.5, dpi = 300)
 end
 
 # Remember that plots are objects that can be modified!
 
 for p in [plot1, plot2, plot3]
     yaxis!(p, (0.6, 1.0), "Entropy")
+    xaxis!(p, "Proportion of species removed")
 end
 
-plot(plot1, plot2, plot3)
+Plots.plot(plot1, plot2, plot3)
 
-savefig(joinpath("figures", "extinctions_raw.png"))
+savefig(joinpath("figures", "extinctions_raw.png"))=#
 
 ## 📊 Extinction Curves
 
-plot4 = scatter(title="Most connected")
+#=plot4 = scatter(title="Most connected")
 plot5 = scatter(title="Least connected")
 plot6 = scatter(title="Random")
 for B in Bs
-    plot!(plot4, richness.(extinctions_systematic(B))/richness(B),
-    (richness(B) .- richness.(extinctions_systematic(B)))/richness(B), legend=false, c=:grey, alpha=0.5)
-    plot!(plot5, richness.(extinctions_systematic_least(B))/richness(B),
-    (richness(B) .- richness.(extinctions_systematic_least(B)))/richness(B), legend=false, c=:grey, alpha=0.5)
-    plot!(plot6, richness.(extinctions(B))/richness(B),
-    (richness(B) .- richness.(extinctions(B)))/richness(B), legend=false, c=:grey, alpha=0.5)
+    Plots.plot!(plot4, richness.(extinctions_systematic(B))/richness(B),
+    (richness(B) .- richness.(extinctions_systematic(B)))/richness(B), legend=false, c=:grey, alpha=0.5, dpi = 300)
+    Plots.plot!(plot5, richness.(extinctions_systematic_least(B))/richness(B),
+    (richness(B) .- richness.(extinctions_systematic_least(B)))/richness(B), legend=false, c=:grey, alpha=0.5, dpi = 300)
+    Plots.plot!(plot6, richness.(extinctions(B))/richness(B),
+    (richness(B) .- richness.(extinctions(B)))/richness(B), legend=false, c=:grey, alpha=0.5, dpi = 300)
 end
 for p in [plot4, plot5, plot6]
     yaxis!(p, "Proprtion of species remaining")
     xaxis!(p, "Proprtion of species removed")
 end
 
-plot(plot4, plot5, plot6)
-
-savefig(joinpath("figures", "extinction_curves.png"))
-
-"""
-    auc_most(N::T) where {T <: DeterministicNetwork}
-
-Returns the area under a species extinction curve where the most connected species are removed, this is calcualted following the trapezoidal rule
-"""
-function auc_most(N::T) where {T <: DeterministicNetwork}
-    #Calculate the proprotion of species REMAINING i.e. the 𝑌 axis
-    Y = richness.(extinctions_systematic(N))/richness(N)
-    #Calculate the proprtion of species REMOVED i.e. the 𝘟 axis
-    X = (richness(N) .- richness.(extinctions_systematic(N)))/richness(N)
-    return sum((collect(Iterators.rest(Y, 2)) #= 'remove' the first element =# + collect(Iterators.take(Y, length(Y)-1)#= 'remove' the final element =#)).*
-    ((collect(Iterators.rest(X, 2)) - collect(Iterators.take(X, length(X)-1)))./2))
+for B in Bs
+    Plots.plot!(plot4, richness.(extinctions_systematic(B))/richness(B),
+    (richness(B) .- richness.(extinctions_systematic(B)))/richness(B), legend=false, c=:grey, alpha=0.5, dpi = 300)
+    Plots.plot!(plot5, richness.(extinctions_systematic_least(B))/richness(B),
+    (richness(B) .- richness.(extinctions_systematic_least(B)))/richness(B), legend=false, c=:grey, alpha=0.5, dpi = 300)
+    Plots.plot!(plot6, richness.(extinctions(B))/richness(B),
+    (richness(B) .- richness.(extinctions(B)))/richness(B), legend=false, c=:grey, alpha=0.5, dpi = 300)
 end
 
-"""
-    auc_least(N::T) where {T <: DeterministicNetwork}
+Plots.plot(plot4, plot5, plot6)
 
-Returns the area under a species extinction curve where the least connected species are removed, this is calcualted following the trapezoidal rule
-"""
-function auc_least(N::T) where {T <: DeterministicNetwork}
-    #Calculate the proprotion of species REMAINING i.e. the 𝑌 axis
-    Y = richness.(extinctions_systematic_least(N))/richness(N)
-    #Calculate the proprtion of species REMOVED i.e. the 𝘟 axis
-    X = (richness(N) .- richness.(extinctions_systematic_least(N)))/richness(N)
-    return sum((collect(Iterators.rest(Y, 2)) + collect(Iterators.take(Y, length(Y)-1))).*
-    ((collect(Iterators.rest(X, 2)) - collect(Iterators.take(X, length(X)-1)))./2))
-end
+savefig(joinpath("figures", "extinction_curves.png"))=#
 
-"""
-    auc_random(N::T) where {T <: DeterministicNetwork}
 
-Returns the area under a species extinction curve where random species are removed, this is calcualted following the trapezoidal rule
-"""
-function auc_random(N::T) where {T <: DeterministicNetwork}
-    #Calculate the proprotion of species REMAINING i.e. the 𝑌 axis
-    Y = richness.(extinctions(N))/richness(N)
-    #Calculate the proprtion of species REMOVED i.e. the 𝘟 axis
-    X = (richness(N) .- richness.(extinctions(N)))/richness(N)
-    return sum((collect(Iterators.rest(Y, 2)) + collect(Iterators.take(Y, length(Y)-1))).*
-    ((collect(Iterators.rest(X, 2)) - collect(Iterators.take(X, length(X)-1)))./2))
-end
+## 📊 Resilience vs Rank & Entropy
 
-## 📊 Resilience vs Entropy
+#=AUC = DataFrame(AUCrandom = [auc((richness(B) .- richness.(extinctions(B)))/richness(B), richness.(extinctions(B))/richness(B)) for B in Bs],
+                AUCleast = [auc((richness(B) .- richness.(extinctions_systematic_least(B)))/richness(B), richness.(extinctions_systematic_least(B))/richness(B)) for B in Bs],
+                AUCmost = [auc((richness(B) .- richness.(extinctions_systematic(B)))/richness(B), richness.(extinctions_systematic(B))/richness(B)) for B in Bs],
+                Rank = ((maxrank.(Bs) .- rank.(Bs)) ./ maxrank.(Bs)),
+                Entropy = svd_entropy.(Bs),
+                InteractionType = Outputs.InteractionType)
+AUC = stack(AUC, [:Rank, :Entropy], variable_name =:measure, value_name=:value)
+stack(AUC, [:AUCrandom, :AUCleast, :AUCmost], variable_name =:method, value_name=:auc)
+
+hstack(plot(x = [auc((richness(B) .- richness.(extinctions(B)))/richness(B), richness.(extinctions_systematic(B))/richness(B)) for B in Bs],
+            y = svd_entropy.(Bs), color=Outputs.InteractionType, Geom.point,
+            Theme(key_position=:none), alpha = [0.6], Guide.xlabel(nothing), Guide.ylabel(nothing), Guide.title("Random")),
+        plot(x = [auc((richness(B) .- richness.(extinctions(B)))/richness(B), richness.(extinctions_systematic(B))/richness(B)) for B in Bs],
+            y = ((maxrank.(Bs) .- rank.(Bs)) ./ maxrank.(Bs)), color=Outputs.InteractionType, Geom.point,
+            Theme(key_position=:none), alpha = [0.6], Guide.xlabel(nothing), Guide.ylabel(nothing)))
+
+plot(AUC, x =:AUCrandom, y =:value,
+    color=:InteractionType, xgroup="variable",  Geom.subplot_grid(Geom.point, free_y_axis=true),
+    Theme(key_position=:none), alpha = [0.6], Guide.xlabel(nothing), Guide.ylabel(nothing))
+
 
 plot7 = scatter(title="Most connected")
 plot8 = scatter(title="Least connected")
 plot9 = scatter(title="Random")
-    scatter!(plot7, auc_most.(Bs),svd_entropy.(Bs), legend=false, c=:grey, alpha=0.5)
-    scatter!(plot8, auc_least.(Bs),svd_entropy.(Bs), legend=false, c=:grey, alpha=0.5)
-    scatter!(plot9, auc_random.(Bs),svd_entropy.(Bs), legend=false, c=:grey, alpha=0.5)
+    scatter!(plot7, auc_most.(Bs),svd_entropy.(Bs), legend=false, c=:grey, alpha=0.5, dpi = 300)
+    scatter!(plot8, auc_least.(Bs),svd_entropy.(Bs), legend=false, c=:grey, alpha=0.5, dpi = 300)
+    scatter!(plot9, auc_random.(Bs),svd_entropy.(Bs), legend=false, c=:grey, alpha=0.5, dpi = 300)
 for p in [plot7, plot8, plot9]
     yaxis!(p, "Entropy")
     xaxis!(p, "AUC ≈ Resilience")
 end
-plot(plot7, plot8, plot9)
+Plots.plot(plot7, plot8, plot9)
 
-savefig(joinpath("figures", "entropy_v_AUC.png"))
+savefig(joinpath("figures", "rank&entropy_v_AUC.png"))=#
 
 ## End of script
