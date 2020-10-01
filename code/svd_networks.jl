@@ -30,62 +30,6 @@ Ns = convert.(UnipartiteNetwork, Bs)
 # probabilist - I have reformated the code so that it follows this convention,
 # this is also less typing
 
-## Redefine methods for rank and svd
-
-# The new methods work on the abstract (union? can't remember how it's defined)
-# type DeterministicNetwork --- the syntax with """ is a standard way to
-# document a function in Julia, so if you do ?rank, you will now see these
-# methods
-
-"""
-    LinearAlgebra.rank(N::T) where {T <: DeterministicNetwork}
-
-Returns the rank of the adjacency matrix of a deterministic ecological network.
-"""
-function LinearAlgebra.rank(N::T) where {T <: DeterministicNetwork}
-    return rank(N.A)
-end
-
-"""
-    LinearAlgebra.svd(N::T) where {T <: DeterministicNetwork}
-
-Performs Singular Value Decomposition on the adjacency matrix of a deterministic network
-"""
-function LinearAlgebra.svd(N::T) where {T <: DeterministicNetwork}
-    return svd(N.A)
-end
-
-## Entropy based on SVD
-
-"""
-    svd_entropy(N::T) where {T <: DeterministicNetwork}
-
-Returns the entropy of the adjacency matrix of a deterministic network using the singular values from a Singualr Value Decomposition
-"""
-function svd_entropy(N::T) where {T <: DeterministicNetwork}
-    F = svd(N)
-    Λ = F.S[1:rank(N)]
-    λ = Λ ./ sum(Λ)
-    return -sum(λ .* log.(λ)) * 1 / log(length(λ))
-end
-
-"""
-    maxrank(N::T) where {T <: BipartiteNetwork}
-
-Returns the maximum possible rank of a Bipartite Network
-"""
-function maxrank(N::T) where {T <: BipartiteNetwork}
-    return minimum(size(N))
-end
-
-"""
-    maxrank(N::T) where {T <: UnipartiteNetwork}
-
-Returns the maximum possible rank of a Unipartite Network
-"""
-function maxrank(N::T) where {T <: UnipartiteNetwork}
-    return richness(N)
-end
 
 ## 📊 Size vs Rank
 
@@ -166,62 +110,7 @@ function extinctions(N::T) where {T <: AbstractBipartiteNetwork}
     return Y
 end
 
-"""
-    extinctions_systematic(N::T) where {T <: AbstractBipartiteNetwork}
 
-This returns a vector of bipartite ecological networks simulating an extinction trajectory, where each network is the result of
-removing the most connected individual from the preceeding network
-"""
-function extinctions_systematic(N::T) where {T <: AbstractBipartiteNetwork}
-    # We start by making a copy of the network to extinguish
-    Y = [copy(N)];
-    # While there is at least one species remaining...
-    while richness(last(Y)) > 1
-        # sum the number of interactions by row (i.e ⬆ connectance) and convert to ProbabilityWeight
-        w = ProbabilityWeights(vec(sum(last(Y), dims=1) ./ sum(sum(last(Y), dims=1))))
-        # We remove the species based on probability weighting (w)
-        remain =  sample(
-            species(last(Y); dims=2),
-            w,
-            richness(last(Y); dims=2) - 1,
-            replace=false,
-        )
-        # Remaining species
-        R = last(Y)[:, remain]
-        simplify!(R)
-        # Then add the simplified network (without the extinct species) to our collection
-        push!(Y, copy(R))
-    end
-    return Y
-end
-
-"""
-    extinctions_systematic_least(N::T) where {T <: AbstractBipartiteNetwork}
-
-This returns a vector of bipartite ecological networks simulating an extinction trajectory, where each network is the result of
-removing the least connected individual from the preceeding network
-"""
-function extinctions_systematic_least(N::T) where {T <: AbstractBipartiteNetwork}
-    # We start by making a copy of the network to extinguish
-    Y = [copy(N)];
-    # While there is at least one species remaining...
-    while richness(last(Y)) > 1
-        # sum the number of interactions by col (i.e ⬆ connectance), INVERSE and convert to ProbabilityWeight
-        w = ProbabilityWeights(vec(1 ./ sum(last(Y), dims=1) ./ sum(sum(last(Y), dims=1))))
-        # We remove the species based on probability weighting (w)
-        remain =  sample(
-            species(last(Y); dims=2),
-            w,
-            richness(last(Y); dims=2) - 1,
-            replace=false,
-        )
-        # Remaining species
-        R = last(Y)[:, remain]
-        simplify!(R)
-        push!(Y, copy(R))
-    end
-    return Y
-end
 
 ## 📊 SVD Entropy vs proportion of spp removed
 #=    (❗need to change the x axis to be more intuitive) =#
@@ -267,45 +156,6 @@ end
 plot(plot4, plot5, plot6)
 
 savefig(joinpath("figures", "extinction_curves.png"))
-
-## Calculating the Area under the species extinction curve (AUC)
-
-#=Following the trapezoidal rule we can construct ⟂ trapezoids between known points of the curve
-    and calculate the sum of their areas
-    The area of a trapezoid can be defined as:
-                    Area = 0.5(Δ𝑥)(𝑦ᵢ+𝑦ᵢ₋₁)
-                         where Δ𝑥 = 𝑥ᵢ - 𝑥ᵢ₋₁
-    In this instance 𝑦 would be the proportion of species remaining in the network and
-    𝑥 the proportion of species remaining in the network =#
-
-#=
-    Using this logic we would use the 'inner' values of (for example) the vector of 𝑦 values
-    twice and the 'outer' values only once. Thus we could have two copies of the 𝑦-axis vector
-    but remove the first element from one vector and the final element from the second vector and
-    calculate the sum of the pairs. This would also apply for the 𝑥-axis values. We could then calculate
-    the area of the individual trapezoids and then summate said areas to get the total AUC.
-=#
-
-#= NOTE from TP
-
-It's a lot better to define one function for the AUC, and then apply it to the
-simulation. Writing a general, re-usable function is a huge time saver, and also
-a best practice. You should re-write the functions to use this.
-
-=#
-
-"""
-    TODO
-"""
-function auc(x::Vector{T}, y::Vector{T}) where {T <: Number}
-    @assert length(x) == length(y)
-    area = 0.0
-    for i in 2:length(x)
-        area += 0.5 * (x[i] - x[i-1])*(y[i]+y[i-1])
-    end
-    return area
-end
-
 
 """
     auc_most(N::T) where {T <: DeterministicNetwork}
