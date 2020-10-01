@@ -1,58 +1,35 @@
-"""
-    extinctions_systematic(N::T) where {T <: AbstractBipartiteNetwork}
-
-This returns a vector of bipartite ecological networks simulating an extinction trajectory, where each network is the result of
-removing the most connected individual from the preceeding network
-"""
-function extinctions_systematic(N::T) where {T <: AbstractBipartiteNetwork}
-    # We start by making a copy of the network to extinguish
-    Y = [copy(N)];
-    # While there is at least one species remaining...
-    while richness(last(Y)) > 1
-        # sum the number of interactions by row (i.e ⬆ connectance) and convert to ProbabilityWeight
-        w = ProbabilityWeights(vec(sum(last(Y), dims=1) ./ sum(sum(last(Y), dims=1))))
-        # We remove the species based on probability weighting (w)
-        remain =  sample(
-            species(last(Y); dims=2),
-            w,
-            richness(last(Y); dims=2) - 1,
-            replace=false,
-        )
-        # Remaining species
-        R = last(Y)[:, remain]
-        simplify!(R)
-        # Then add the simplified network (without the extinct species) to our collection
-        push!(Y, copy(R))
+function extinction(N::T, f::F; dims::Int64=1) where {T <: DeterministicNetwork, F <: Function}
+    if !(dims ∈ [1,2])
+        throw(ArgumentError("dims must be 1 or 2 (you used $(dims))"))
     end
-    return Y
+    network_series = Vector{T}(undef, richness(N; dims=dims)+1)
+    network_series[1] = copy(N)
+    extinction_sequence = f(N; dims=dims)
+    for (i,sp_to_remove) in enumerate(extinction_sequence)
+        species_to_keep = filter(sp -> sp != sp_to_remove, species(network_series[i]; dims=dims))
+        K = copy(network_series[i])
+        if dims == 1
+            K = K[species_to_keep, :]
+        else
+            K = K[:, species_to_keep]
+        end
+        network_series[i+1] = simplify(K)
+    end
+    return network_series
 end
 
-"""
-    extinctions_systematic_least(N::T) where {T <: AbstractBipartiteNetwork}
+function _order_species_at_random(N::T; dims::Int64=1) where {T <: DeterministicNetwork}
+    return StatsBase.shuffle(species(N; dims=dims))
+end
 
-This returns a vector of bipartite ecological networks simulating an extinction trajectory, where each network is the result of
-removing the least connected individual from the preceeding network
-"""
-function extinctions_systematic_least(N::T) where {T <: AbstractBipartiteNetwork}
-    # We start by making a copy of the network to extinguish
-    Y = [copy(N)];
-    # While there is at least one species remaining...
-    while richness(last(Y)) > 1
-        # sum the number of interactions by col (i.e ⬆ connectance), INVERSE and convert to ProbabilityWeight
-        w = ProbabilityWeights(vec(1 ./ sum(last(Y), dims=1) ./ sum(sum(last(Y), dims=1))))
-        # We remove the species based on probability weighting (w)
-        remain =  sample(
-            species(last(Y); dims=2),
-            w,
-            richness(last(Y); dims=2) - 1,
-            replace=false,
-        )
-        # Remaining species
-        R = last(Y)[:, remain]
-        simplify!(R)
-        push!(Y, copy(R))
+function extinction_robustness(Ns::Vector{T}; dims::Union{Nothing,Int64}=nothing) where {T <: DeterministicNetwork}
+    x = collect(LinRange(0.0, 1.0, length(Ns)))
+    if isnothing(dims)
+        y = richness.(Ns)./richness(first(Ns))
+    else
+        y = richness.(Ns; dims=dims)./richness(first(Ns); dims=dims)
     end
-    return Y
+    return auc(x, y)
 end
 
 """

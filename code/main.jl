@@ -13,11 +13,9 @@ using Statistics
 using Plots
 using StatsBase
 
-
-# For this type of projets, calling packages with using is fine, as the
-# namespace is never going to get very big - one situation where you would want
-# to use import instead is if you were using a package only in a single line
-# (for example, using DataFrames but import CSV is fairly common)
+## Import the functions and methods we need
+include(joinpath(pwd(), "code", "lib", "main.jl"))
+include(joinpath(pwd(), "code", "lib", "extinctions.jl"))
 
 ## Using the Web Of Life dataset
 raw_wol = [web_of_life(x.ID) for x in web_of_life()]
