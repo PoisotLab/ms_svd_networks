@@ -130,15 +130,15 @@ savefig(joinpath("figures", "entropy_v_rank.png"))=#
 
 ##📊 COMPARING ENTROPY TO OTHER MEASURES##
 
-draw(PNG(joinpath("figures", "entropy_v_others.png"), 20cm, 40cm, dpi = 300),
-    vstack(hstack(plot(Outputs, x=:Nestedness, y=:Entropy, Geom.point),
-                plot(Outputs, x=:Linkage, y=:Entropy, Geom.point, Guide.xlabel("Number of Links"))),
-            hstack(plot(Outputs, x=:Connectance, y=:Entropy, Geom.point),
-                plot(Outputs, x=:LinkageDensity, y=:Entropy, Geom.point, Guide.xlabel("Linkage Density"))),
-            hstack(plot(Outputs, x=:SpectralRadiance, y=:Entropy, Geom.point, Guide.xlabel("Spectral Radiance")),
-                plot(Outputs, x=:Heterogeneity, y=:Entropy, Geom.point)),
-            hstack(plot(Outputs, x=:Symmetry, y=:Entropy, Geom.point),
-                plot())))
+draw(PNG(joinpath("figures", "entropy_v_others.png"), 20cm, 20cm, dpi = 300),
+    vstack(hstack(plot(Outputs, x=:Nestedness, y=:Entropy, color=:InteractionType, Geom.point,
+                    Theme(key_position=:none), alpha = [0.6]),
+                plot(Outputs, x=:Nestedness, y=:RankDefficiencyRel, color=:InteractionType, Geom.point,
+                    Theme(key_position=:none), alpha = [0.6], Guide.xlabel("Number of Links"))),
+            hstack(plot(Outputs, x=:SpectralRadiance, y=:Entropy, color=:InteractionType, Geom.point,
+                    Theme(key_position=:none), alpha = [0.6]),
+                plot(Outputs, x=:SpectralRadiance, y=:RankDefficiencyRel, color=:InteractionType, Geom.point,
+                    Theme(key_position=:none), alpha = [0.6]))))
 
 
 #=plot(
@@ -255,7 +255,7 @@ end
 
 ## 📊 SVD Entropy vs proportion of spp removed
 
-plot1 = scatter(title="Most connected")
+#=plot1 = scatter(title="Most connected")
 plot2 = scatter(title="Least connected")
 plot3 = scatter(title="Random")
 for B in Bs
@@ -275,11 +275,11 @@ end
 
 Plots.plot(plot1, plot2, plot3)
 
-savefig(joinpath("figures", "extinctions_raw.png"))
+savefig(joinpath("figures", "extinctions_raw.png"))=#
 
 ## 📊 Extinction Curves
 
-plot4 = scatter(title="Most connected")
+#=plot4 = scatter(title="Most connected")
 plot5 = scatter(title="Least connected")
 plot6 = scatter(title="Random")
 for B in Bs
@@ -306,7 +306,7 @@ end
 
 Plots.plot(plot4, plot5, plot6)
 
-savefig(joinpath("figures", "extinction_curves.png"))
+savefig(joinpath("figures", "extinction_curves.png"))=#
 
 ## Calculating the Area under the species extinction curve (AUC)
 
@@ -347,49 +347,28 @@ function auc(x::Vector{T}, y::Vector{T}) where {T <: Number}
 end
 
 
-"""
-    auc_most(N::T) where {T <: DeterministicNetwork}
+## 📊 Resilience vs Rank & Entropy
 
-Returns the area under a species extinction curve where the most connected species are removed, this is calcualted following the trapezoidal rule
-"""
-function auc_most(N::T) where {T <: DeterministicNetwork}
-    #Calculate the proprotion of species REMAINING i.e. the 𝑌 axis
-    Y = richness.(extinctions_systematic(N))/richness(N)
-    #Calculate the proprtion of species REMOVED i.e. the 𝘟 axis
-    X = (richness(N) .- richness.(extinctions_systematic(N)))/richness(N)
-    return sum((collect(Iterators.rest(Y, 2)) #= 'remove' the first element =# + collect(Iterators.take(Y, length(Y)-1)#= 'remove' the final element =#)).*
-    ((collect(Iterators.rest(X, 2)) - collect(Iterators.take(X, length(X)-1)))./2))
-end
+#=AUC = DataFrame(AUCrandom = [auc((richness(B) .- richness.(extinctions(B)))/richness(B), richness.(extinctions(B))/richness(B)) for B in Bs],
+                AUCleast = [auc((richness(B) .- richness.(extinctions_systematic_least(B)))/richness(B), richness.(extinctions_systematic_least(B))/richness(B)) for B in Bs],
+                AUCmost = [auc((richness(B) .- richness.(extinctions_systematic(B)))/richness(B), richness.(extinctions_systematic(B))/richness(B)) for B in Bs],
+                Rank = ((maxrank.(Bs) .- rank.(Bs)) ./ maxrank.(Bs)),
+                Entropy = svd_entropy.(Bs),
+                InteractionType = Outputs.InteractionType)
+AUC = stack(AUC, [:Rank, :Entropy], variable_name =:measure, value_name=:value)
+stack(AUC, [:AUCrandom, :AUCleast, :AUCmost], variable_name =:method, value_name=:auc)
 
-"""
-    auc_least(N::T) where {T <: DeterministicNetwork}
+hstack(plot(x = [auc((richness(B) .- richness.(extinctions(B)))/richness(B), richness.(extinctions_systematic(B))/richness(B)) for B in Bs],
+            y = svd_entropy.(Bs), color=Outputs.InteractionType, Geom.point,
+            Theme(key_position=:none), alpha = [0.6], Guide.xlabel(nothing), Guide.ylabel(nothing), Guide.title("Random")),
+        plot(x = [auc((richness(B) .- richness.(extinctions(B)))/richness(B), richness.(extinctions_systematic(B))/richness(B)) for B in Bs],
+            y = ((maxrank.(Bs) .- rank.(Bs)) ./ maxrank.(Bs)), color=Outputs.InteractionType, Geom.point,
+            Theme(key_position=:none), alpha = [0.6], Guide.xlabel(nothing), Guide.ylabel(nothing)))
 
-Returns the area under a species extinction curve where the least connected species are removed, this is calcualted following the trapezoidal rule
-"""
-function auc_least(N::T) where {T <: DeterministicNetwork}
-    #Calculate the proprotion of species REMAINING i.e. the 𝑌 axis
-    Y = richness.(extinctions_systematic_least(N))/richness(N)
-    #Calculate the proprtion of species REMOVED i.e. the 𝘟 axis
-    X = (richness(N) .- richness.(extinctions_systematic_least(N)))/richness(N)
-    return sum((collect(Iterators.rest(Y, 2)) + collect(Iterators.take(Y, length(Y)-1))).*
-    ((collect(Iterators.rest(X, 2)) - collect(Iterators.take(X, length(X)-1)))./2))
-end
+plot(AUC, x =:AUCrandom, y =:value,
+    color=:InteractionType, xgroup="variable",  Geom.subplot_grid(Geom.point, free_y_axis=true),
+    Theme(key_position=:none), alpha = [0.6], Guide.xlabel(nothing), Guide.ylabel(nothing))
 
-"""
-    auc_random(N::T) where {T <: DeterministicNetwork}
-
-Returns the area under a species extinction curve where random species are removed, this is calcualted following the trapezoidal rule
-"""
-function auc_random(N::T) where {T <: DeterministicNetwork}
-    #Calculate the proprotion of species REMAINING i.e. the 𝑌 axis
-    Y = richness.(extinctions(N))/richness(N)
-    #Calculate the proprtion of species REMOVED i.e. the 𝘟 axis
-    X = (richness(N) .- richness.(extinctions(N)))/richness(N)
-    return sum((collect(Iterators.rest(Y, 2)) + collect(Iterators.take(Y, length(Y)-1))).*
-    ((collect(Iterators.rest(X, 2)) - collect(Iterators.take(X, length(X)-1)))./2))
-end
-
-## 📊 Resilience vs Entropy
 
 plot7 = scatter(title="Most connected")
 plot8 = scatter(title="Least connected")
@@ -403,6 +382,6 @@ for p in [plot7, plot8, plot9]
 end
 Plots.plot(plot7, plot8, plot9)
 
-savefig(joinpath("figures", "entropy_v_AUC.png"))
+savefig(joinpath("figures", "rank&entropy_v_AUC.png"))=#
 
 ## End of script
