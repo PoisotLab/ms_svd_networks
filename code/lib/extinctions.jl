@@ -1,4 +1,4 @@
-function extinction(N::T, f::F; dims::Int64=1) where {T <: DeterministicNetwork, F <: Function}
+function extinction(N::T, f::F; dims::Int64=1) where {T <: AbstractBipartiteNetwork, F <: Function}
     if !(dims ∈ [1,2])
         throw(ArgumentError("dims must be 1 or 2 (you used $(dims))"))
     end
@@ -19,14 +19,14 @@ function extinction(N::T, f::F; dims::Int64=1) where {T <: DeterministicNetwork,
 end
 
 function _order_species_for_removal(increasing::Nothing=nothing)
-    function f(N::T; dims::Int64=1) where {T <: DeterministicNetwork}
+    function f(N::T; dims::Int64=1) where {T <: AbstractBipartiteNetwork}
         return StatsBase.shuffle(species(N; dims=dims))
     end
     return f
 end
 
 function _order_species_for_removal(increasing::Bool=true)
-    function f(N::T; dims::Int64=1) where {T <: DeterministicNetwork}
+    function f(N::T; dims::Int64=1) where {T <: AbstractBipartiteNetwork}
         k = degree(N; dims=dims)
         kvp = collect(k)
         StatsBase.shuffle!(kvp)
@@ -45,7 +45,7 @@ f_decreasing = _order_species_for_removal(false)
 extinction(B, f_random; dims=1)
 =#
 
-function extinction_robustness(Ns::Vector{T}; dims::Union{Nothing,Int64}=nothing) where {T <: DeterministicNetwork}
+function extinction_robustness(Ns::Vector{T}; dims::Union{Nothing,Int64}=nothing) where {T <: AbstractBipartiteNetwork}
     x = collect(LinRange(0.0, 1.0, length(Ns)))
     if isnothing(dims)
         y = richness.(Ns)./richness(first(Ns))

@@ -112,38 +112,6 @@ draw(PNG(joinpath("figures", "entropy_v_others.png"), 20cm, 20cm, dpi = 300),
 
 savefig(joinpath("figures", "entropy_v_others.png"))=#
 
-## 💀 INCORPORATING EXTINCTIONS
-
-# FUNCTION FROM POISOT 2019
-"""
-    extinctions(N::T) where {T <: AbstractBipartiteNetwork}
-
-This returns a vector of bipartite ecological networks simulating an extinction trajectory, where each network is the result of
-removing a random individual from the preceeding network
-"""
-
-function extinctions(N::T) where {T <: AbstractBipartiteNetwork}
-    # We start by making a copy of the network to extinguish
-    Y = [copy(N)]
-    # While there is at least one species remaining...
-    while richness(last(Y)) > 1
-        # We remove one species randomly
-        remain = sample(
-            species(last(Y); dims=2),
-            richness(last(Y); dims=2) - 1,
-            replace=false,
-        )
-        # Remaining species
-        R = last(Y)[:, remain]
-        simplify!(R)
-        # Then add the simplified network (without the extinct species) to our collection
-        push!(Y, copy(R))
-    end
-    return Y
-end
-
-
-
 ## 📊 SVD Entropy vs proportion of spp removed
 
 #=plot1 = scatter(title="Most connected")
