@@ -18,9 +18,32 @@ function extinction(N::T, f::F; dims::Int64=1) where {T <: DeterministicNetwork,
     return network_series
 end
 
-function _order_species_at_random(N::T; dims::Int64=1) where {T <: DeterministicNetwork}
-    return StatsBase.shuffle(species(N; dims=dims))
+function _order_species_for_removal(increasing::Nothing=nothing)
+    function f(N::T; dims::Int64=1) where {T <: DeterministicNetwork}
+        return StatsBase.shuffle(species(N; dims=dims))
+    end
+    return f
 end
+
+function _order_species_for_removal(increasing::Bool=true)
+    function f(N::T; dims::Int64=1) where {T <: DeterministicNetwork}
+        k = degree(N; dims=dims)
+        kvp = collect(k)
+        StatsBase.shuffle!(kvp)
+        seq = sort(kvp; by = x -> x[2], rev=!increasing)
+        return [s.first for s in seq]
+    end
+    return f
+end
+
+#=
+
+f_random = _order_species_for_removal()
+f_increasing = _order_species_for_removal(true)
+f_decreasing = _order_species_for_removal(false)
+
+extinction(B, f_random; dims=1)
+=#
 
 function extinction_robustness(Ns::Vector{T}; dims::Union{Nothing,Int64}=nothing) where {T <: DeterministicNetwork}
     x = collect(LinRange(0.0, 1.0, length(Ns)))
