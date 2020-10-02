@@ -1,3 +1,7 @@
+"""
+    TODO
+"""
+
 function extinction(N::T, f::F; dims::Int64=1) where {T <: AbstractBipartiteNetwork, F <: Function}
     if !(dims ∈ [1,2])
         throw(ArgumentError("dims must be 1 or 2 (you used $(dims))"))
@@ -18,6 +22,9 @@ function extinction(N::T, f::F; dims::Int64=1) where {T <: AbstractBipartiteNetw
     return network_series
 end
 
+"""
+    TODO
+"""
 function _order_species_for_removal(increasing::Nothing=nothing)
     function f(N::T; dims::Int64=1) where {T <: AbstractBipartiteNetwork}
         return StatsBase.shuffle(species(N; dims=dims))
@@ -25,6 +32,9 @@ function _order_species_for_removal(increasing::Nothing=nothing)
     return f
 end
 
+"""
+    TODO
+"""
 function _order_species_for_removal(increasing::Bool=true)
     function f(N::T; dims::Int64=1) where {T <: AbstractBipartiteNetwork}
         k = degree(N; dims=dims)
@@ -44,7 +54,9 @@ f_decreasing = _order_species_for_removal(false)
 
 extinction(B, f_random; dims=1)
 =#
-
+"""
+    TODO
+"""
 function extinction_robustness(Ns::Vector{T}; dims::Union{Nothing,Int64}=nothing) where {T <: AbstractBipartiteNetwork}
     x = collect(LinRange(0.0, 1.0, length(Ns)))
     if isnothing(dims)
