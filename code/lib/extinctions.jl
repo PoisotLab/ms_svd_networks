@@ -59,9 +59,12 @@ extinction(B, f_random; dims=1)
 """
 function extinction_robustness(Ns::Vector{T}; dims::Union{Nothing,Int64}=nothing) where {T <: AbstractBipartiteNetwork}
     x = collect(LinRange(0.0, 1.0, length(Ns)))
+
     if isnothing(dims)
         y = richness.(Ns)./richness(first(Ns))
     else
+        #=NOTE should we not work with total richness as opposed to the richness of the row/col spp.
+        since we can lose spp. from both dimensions - also as is we end up with a 1:1 line...=#
         y = richness.(Ns; dims=dims)./richness(first(Ns); dims=dims)
     end
     return auc(x, y)

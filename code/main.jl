@@ -51,8 +51,7 @@ draw(PNG(joinpath("figures", "size_v_rank.png"), 15cm, 20cm, dpi=300),
     plot(stack(Outputs, [:RankDefficiencyRel, :Entropy], variable_name =:measure, value_name=:value),
         x=:Richness, y=:value,
         color=:InteractionType, ygroup =:measure, Geom.subplot_grid(Geom.point, free_y_axis=true),
-        alpha = [0.6], Guide.xlabel("Richness"), Guide.ylabel(nothing),
-        Guide.yticks("RankDefficiencyRel", "Entropy")))
+        alpha = [0.6], Guide.xlabel("Richness"), Guide.ylabel(nothing)))
 
 ## Here we could plot Entropy and various measures of Rank
 
@@ -81,18 +80,36 @@ f_increasing = _order_species_for_removal(true);
 f_decreasing = _order_species_for_removal(false);
 
 AUC = DataFrame(Random = [extinction_robustness(extinction(B, f_random)) for B in Bs],
-                Increasing = [extinction_robustness(extinction(B, f_increasing, dims = 1)) for B in Bs],
-                Decreasing = [extinction_robustness(extinction(B, f_decreasing, dims = 1)) for B in Bs],
+                Increasing = [extinction_robustness(extinction(B, f_increasing)) for B in Bs],
+                Decreasing = [extinction_robustness(extinction(B, f_decreasing)) for B in Bs],
+                Random_1 = [extinction_robustness(extinction(B, f_random, dims = 1)) for B in Bs],
+                Increasing_1 = [extinction_robustness(extinction(B, f_increasing, dims = 1)) for B in Bs],
+                Decreasing_1 = [extinction_robustness(extinction(B, f_decreasing, dims = 1)) for B in Bs],
+                Random_2 = [extinction_robustness(extinction(B, f_random, dims = 2)) for B in Bs],
+                Increasing_2 = [extinction_robustness(extinction(B, f_increasing, dims = 2)) for B in Bs],
+                Decreasing_2 = [extinction_robustness(extinction(B, f_decreasing, dims = 2)) for B in Bs],
                 Rank = ((maxrank.(Bs) .- rank.(Bs)) ./ maxrank.(Bs)),
                 Entropy = svd_entropy.(Bs),
                 InteractionType = [y[:Type_of_interactions] for y in web_of_life()])
 AUC = stack(AUC, [:Rank, :Entropy], variable_name =:measure, value_name=:value)
-AUC = stack(AUC, [:Random, :Increasing, :Decreasing], variable_name =:method, value_name=:auc)
 
 draw(PNG(joinpath("figures", "rank&entropy_v_AUC.png"), 30cm, 20cm, dpi = 300),
-    plot(AUC, x =:auc, y =:value,
+    plot(stack(AUC, [:Random, :Increasing, :Decreasing], variable_name =:method, value_name=:auc),
+        x =:auc, y =:value,
         color=:InteractionType, ygroup =:measure, xgroup =:method, Geom.subplot_grid(Geom.point, free_y_axis=true),
-        Theme(key_position=:none), alpha = [0.6], Guide.xlabel(nothing), Guide.ylabel(nothing)))
+        alpha = [0.6], Guide.xlabel(nothing), Guide.ylabel(nothing)))
+
+draw(PNG(joinpath("figures", "rank&entropy_v_AUC_dims1.png"), 30cm, 20cm, dpi = 300),
+    plot(stack(AUC, [:Random_1, :Increasing_1, :Decreasing_1], variable_name =:method, value_name=:auc),
+        x =:auc, y =:value,
+        color=:InteractionType, ygroup =:measure, xgroup =:method, Geom.subplot_grid(Geom.point, free_y_axis=true),
+        alpha = [0.6], Guide.xlabel(nothing), Guide.ylabel(nothing)))
+
+draw(PNG(joinpath("figures", "rank&entropy_v_AUC_dims2.png"), 30cm, 20cm, dpi = 300),
+    plot(stack(AUC, [:Random_2, :Increasing_2, :Decreasing_2], variable_name =:method, value_name=:auc),
+        x =:auc, y =:value,
+        color=:InteractionType, ygroup =:measure, xgroup =:method, Geom.subplot_grid(Geom.point, free_y_axis=true),
+        alpha = [0.6], Guide.xlabel(nothing), Guide.ylabel(nothing)))
 
 
 ## End of script
