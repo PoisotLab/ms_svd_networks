@@ -26,7 +26,7 @@ We can do tables:
 
 # Figures
 
-![This is the legend of the figure](figures/biomes.png){#fig:biomes}
+![This is the legend of the figure](figures/entropy_v_rank.png){#fig:biomes}
 
 We can refer to +@fig:biomes.
 
