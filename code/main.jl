@@ -91,23 +91,18 @@ AUC = DataFrame(Random = [extinction_robustness(extinction(B, f_random)) for B i
                 InteractionType = [y[:Type_of_interactions] for y in web_of_life()])
 AUC = stack(AUC, [:Rank, :Entropy], variable_name =:measure, value_name=:value)
 
-draw(PNG(joinpath("figures", "rank&entropy_v_AUC.png"), 30cm, 20cm, dpi = 300),
-    plot(stack(AUC, [:Random, :Increasing, :Decreasing], variable_name =:method, value_name=:auc),
-        x =:auc, y =:value,
-        color=:InteractionType, ygroup =:measure, xgroup =:method, Geom.subplot_grid(Geom.point, free_y_axis=true),
-        alpha = [0.6], Guide.xlabel(nothing), Guide.ylabel(nothing)))
-
-draw(PNG(joinpath("figures", "rank&entropy_v_AUC_dims1.png"), 30cm, 20cm, dpi = 300),
-    plot(stack(AUC, [:Random_1, :Increasing_1, :Decreasing_1], variable_name =:method, value_name=:auc),
-        x =:auc, y =:value,
-        color=:InteractionType, ygroup =:measure, xgroup =:method, Geom.subplot_grid(Geom.point, free_y_axis=true),
-        alpha = [0.6], Guide.xlabel(nothing), Guide.ylabel(nothing)))
-
-draw(PNG(joinpath("figures", "rank&entropy_v_AUC_dims2.png"), 30cm, 20cm, dpi = 300),
-    plot(stack(AUC, [:Random_2, :Increasing_2, :Decreasing_2], variable_name =:method, value_name=:auc),
-        x =:auc, y =:value,
-        color=:InteractionType, ygroup =:measure, xgroup =:method, Geom.subplot_grid(Geom.point, free_y_axis=true),
-        alpha = [0.6], Guide.xlabel(nothing), Guide.ylabel(nothing)))
-
+draw(PNG(joinpath("figures", "rank&entropy_v_AUCall.png"), 30cm, 30cm, dpi = 300),
+    vstack(plot(stack(AUC, [:Random, :Random_1, :Random_2], variable_name =:method, value_name=:auc),
+            x =:auc, y =:value,
+            color=:InteractionType, ygroup =:measure, xgroup =:method, Geom.subplot_grid(Geom.point, free_y_axis=true),
+            alpha = [0.6], Guide.xlabel(nothing), Guide.ylabel(nothing), Guide.title("Random")),
+        plot(stack(AUC, [:Decreasing, :Decreasing_1, :Decreasing_2,], variable_name =:method, value_name=:auc),
+            x =:auc, y =:value,
+            color=:InteractionType, ygroup =:measure, xgroup =:method, Geom.subplot_grid(Geom.point, free_y_axis=true),
+            alpha = [0.6], Guide.xlabel(nothing), Guide.ylabel(nothing), Guide.title("Decreasing")),
+        plot(stack(AUC, [:Increasing, :Increasing_1, :Increasing_2,], variable_name =:method, value_name=:auc),
+            x =:auc, y =:value,
+            color=:InteractionType, ygroup =:measure, xgroup =:method, Geom.subplot_grid(Geom.point, free_y_axis=true),
+            alpha = [0.6], Guide.xlabel(nothing), Guide.ylabel(nothing), Guide.title("Increasing"))))
 
 ## End of script
