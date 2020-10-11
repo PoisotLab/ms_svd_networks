@@ -21,10 +21,10 @@ This is a citation: @Ginebreda2019QuaEco
 2. SVD, Entropy in particular
  + normalised
 
-$$ \overline{\lambda_{i}}=\frac{\lambda_{i}}{\Sigma_{i}\lambda_{i}}$${#eq:eqlambda}
+$$ \overline{\lambda_{i}}=\frac{\lambda_{i}}{\Sigma_{i}\lambda_{i}}$$
  + SVD entropy (Shannon type entropy)
 
-$$Entropy = -\frac{1}{\ln(n)}\Big\sum_{i=1}^n \overline{\lambda_{i}}\cdot\ln(\overline{\lambda_{i}})$${#eq:eqEntropy}
+$$Entropy = -\frac{1}{\ln(n)}\Big\sum_{i=1}^n \overline{\lambda_{i}}\cdot\ln(\overline{\lambda_{i}})$$
 3. Rank
  + Using relative rank deficiency
 
@@ -32,8 +32,8 @@ $$Relative rank deficiency = \frac{Rank_{max} - Rank}{Rank_{max}}$$
 4. Other measures of networks
  + Compared to both entropy and relative rank deficiency
  + Something about why these measures
-    + Nestedness (η)
-    + Spectral radiance (ρ)
+    + Nestedness ($\eta$)
+    + Spectral radiance ($\rho$)
 5. Extinctions and resilience
  + Species were removed from either the entire network or only along a single dimension i.e. a specific subset of the interacting species such as hosts or pollinators
  + Extinctions were calculated based on three 'mechanisms' by removing; 1) a random individual, 2) the most connected individual and 3) removing the least connected individual.
