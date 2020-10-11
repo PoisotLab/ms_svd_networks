@@ -21,7 +21,7 @@ This is a citation: @Ginebreda2019QuaEco
 2. SVD, Entropy in particular
  + normalised
 
-$$ \overline{\lambda_{i}}=\frac{\lambda_{i}}{\Sigma_{i}\lambda_{i}}$${#eq:eqEntropy}
+$$ \overline{\lambda_{i}}=\frac{\lambda_{i}}{\Sigma_{i}\lambda_{i}}$${#eq:eqlambda}
  + SVD entropy (Shannon type entropy)
 
 $$Entropy = -\frac{1}{\ln(n)}\Big\sum_{i=1}^n \overline{\lambda_{i}}\cdot\ln(\overline{\lambda_{i}})$${#eq:eqEntropy}
