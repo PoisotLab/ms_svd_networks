@@ -73,24 +73,31 @@ General comments RE figures:
 
 ## Rank and entropy vs. size and interaction type
 
+- networks with more species have low rank deficiency but high entropy, and there is no obiovus difference between interaction types
+
 ![This is the legend of the figure](figures/size_v_rank&entropy.png){#fig:size}
 
-![This is the legend of the figure](figures/interactiontype_v_rank&entropy.png){#fig:type}
-
-## Entropy and rank
+- there is no obvious relationship between rank and entropy, and it is not different across interaction types, this is because a lot of networks are actually full rank
 
 ![This is the legend of the figure](figures/entropy_v_rank.png){#fig:entropy_v_rank}
 
-Broadly Rank ≂̸ Entropy I guess...
+- QUESTION: what is the proportion of networks that are full rank? no need for a figure, but you can give the values in the text
 
+![This is the legend of the figure](figures/interactiontype_v_rank&entropy.png){#fig:type}
+
+- change fig:type to only show entropy - comment on the fact entropy values are quite high
 
 ## Rank and entropy vs. other measures of network structure
+
+- remove rank from the next figure
 
 ![This is the legend of the figure](figures/others_v_rank&entropy.png){#fig:other}
 
 Entropy shows a relationship with other measures of network complexity ∴ it itself could act as a measure of complexity?
 
 ## Rank and entropy vs network resilience
+
+- also remove the rank from that
 
 ![This is the legend of the figure](figures/rank&entropy_v_AUCall.png){#fig:resilience}
 
