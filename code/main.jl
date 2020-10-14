@@ -30,10 +30,10 @@ Outputs = @from i in DataFrame(Richness = richness.(Bs),
                     Entropy = svd_entropy.(Bs),
                     RankDefficiencyRel = ((maxrank.(Bs) .- rank.(Bs)) ./ maxrank.(Bs)),
                     Nestedness = η.(Bs),
-                    SpectralRadiance = ρ.(Bs),
+                    SpectralRadius = ρ.(Bs),
                     InteractionType = [y[:Type_of_interactions] for y in web_of_life()]) begin
             @where i.Richness < 200
-            @select {i.Entropy, i.RankDefficiencyRel, i.Richness, i.Nestedness, i.SpectralRadiance, i.InteractionType}
+            @select {i.Entropy, i.RankDefficiencyRel, i.Richness, i.Nestedness, i.SpectralRadius, i.InteractionType}
             @collect DataFrame
        end
 
@@ -64,8 +64,8 @@ draw(PNG(joinpath("figures", "size_v_rank&entropy.png"), 15cm, 20cm, dpi=300),
 ## Other measures of networks vs Rank & Entropy
 
 draw(PNG(joinpath("figures", "others_v_rank&entropy.png"), 20cm, 20cm, dpi = 300),
-    plot(stack(stack(Outputs, [:RankDefficiencyRel, :Entropy], [:Nestedness, :SpectralRadiance, :InteractionType],
-        variable_name =:measure, value_name=:value), [:Nestedness, :SpectralRadiance],
+    plot(stack(stack(Outputs, [:RankDefficiencyRel, :Entropy], [:Nestedness, :SpectralRadius, :InteractionType],
+        variable_name =:measure, value_name=:value), [:Nestedness, :SpectralRadius],
         variable_name =:method, value_name=:metric),
         x=:metric, y=:value,
         color=:InteractionType, ygroup =:measure, xgroup =:method, Geom.subplot_grid(Geom.point, free_y_axis=true),
