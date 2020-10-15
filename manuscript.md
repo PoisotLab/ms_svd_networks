@@ -43,7 +43,7 @@ Where to bring in comparing rank to SVD entropy
 
 ## Comparing rank and entropy to other measures of network architecture
 
-In addition, we compared both relative rank deficiency and SVD entropy to other measures of network architecture, namely nestedness ($\eta (M)$) and spectral radius ($\rho (M)$). The nestedness of a network is a measure of the degree of overlap between species links, where larger assemblages are made up of a subset of smaller ones that share common interactions. <!--- nestedness was calculated from {EcologicalNetworks} which follows @bast09amn - should we write out the fancy maths or is it enough to link? --->
+In addition, we compared both relative rank deficiency and SVD entropy to other measures of network architecture, namely nestedness ($\eta (M)$) and spectral radius ($\rho (M)$). The nestedness of a network is a measure of the degree of overlap between species links, where larger assemblages are made up of a subset of smaller ones that share common interactions. <!--- nestedness was calculated from {EcologicalNetworks} which follows @bast09amn - should we write out the fancy maths or is it enough to link? ---> The spectral radius of a matrix is the largest absolute value of its eigenvalues.
 
 4. Other measures of networks
  + Compared to both entropy and relative rank deficiency
@@ -83,29 +83,25 @@ General comments RE figures:
 
 - QUESTION: what is the proportion of networks that are full rank? no need for a figure, but you can give the values in the text
 
-![This is the legend of the figure](figures/interactiontype_v_rank&entropy.png){#fig:type}
+![This is the legend of the figure](figures/interactiontype_v_entropy.png){#fig:type}
 
 - change fig:type to only show entropy - comment on the fact entropy values are quite high
 
 ## Rank and entropy vs. other measures of network structure
 
-- remove rank from the next figure
-
-![This is the legend of the figure](figures/others_v_rank&entropy.png){#fig:other}
+![This is the legend of the figure](figures/others_v_entropy.png){#fig:other}
 
 Entropy shows a relationship with other measures of network complexity ∴ it itself could act as a measure of complexity?
 
 ## Rank and entropy vs network resilience
 
-- also remove the rank from that
-
-![This is the legend of the figure](figures/rank&entropy_v_AUCall.png){#fig:resilience}
+![This is the legend of the figure](figures/entropy_v_AUCall.png){#fig:resilience}
 
 
 # Discussion
 
 * Nestedness ≈ to spectral radius (Staniczenko 2013) ∴ expect similar relationship for these measures with either rank or entropy
-* Phillips (2011) argues that spectral radius ≈ ability of system to dampen/absorb perturbations ∴ resilience? 
+* Phillips (2011) argues that spectral radius ≈ ability of system to dampen/absorb perturbations ∴ resilience?
 
 
 # References
