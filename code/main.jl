@@ -46,20 +46,35 @@ draw(PNG(joinpath("figures", "interactiontype_v_entropy.png"), dpi=300),
         Geom.beeswarm, alpha = [0.3],
         Guide.xlabel("Interaction Type"), Guide.ylabel("Entropy")))
 
-## Here we could plot Entropy and various measures of Rank
+## Here we could plot Entropy and relative rank defficiency
 
-draw(PNG(joinpath("figures", "entropy_v_rank.png"), 20cm, 20cm, dpi = 300),
-plot(Outputs,
-    x=:RankDefficiencyRel, y=:Entropy,
-    color=:InteractionType, alpha = [0.6], Guide.xlabel("Relative rank defficiency"), Guide.ylabel("Entropy")))
+draw(PNG(joinpath("figures", "entropy_v_rank.png"), dpi = 300),
+    plot(Outputs,
+        x=:RankDefficiencyRel, y=:Entropy,
+        color=:InteractionType, alpha = [0.6], Guide.xlabel("Relative rank defficiency"),
+        Guide.ylabel("Entropy")))
 
 ## Size vs Rank & Entropy
 
-draw(PNG(joinpath("figures", "size_v_rank&entropy.png"), 15cm, 20cm, dpi=300),
+draw(PNG(joinpath("figures", "size_v_rank&entropy.png"), dpi=300),
     plot(stack(Outputs, [:RankDefficiencyRel, :Entropy], variable_name =:measure, value_name=:value),
         x=:Richness, y=:value,
         color=:InteractionType, ygroup =:measure, Geom.subplot_grid(Geom.point, free_y_axis=true),
         alpha = [0.6], Guide.xlabel("Richness"), Guide.ylabel(nothing)))
+
+#= 1st pass at labelling sub plots... its not going well...
+plot(stack(Outputs, [:RankDefficiencyRel, :Entropy], variable_name =:measure, value_name=:value),
+    ygroup =:measure,
+    Geom.subplot_grid(
+    layer(
+        x=:Richness, y=:value, color=:InteractionType, Geom.point),
+    layer(DataFrame(x = [0.1,0.1],
+                    y = [0.51,1.1],
+                    label = ["A", "B"],
+                    group = ["RankDefficiencyRel", "Entropy"]),
+        x=:x, y=:y, label =:label, ygroup =:group, Geom.label),
+    free_y_axis=true),
+    alpha = [0.6], Guide.xlabel("Richness"), Guide.ylabel(nothing))=#
 
 ## Other measures of networks vs Rank & Entropy
 
@@ -98,6 +113,6 @@ draw(PNG(joinpath("figures", "entropy_v_AUCall.png"), dpi = 300),
             x =:value, y =:Entropy,
             color=:InteractionType, ygroup =:Type, xgroup =:Dimension,
             Geom.subplot_grid(Geom.point, free_y_axis=true),
-            alpha = [0.6], Guide.xlabel("Dimension"), Guide.ylabel("Extinction method")))
+            alpha = [0.6], Guide.xlabel("Resilience"), Guide.ylabel("Extinction mechanism")))
 
 ## End of script
