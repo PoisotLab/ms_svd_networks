@@ -4,13 +4,63 @@ bibliography: [references.bib]
 
 # Introduction
 
-* The idea of entropy as 'internal complexity' and rank as 'external complexity'
-* Why SVD entropy vs 'normal' entropy??
-* Relationship between complexity and resilience
+Ecologists have turned to ecological networks as a mathematical formalism to
+embrace the complexity of ecological communities [@Bascompte2007PlaMut]. Indeed,
+analysing ecological systems as networks has highlighted how their structure
+ties into ecological properties and processes [@Proulx2005NetThi;
+@Poulin2010NetAna], and there have been an explosion of measures that purport to
+capture elements of network structure that relate to the ecology of the system
+they describe [@Delmas2018AnaEco].
 
+**TODO** short discussion of the fact that complexity is super important in the stability debate
 
-This is a citation: @Ginebreda2019QuaEco
+And yet, *complexity* itself has proven an elusive concept to define in a
+rigorous way. It has over time been defined as connectance
+[@Rozdilsky2001ComCan], as measures of the diversity of species or their
+interactions [@Landi2018ComSta], or as a combination of species richness and
+trophic diversity [@Duffy2007FunRol]. In short, network ecology as a field
+readily assumes that because we have more information about a system, or because
+this system has more components, it follows that the system becomes *more
+complex*.
 
+None of these definitions are formally wrong, in that they capture an aspect of
+complexity that ties to the behavior of the system, *i.e.* its low
+predictability. Yet @Adami2002WhaCom provides a compelling argument for why the
+complexity of the behavior does not necessarily reflect the complexity of the
+system; in fact, one would be very hard pressed to think of a more simple system
+than the logistic map used by @May1976SimMat to illustrate how readily
+complexity of behavior emerges. Rather than yielding to the easy assumption that
+a system will be complex because it has many parts, or because it exhibits a
+complex behavior, @Adami2002WhaCom suggests that we focus on measuring "physical
+complexity", *i.e.* the amount of information required to encode the system, and
+how much signal this information contains.
+
+Ecological networks are primarily represented by their adjacency matrices,
+*i.e.* a matrix in which every entry represents a pair of species, which can
+take a value of 1 when the two species interact, and a value of 0 when they do
+not. These matrices (as any matrices) can easily be factorized using Singular
+Value Decomposition [@Forsythe1967ComSol; @Golub1971SinVal], which offers two
+interesting candidate measures of complexity for ecological networks (both of
+which we describe at length in the methods). The first measure is the rank of
+the matrix, which works as an estimate of "external complexity", in that it
+describes the dimension of the vector space of this matrix, and therefore the
+number of linearly independant rows (or columns) of it. From an ecological
+standpoint, this quantifies the number of unique "strategies" represented in the
+network: a network with two modules that are complete and disconnected from one
+another has a rank of 2. The second measure is an application of the entropy
+measure of @Shannon1948MatThe to the singular value of the matrix obtained
+through SVD. This so-called SVD entropy measures the extent to which each rank
+encodes an equal amount of information, as the singular values capture the
+importance of each rank in giving the entire matrix; this approach therefore
+serves as a measure of "internal complexity".
+
+In this manuscript, we evaluate both the rank and the SVD entropy as measures of
+the complexity of ecological networks, by using a collection of *NNN* bipartite
+networks from various types of interaction, sizes, connectances, and
+environments. We show that while the rank of the adjacency matrix holds little
+information, SVD entropy functions as an appropriate quantification of the
+complexity of ecological systems. Notably, we ***need a summary of the results
+here***.
 
 # Methods
 
@@ -97,8 +147,8 @@ When looking at the relationship between entropy and the area under an extinctio
 
 # Discussion
 
-* Nestedness ≈ to spectral radius (Staniczenko 2013) ∴ expect similar relationship for these measures with either rank or entropy
-* Phillips (2011) argues that spectral radius ≈ ability of system to dampen/absorb perturbations ∴ resilience?
+* @Ginebreda2019QuaEco - SVD entropy as a measure of resilience
+* @Phillips2011StrEco  argues that spectral radius ≈ ability of system to dampen/absorb perturbations ∴ resilience?
 
 
 # References
