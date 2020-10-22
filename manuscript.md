@@ -121,27 +121,51 @@ General comments RE figures:
 
 ## Rank and entropy vs. network size and interaction type
 
-We sampled a total of 220 bipartite interaction networks. Different interaction types of the networks included pollination (n = 129), host-parasite (n = 51), seed dispersal (n = 32), plant-herbivore (n = 4), and plant-ant (n = 4) interactions. Networks that have a higher species richness (size) tend to have a lower rank deficiency and a higher entropy, with no obvious differences between networks of different interaction types (see fig. @fig:size).
+We sampled a total of 220 bipartite interaction networks. Different interaction
+types of the networks included pollination (n = 129), host-parasite (n = 51),
+seed dispersal (n = 32), plant-herbivore (n = 4), and plant-ant (n = 4)
+interactions. Networks that have a higher species richness (size) tend to have a
+lower rank deficiency and a higher entropy, with no obvious differences between
+networks of different interaction types (see fig. @fig:size).
 
 ![The relationship between network richness and A) relative rank deficiency and B) entropy. The different types of interactions are indicated by the colours.](figures/size_v_rank&entropy.png){#fig:size}
 
-We do not see an obvious relationship between entropy and relative rank deficiency or differences between interaction types (fig. @fig:entropy_v_rank), this is because a large proportion (0.63) of the networks are full rank.
+We do not see an obvious relationship between entropy and relative rank
+deficiency or differences between interaction types (fig. @fig:entropy_v_rank),
+this is because a large proportion (0.63) of the networks are full rank.
 
 ![The relationship between entropy and the relative rank deficiency of different species interaction networks Colours indicate the different interaction types of the networks.](figures/entropy_v_rank.png){#fig:entropy_v_rank}
 
-Upon closer inspection we find that the entropy values of networks are quite high (between 0.8 - 1) and no obvious difference between interaction types, but some variation within the different interaction types <!--- although this last phrase might not be the 'best' as there is some 'clustering' for pollination networks... ---> (fig. @fig:type)
+Upon closer inspection we find that the entropy values of networks are quite
+high (between 0.8 - 1) and no obvious difference between interaction types, but
+some variation within the different interaction types
+
+<!--- although this last
+phrase might not be the 'best' as there is some 'clustering' for pollination
+networks... ---> (fig. @fig:type)
 
 ![The calculated entropy of different interaction networks of different interaction types](figures/interactiontype_v_entropy.png){#fig:type}
 
 ## Entropy and other measures of network complexity
 
-We find that entropy appears to have a negative relationship with both nestedness and spectral radius, with no clear differences between the types of interactions (fig. @fig:other).
+We find that entropy appears to have a negative relationship with both
+nestedness and spectral radius, with no clear differences between the types of
+interactions (fig. @fig:other).
 
 ![The relationship between entropy and A.) the nestedness, and B) the spectral radius of interaction networks. Colours indicate the different interaction types of the networks.](figures/others_v_entropy.png){#fig:other} <!--- when I one day figure out how to do idiv plot labels -->
 
 ## Entropy and network resilience
 
-When looking at the relationship between entropy and the area under an extinction curve (as a proxy for resilience to extinction) we find differences depending on both the extinction mechanism as well as along which dimension the species removal occurred (fig @fig:resilience). As a whole we do not observe any obvious relationships between entropy and resilience, nor for different interaction types. We do however see differences in the resilience of networks depending on how the extinctions were simulated. Generally we see a higher resilience in networks where species of only a specific group are removed or in networks where species were either randomly removed or based on an increasing number of interactions.
+When looking at the relationship between entropy and the area under an
+extinction curve (as a proxy for resilience to extinction) we find differences
+depending on both the extinction mechanism as well as along which dimension the
+species removal occurred (fig @fig:resilience). As a whole we do not observe any
+obvious relationships between entropy and resilience, nor for different
+interaction types. We do however see differences in the resilience of networks
+depending on how the extinctions were simulated. Generally we see a higher
+resilience in networks where species of only a specific group are removed or in
+networks where species were either randomly removed or based on an increasing
+number of interactions.
 
 ![The relationship between entropy and the area under an extinction curve (as a proxy for resilience to extinction) for both different extinction mechanisms (Random = the removal of a random species, Decreasing = the removal of species in order of decreasing number of interactions (i.e most to least number of interactions), Increasing = the removal of species in order of increasing number of interactions) as well as along different dimensions (species groups) of the network (all = any species, 1 = only top-level species, and 2 = only bottom-level species) Colours indicate the different interaction types of the networks.](figures/entropy_v_AUCall.png){#fig:resilience}
 
