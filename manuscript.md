@@ -2,6 +2,15 @@
 bibliography: [references.bib]
 ---
 
+*some potential title ideas...*
+
+* Leveraging the information contained in interaction matrices by using SVD (entropy?) to quantify the complexity of ecological networks *(does not link to stability)*
+
+* SVD (entropy?) reveals the complexity of an ecological network but not its stability *(or resilience)*
+
+* SVD entropy provides a measure of the complexity of an ecological network but not its stability *(or resilience)*
+
+
 # Introduction
 
 Ecologists have turned to ecological networks as a mathematical formalism to
@@ -44,7 +53,7 @@ interesting candidate measures of complexity for ecological networks (both of
 which we describe at length in the methods). The first measure is the rank of
 the matrix, which works as an estimate of "external complexity", in that it
 describes the dimension of the vector space of this matrix, and therefore the
-number of linearly independant rows (or columns) of it. From an ecological
+number of linearly independent rows (or columns) of it. From an ecological
 standpoint, this quantifies the number of unique "strategies" represented in the
 network: a network with two modules that are complete and disconnected from one
 another has a rank of 2. The second measure is an application of the entropy
@@ -55,7 +64,7 @@ importance of each rank in giving the entire matrix; this approach therefore
 serves as a measure of "internal complexity".
 
 In this manuscript, we evaluate both the rank and the SVD entropy as measures of
-the complexity of ecological networks, by using a collection of *NNN* bipartite
+the complexity of ecological networks, by using a collection of 220 bipartite
 networks from various types of interaction, sizes, connectances, and
 environments. We show that while the rank of the adjacency matrix holds little
 information, SVD entropy functions as an appropriate quantification of the
@@ -64,18 +73,15 @@ here***.
 
 # Methods
 
-We used bipartite networks from the web of life database and did not discriminate between different types of pairwise interactions. Using bipartite networks means that interacting species are split into two sets (or interacting groups) and along different dimensions in the interaction matrix. Thus, columns in the matrix represent one group (or type) of species and rows represent the other group of speccies involved in the interaction.
+We used bipartite networks from the web of life database and did not discriminate between different types of pairwise interactions. Using bipartite networks means that interacting species are split into two sets (or interacting groups) and along different dimensions in the interaction matrix. Thus, columns in the matrix represent one group (or type) of species and rows represent the other group of species involved in the interaction. *(I don't know if it's worth clarifying the idea of dimensions and 'groups' of species - also mentioning WoL?)*
 
-1. Networks used
- + From web of Life (maybe total # as well... split out by type??)
- + Only bipartite networks (brief description?)
- + removed those with a richness > 200
+## Estimating (calculating?) network complexity
 
-## Singular Value Decomposition of an ecological network
+### Singular Value Decomposition of an ecological network
 
 Broadly Singular Value Decomposition (SVD) is the factorisation of a matrix **A** (where $\boldsymbol{A}_{m,n} \in\mathbb{R}$) into the form $U\cdot\Sigma\cdot V^T$. Where *U* is an $m \times m$ unitary matrix and *V* an $n \times n$ unitary matrix. The columns of *U* and of *V* are called the left- and right-singular vectors of *M* respectively. $\Sigma$ is made up of diagonal entries $\sigma_{i} = \Sigma{ii}$ and are known as singular values of *M* and can be arranged to be descending, where the number on non-zero values are equal to the rank of the matrix or in this case ecological network.
 
-The singular values of $\Sigma$ can be used to define the complexity of a network, using a 'Shannon type entropy' approach. First we can arrange the set of singular values $(\sigma_{i})_{i=1,n}$ to be descending and normalise them (See equation @eq:1), where $\Sigma_{i}\overline{\sigma_{i}} = 1$
+The singular values of $\Sigma$ can be used to define the complexity of a network, using a 'Shannon type entropy' approach @Shannon1948MatThe. First we can arrange the set of singular values to be descending and normalise them (See equation @eq:1), where $\Sigma_{i}\overline{\sigma_{i}} = 1$
 
 $$\overline{\sigma_{i}}=\frac{\sigma_{i}}{\Sigma_{i}\sigma_{i}}$${#eq:1}
 
@@ -85,13 +91,15 @@ $$SVD Entropy = -\frac{1}{\ln(n)}\Big\sum_{i=1}^n \overline{\sigma_{i}}\cdot\ln(
 
 Where higher entropy values could be indicative of a more uniform distribution of $\sigma$ values and thus a higher degree of complexity. For networks with a lower complexity we might expect a non-uniform distribution of $\sigma$ values and that a lot of the 'information' of the network is encapsulated by a handful of species.
 
-## The rank of ecological networks
+### The rank of ecological networks
 
-The rank of **A** (denoted as $rk(A)$) is the dimension of the vector space spanned by the matrix and corresponds to the number of linearly independent rows or columns. In terms of networks this would translate to the number of unique interaction combinations. <!---don't think this is the best possible phrasing--> The maximum rank of a matrix ($rk_{max}(A)$) will always be equal the the length of the shortest dimension of **A**. Using the maximum rank of a matrix we can determine if a matrix is rank deficient by calculating the relative rank deficiency by subtracting the actual rank of a matrix from its maximum rank (see equation @eq:3), so as to control for the difference in species richness of the different networks we divided this by $rk_{max}(M)$ to constrain values between 0 and 1
+The rank of **A** (denoted as $rk(A)$) is the dimension of the vector space spanned by the matrix and corresponds to the number of linearly independent rows or columns. Where the maximum rank of a matrix ($rk_{max}(A)$) will always be equal the the length of the shortest dimension of **A**. Using the maximum rank of a matrix we can determine if a matrix is rank deficient by calculating the relative rank deficiency by subtracting the actual rank of a matrix from its maximum rank (see equation @eq:3), so as to control for the difference in species richness of the different networks we divided this by $rk_{max}(M)$ to constrain values between 0 and 1
 
 $$Relative rank deficiency = \frac{rk_{max}(A) - rk(A)}{rk_{max}(A)}$${#eq:3}
 
-We then compared the SVD entropy (i.e. internal complexity) of networks to their relative rank deficiency ('external' complexity)
+### Comparing measures of complexity and network size
+
+We then compared the calculated SVD entropy to the relative rank deficiency of better understand the relationship between 'internal' and 'external' complexity. In addition, both SVD entropy and relative rank deficiency were compared to network size.
 
 *[Some notes on linking back to networks/ecology - why rank def not just rank?]*
 
@@ -101,7 +109,7 @@ We then compared the SVD entropy (i.e. internal complexity) of networks to their
 
 In addition, we compared SVD entropy to other measures of network complexity, namely nestedness ($\eta (M)$) and spectral radius ($\rho (M)$). The nestedness of a network is a measure of the degree of overlap between species links, where larger assemblages are made up of a subset of smaller ones that share common interactions. Networks with a higher degree of nestedness could be considered less 'complex' than when compared to networks with a lower nestedness. <!--- nestedness was calculated from {EcologicalNetworks} which follows @bast09amn - should we write out the fancy maths or is it enough to link? ---> The spectral radius of a matrix is the largest absolute value of its eigenvalues, which is another measure of network complexity.
 
-## Simulating extinctions and estimating resilience in ecological networks
+## Simulating extinctions and estimating resilience (or are we going with stability?) in ecological networks
 
 Extinctions were calculated based on three 'mechanisms', either by removing 1) a random individual, 2) the most connected species (one with the highest number of interactions with other species) and 3) removing the least connected species (the species with the least number of interactions). If there were multiple species with the same number of interactions a random individual amongst those species was removed. After the removal of a species the network was simplified be removing species that no longer had any interacting partners - i.e. becoming extinct. This was repeated until all species were removed from the network. This was repeated for each network 1) across the entire network<!--- is this the correct phrasing? --->, whereby any species that met the removal criteria was removed, and 2) along one dimension (i.e. species removal was restricted to a specific group of species such as parasites or pollinators) this was repeated for both dimension <!-- again not sure if this is the best phrasing or better to stick with spp. groups (or a variation of that) --->. From here we compared the proportion of species remaining to the proportion of species removed with each subsequent extinction event to construct an extinction curve for each network. Following the trapezoidal rule<!---should we expand on this or is it okay to just 'name drop'? ---> we then calculated the area under an extinction curve as a measure of the resilience of the network [ref?]
 
@@ -119,7 +127,7 @@ General comments RE figures:
   Do we *really* need the legend for interaction types??? - Yes for colours though
 -->
 
-## Rank and entropy vs. network size and interaction type
+## Network size does not beget complexity, and neither does vector space
 
 We sampled a total of 220 bipartite interaction networks. Different interaction
 types of the networks included pollination (n = 129), host-parasite (n = 51),
@@ -146,7 +154,7 @@ networks... ---> (fig. @fig:type)
 
 ![The calculated entropy of different interaction networks of different interaction types](figures/interactiontype_v_entropy.png){#fig:type}
 
-## Entropy and other measures of network complexity
+## SVD entropy can preform as a measure of complexity
 
 We find that entropy appears to have a negative relationship with both
 nestedness and spectral radius, with no clear differences between the types of
@@ -154,7 +162,9 @@ interactions (fig. @fig:other).
 
 ![The relationship between entropy and A.) the nestedness, and B) the spectral radius of interaction networks. Colours indicate the different interaction types of the networks.](figures/others_v_entropy.png){#fig:other} <!--- when I one day figure out how to do idiv plot labels -->
 
-## Entropy and network resilience
+## Network stability is more than its complexity
+
+<!---⬆ I really want to say that network stability is more than the sum of its parts... --->
 
 When looking at the relationship between entropy and the area under an
 extinction curve (as a proxy for resilience to extinction) we find differences
