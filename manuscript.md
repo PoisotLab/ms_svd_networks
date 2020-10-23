@@ -72,7 +72,7 @@ different dimensions in the interaction matrix. Thus, columns in the matrix
 represent one group (or type) of species and rows represent the other group of
 species involved in the interaction.
 
-### Estimating complexity with rank defficiency
+## Estimating complexity with rank defficiency
 
 The rank of $\mathbf{A}$ (noted as $r = \text{rk}(\mathbf{A})$) is the dimension
 of the vector space spanned by the matrix and corresponds to the number of
@@ -128,7 +128,7 @@ that values are lower than unity, and quantify SVD entropy, using $s_i =
 
 $$J = -\frac{1}{\ln(k)}\Big\sum_{i=1}^k s_i\cdot\ln(s_i)$${#eq:svdentropy}
 
-### Comparing measures of complexity and network size
+## Comparing measures of complexity and network size
 
 We then compared the calculated SVD entropy to the relative rank deficiency of
 better understand the relationship between 'internal' and 'external' complexity.
