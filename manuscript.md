@@ -2,15 +2,6 @@
 bibliography: [references.bib]
 ---
 
-*some potential title ideas...*
-
-* Leveraging the information contained in interaction matrices by using SVD (entropy?) to quantify the complexity of ecological networks *(does not link to stability)*
-
-* SVD (entropy?) reveals the complexity of an ecological network but not its stability *(or resilience)*
-
-* SVD entropy provides a measure of the complexity of an ecological network but not its stability *(or resilience)*
-
-
 # Introduction
 
 Ecologists have turned to ecological networks as a mathematical formalism to
@@ -73,29 +64,55 @@ here***.
 
 # Methods
 
-We used bipartite networks from the web of life database and did not discriminate between different types of pairwise interactions. Using bipartite networks means that interacting species are split into two sets (or interacting groups) and along different dimensions in the interaction matrix. Thus, columns in the matrix represent one group (or type) of species and rows represent the other group of species involved in the interaction. *(I don't know if it's worth clarifying the idea of dimensions and 'groups' of species - also mentioning WoL?)*
+We used all bipartite networks from the `web-of-life.es` database, taken from
+the `EcologicalNetworks.jl` package [@Poisot2019EcoJl] for the *Julia*
+[@Bezanson2017JulFre] programming language. Using bipartite networks means that
+interacting species are split into two sets (or interacting groups) and along
+different dimensions in the interaction matrix. Thus, columns in the matrix
+represent one group (or type) of species and rows represent the other group of
+species involved in the interaction.
 
-## Estimating (calculating?) network complexity
+## Singular Value Decomposition for complexity estimates
 
-### Singular Value Decomposition of an ecological network
-
-Broadly Singular Value Decomposition (SVD) is the factorisation of a matrix **A** (where $\boldsymbol{A}_{m,n} \in\mathbb{R}$) into the form $U\cdot\Sigma\cdot V^T$. Where *U* is an $m \times m$ unitary matrix and *V* an $n \times n$ unitary matrix. The columns of *U* and of *V* are called the left- and right-singular vectors of *M* respectively. $\Sigma$ is made up of diagonal entries $\sigma_{i} = \Sigma{ii}$ and are known as singular values of *M* and can be arranged to be descending, where the number on non-zero values are equal to the rank of the matrix or in this case ecological network.
-
-The singular values of $\Sigma$ can be used to define the complexity of a network, using a 'Shannon type entropy' approach @Shannon1948MatThe. First we can arrange the set of singular values to be descending and normalise them (See equation @eq:1), where $\Sigma_{i}\overline{\sigma_{i}} = 1$
-
-$$\overline{\sigma_{i}}=\frac{\sigma_{i}}{\Sigma_{i}\sigma_{i}}$${#eq:1}
-
-Following this the SVD Entropy can bee calculated following equation @eq:2, so as to control for networks of different sizes we can once again control for this by dividing by $\ln(n)$, where *n* is the number of non-zero $\sigma$ values.
-
-$$SVD Entropy = -\frac{1}{\ln(n)}\Big\sum_{i=1}^n \overline{\sigma_{i}}\cdot\ln(\overline{\sigma_{i}})$${#eq:2}
-
-Where higher entropy values could be indicative of a more uniform distribution of $\sigma$ values and thus a higher degree of complexity. For networks with a lower complexity we might expect a non-uniform distribution of $\sigma$ values and that a lot of the 'information' of the network is encapsulated by a handful of species.
+Singular Value Decomposition (SVD) is the factorisation of a matrix $\mathbf{A}$
+(where $\mathbf{A}_{m,n} \in\mathbb{B}$ in our case, but SVD works for matrices
+of real numbers as well) into the form $\mathbf{U}\cdot\mathbf{\Sigma}\cdot
+\mathbf{V}^T$. $\mathbf{U}$ is an $m \times m$ orthogonal matrix and
+$\mathbf{V}$ an $n \times n$ orthogonal matrix. The columns in these matrices
+are, respectively, the left- and right-singular vectors of $\mathbf{A}$.
+$\mathbf{\Sigma}$ is a diagonal matrix, where $\sigma_{i} = \Sigma{ii}$, which
+contains the singular values of $\mathbf{A}$. When the values of
+$\mathbf{\sigma}$ are arranged in descending order, the singular values are
+unique, though the singular vectors may not be.
 
 ### The rank of ecological networks
 
 The rank of **A** (denoted as $rk(A)$) is the dimension of the vector space spanned by the matrix and corresponds to the number of linearly independent rows or columns. Where the maximum rank of a matrix ($rk_{max}(A)$) will always be equal the the length of the shortest dimension of **A**. Using the maximum rank of a matrix we can determine if a matrix is rank deficient by calculating the relative rank deficiency by subtracting the actual rank of a matrix from its maximum rank (see equation @eq:3), so as to control for the difference in species richness of the different networks we divided this by $rk_{max}(M)$ to constrain values between 0 and 1
 
 $$Relative rank deficiency = \frac{rk_{max}(A) - rk(A)}{rk_{max}(A)}$${#eq:3}
+
+### SVD entropy as a measure of complexity
+
+After the Eckart-Young-Mirsky theorem [@Eckart1936AppOne; @Golub1987GenEck], the
+number of non-zero entries (after rounding of small values if required due to
+numerical precision issues in computing the factorization) in $\mathbf{\sigma}$
+is the rank of matrix $\mathbf{A}$. For the sake of simplicity in notation, we
+will use $k = \text{rk}(\mathbf{A})$) for the rank of the matrix. Because only
+the first $k$ elements of $\mathbf{\sigma}$ are non-zero, and that the result of
+the SVD is a simple matrix multiplication, one can define a truncated SVD
+containing only the first $k$ singular values.
+
+Intuitively, the singular value $i$ ($\sigma_i$) measures how much of the
+dataset is (proportionally) explained by each vector - therefore, one can
+measure the entropy of $\mathbf{\sigma}$ following @Shannon1948MatThe. A SVD
+with high values reflects that all vectors are equally important, *i.e.* that
+the structure of the ecological network cannot efficiently be compressed, and
+therefore indicates high complexity [@Gu2016HowLon]. Because networks have
+different dimensions, we use Pielou's evenness [@Pielou1975EcoDiv] to ensure
+that values are lower than unity, and quantify SVD entropy, using $s_i =
+\sigma_i/\sum \sigma$ as
+
+$$J = -\frac{1}{\ln(k)}\Big\sum_{i=1}^k s_i\cdot\ln(s_i)$${#eq:svdentropy}
 
 ### Comparing measures of complexity and network size
 
