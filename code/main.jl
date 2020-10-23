@@ -33,10 +33,18 @@ Outputs = @from i in DataFrame(Richness = richness.(Bs),
                     Nestedness = η.(Bs),
                     SpectralRadius = ρ.(Bs),
                     InteractionType = [y[:Type_of_interactions] for y in web_of_life()]) begin
+            #remove networks richness >200
             @where i.Richness < 200
             @select {i.Entropy, i.RankDefficiencyRel, i.Richness, i.Nestedness, i.SpectralRadius, i.InteractionType}
             @collect DataFrame
        end
+
+#specify colour palette
+ColourPalette = Scale.color_discrete_manual(colorant"#648FFF",
+                            colorant"#785EF0",
+                            colorant"#DC267F",
+                            colorant"#FE6100",
+                            colorant"#FFB000")
 
 ## Interaction Type vs Rank & Entropy
 
@@ -46,37 +54,29 @@ draw(PNG(joinpath("figures", "interactiontype_v_entropy.png"), dpi=300),
         color=:InteractionType,
         Geom.beeswarm, alpha = [0.3],
         Guide.xlabel("Interaction Type"), Guide.ylabel("Entropy"),
-        Scale.color_discrete_manual(colorant"#648FFF",
-                                    colorant"#785EF0",
-                                    colorant"#DC267F",
-                                    colorant"#FE6100",
-                                    colorant"#FFB000")))
+        ColourPalette))
 
 ## Here we could plot Entropy and relative rank defficiency
 
 draw(PNG(joinpath("figures", "entropy_v_rank.png"), dpi = 300),
     plot(Outputs,
         x=:RankDefficiencyRel, y=:Entropy,
-        color=:InteractionType, alpha = [0.6], Guide.xlabel("Relative rank defficiency"),
+        color=:InteractionType, alpha = [0.8], Guide.xlabel("Relative rank defficiency"),
         Guide.ylabel("Entropy"),
-        Scale.color_discrete_manual(colorant"#648FFF",
-                                    colorant"#785EF0",
-                                    colorant"#DC267F",
-                                    colorant"#FE6100",
-                                    colorant"#FFB000")))
+        ColourPalette))
 
 ## Size vs Rank & Entropy
+
+#= TODO
+    * Change labels on Y axes (this could come down to changing things in the DataFrame?)
+    * Labels on subplots e.g. A/B (see below for an attempt) using layers =#
 
 draw(PNG(joinpath("figures", "size_v_rank&entropy.png"), dpi=300),
     plot(stack(Outputs, [:RankDefficiencyRel, :Entropy], variable_name =:measure, value_name=:value),
         x=:Richness, y=:value,
         color=:InteractionType, ygroup =:measure, Geom.subplot_grid(Geom.point, free_y_axis=true),
-        alpha = [0.6], Guide.xlabel("Richness"), Guide.ylabel(nothing),
-        Scale.color_discrete_manual(colorant"#648FFF",
-                                    colorant"#785EF0",
-                                    colorant"#DC267F",
-                                    colorant"#FE6100",
-                                    colorant"#FFB000")))
+        alpha = [0.8], Guide.xlabel("Richness"), Guide.ylabel(nothing),
+        ColourPalette))
 
 #= 1st pass at labelling sub plots... its not going well...
 plot(stack(Outputs, [:RankDefficiencyRel, :Entropy], variable_name =:measure, value_name=:value),
@@ -94,18 +94,18 @@ plot(stack(Outputs, [:RankDefficiencyRel, :Entropy], variable_name =:measure, va
 
 ## Other measures of networks vs Rank & Entropy
 
+#= TODO
+    * Change labels on X axes (this could come down to changing things in the DataFrame?)
+    * Labels on subplots e.g. A/B (see below for an attempt) using layers =#
+
 draw(PNG(joinpath("figures", "others_v_entropy.png"), dpi = 300),
     plot(stack(stack(Outputs, [:Entropy], [:Nestedness, :SpectralRadius, :InteractionType],
         variable_name =:measure, value_name=:value), [:Nestedness, :SpectralRadius],
         variable_name =:method, value_name=:metric),
         x=:metric, y=:value,
         color=:InteractionType, ygroup =:measure, xgroup =:method, Geom.subplot_grid(Geom.point, free_y_axis=true),
-        alpha = [0.6], Guide.xlabel(nothing), Guide.ylabel(nothing),
-        Scale.color_discrete_manual(colorant"#648FFF",
-                                    colorant"#785EF0",
-                                    colorant"#DC267F",
-                                    colorant"#FE6100",
-                                    colorant"#FFB000")))
+        alpha = [0.8], Guide.xlabel(nothing), Guide.ylabel(nothing),
+        ColourPalette))
 
 ## Resilience vs Rank & Entropy
 
@@ -124,21 +124,23 @@ AUC = DataFrame(Random_all = [extinction_robustness(extinction(B, f_random)) for
                 Decreasing_2 = [extinction_robustness(extinction(B, f_decreasing, dims = 2), dims = 1) for B in Bs],
                 Entropy = svd_entropy.(Bs),
                 InteractionType = [y[:Type_of_interactions] for y in web_of_life()])
+#Melt data into long format
 AUC = stack(AUC, [:Random_all, :Random_1, :Random_2, :Decreasing_all, :Decreasing_1,
             :Decreasing_2, :Increasing_all, :Increasing_1, :Increasing_2],
             variable_name =:measure, value_name=:value);
+#Split out by dimension and extinction mechanism
 AUC = hcat(AUC, DataFrame([(Type=a,Dimension=b) for (a,b) in split.(AUC.measure, "_")]))
 
+#= TODO
+    * Change labels on X axes (this could come down to changing things in the DataFrame?)
+    * Labels on subplots e.g. A/B (see below for an attempt) using layers
+    * decide how we want to refer to 'mechanism' and 'dimension' =#
 draw(PNG(joinpath("figures", "entropy_v_AUCall.png"), dpi = 300),
         plot(AUC,
             x =:value, y =:Entropy,
             color=:InteractionType, ygroup =:Type, xgroup =:Dimension,
             Geom.subplot_grid(Geom.point, free_y_axis=true),
-            alpha = [0.6], Guide.xlabel("Resilience"), Guide.ylabel("Extinction mechanism"),
-            Scale.color_discrete_manual(colorant"#648FFF",
-                                        colorant"#785EF0",
-                                        colorant"#DC267F",
-                                        colorant"#FE6100",
-                                        colorant"#FFB000")))
+            alpha = [0.8], Guide.xlabel("Resilience"), Guide.ylabel("Extinction mechanism"),
+            ColourPalette))
 
 ## End of script
