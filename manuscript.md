@@ -72,7 +72,29 @@ different dimensions in the interaction matrix. Thus, columns in the matrix
 represent one group (or type) of species and rows represent the other group of
 species involved in the interaction.
 
-## Singular Value Decomposition for complexity estimates
+### Estimating complexity with rank defficiency
+
+The rank of $\mathbf{A}$ (noted as $r = \text{rk}(\mathbf{A})$) is the dimension
+of the vector space spanned by the matrix and corresponds to the number of
+linearly independent rows or columns; therefore, the maximum rank of a matrix
+($M = \text{rk}_{\tetx{max}}(\mathbf{A})$) will always be equal to the length of
+the shortest dimension of $\mathbf{A}$, which ecologically speaking is the
+richness of the least species-rich compartment of the bipartite network (or the
+richness in the case of unipartite networks). A matrix is "full-ranked" when
+$r=M$, *i.e.* all of its rows/columns are unique. Matrices that are not
+full-ranked are called rank deficient, and we can measure rank deficiency using
+$d = M-r$. So as to
+control for the difference in species richness of the different networks, we report the relative rank defficiency, *i.e.* expressed as a ratio between rank defficiency and the maximal rank:
+
+$$D = 1-\frac{r}{M}$${#eq:rankdefficiency}$$
+
+This measure returns values between 0 (the matrix is full ranked) and $1-M^{-1}$
+(the matrix has rank 1). This serves as a coarse estimate of complexity, as the
+more unique columns/rows are in the matrix, the larger this value will be. Yet
+it may also lack sensitivity, beause it imposes a stringent test on uniqueness,
+which calls for more quantitative approaches to complexity.
+
+## Estimating complexity with SVD entropy
 
 Singular Value Decomposition (SVD) is the factorisation of a matrix $\mathbf{A}$
 (where $\mathbf{A}_{m,n} \in\mathbb{B}$ in our case, but SVD works for matrices
@@ -84,14 +106,6 @@ $\mathbf{\Sigma}$ is a diagonal matrix, where $\sigma_{i} = \Sigma{ii}$, which
 contains the singular values of $\mathbf{A}$. When the values of
 $\mathbf{\sigma}$ are arranged in descending order, the singular values are
 unique, though the singular vectors may not be.
-
-### The rank of ecological networks
-
-The rank of **A** (denoted as $rk(A)$) is the dimension of the vector space spanned by the matrix and corresponds to the number of linearly independent rows or columns. Where the maximum rank of a matrix ($rk_{max}(A)$) will always be equal the the length of the shortest dimension of **A**. Using the maximum rank of a matrix we can determine if a matrix is rank deficient by calculating the relative rank deficiency by subtracting the actual rank of a matrix from its maximum rank (see equation @eq:3), so as to control for the difference in species richness of the different networks we divided this by $rk_{max}(M)$ to constrain values between 0 and 1
-
-$$Relative rank deficiency = \frac{rk_{max}(A) - rk(A)}{rk_{max}(A)}$${#eq:3}
-
-### SVD entropy as a measure of complexity
 
 After the Eckart-Young-Mirsky theorem [@Eckart1936AppOne; @Golub1987GenEck], the
 number of non-zero entries (after rounding of small values if required due to
@@ -116,7 +130,10 @@ $$J = -\frac{1}{\ln(k)}\Big\sum_{i=1}^k s_i\cdot\ln(s_i)$${#eq:svdentropy}
 
 ### Comparing measures of complexity and network size
 
-We then compared the calculated SVD entropy to the relative rank deficiency of better understand the relationship between 'internal' and 'external' complexity. In addition, both SVD entropy and relative rank deficiency were compared to network size.
+We then compared the calculated SVD entropy to the relative rank deficiency of
+better understand the relationship between 'internal' and 'external' complexity.
+In addition, both SVD entropy and relative rank deficiency were compared to
+network size.
 
 *[Some notes on linking back to networks/ecology - why rank def not just rank?]*
 
