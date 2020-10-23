@@ -16,6 +16,7 @@ using Cairo
 using Fontconfig
 using DataFrames
 using Query
+using Colors
 
 ## Import the functions and methods we need
 include(joinpath(pwd(), "code", "lib", "main.jl"))
@@ -44,7 +45,12 @@ draw(PNG(joinpath("figures", "interactiontype_v_entropy.png"), dpi=300),
         x=:InteractionType, y=:Entropy,
         color=:InteractionType,
         Geom.beeswarm, alpha = [0.3],
-        Guide.xlabel("Interaction Type"), Guide.ylabel("Entropy")))
+        Guide.xlabel("Interaction Type"), Guide.ylabel("Entropy"),
+        Scale.color_discrete_manual(colorant"#648FFF",
+                                    colorant"#785EF0",
+                                    colorant"#DC267F",
+                                    colorant"#FE6100",
+                                    colorant"#FFB000")))
 
 ## Here we could plot Entropy and relative rank defficiency
 
@@ -52,7 +58,12 @@ draw(PNG(joinpath("figures", "entropy_v_rank.png"), dpi = 300),
     plot(Outputs,
         x=:RankDefficiencyRel, y=:Entropy,
         color=:InteractionType, alpha = [0.6], Guide.xlabel("Relative rank defficiency"),
-        Guide.ylabel("Entropy")))
+        Guide.ylabel("Entropy"),
+        Scale.color_discrete_manual(colorant"#648FFF",
+                                    colorant"#785EF0",
+                                    colorant"#DC267F",
+                                    colorant"#FE6100",
+                                    colorant"#FFB000")))
 
 ## Size vs Rank & Entropy
 
@@ -60,7 +71,12 @@ draw(PNG(joinpath("figures", "size_v_rank&entropy.png"), dpi=300),
     plot(stack(Outputs, [:RankDefficiencyRel, :Entropy], variable_name =:measure, value_name=:value),
         x=:Richness, y=:value,
         color=:InteractionType, ygroup =:measure, Geom.subplot_grid(Geom.point, free_y_axis=true),
-        alpha = [0.6], Guide.xlabel("Richness"), Guide.ylabel(nothing)))
+        alpha = [0.6], Guide.xlabel("Richness"), Guide.ylabel(nothing),
+        Scale.color_discrete_manual(colorant"#648FFF",
+                                    colorant"#785EF0",
+                                    colorant"#DC267F",
+                                    colorant"#FE6100",
+                                    colorant"#FFB000")))
 
 #= 1st pass at labelling sub plots... its not going well...
 plot(stack(Outputs, [:RankDefficiencyRel, :Entropy], variable_name =:measure, value_name=:value),
@@ -84,7 +100,12 @@ draw(PNG(joinpath("figures", "others_v_entropy.png"), dpi = 300),
         variable_name =:method, value_name=:metric),
         x=:metric, y=:value,
         color=:InteractionType, ygroup =:measure, xgroup =:method, Geom.subplot_grid(Geom.point, free_y_axis=true),
-        alpha = [0.6], Guide.xlabel(nothing), Guide.ylabel(nothing)))
+        alpha = [0.6], Guide.xlabel(nothing), Guide.ylabel(nothing),
+        Scale.color_discrete_manual(colorant"#648FFF",
+                                    colorant"#785EF0",
+                                    colorant"#DC267F",
+                                    colorant"#FE6100",
+                                    colorant"#FFB000")))
 
 ## Resilience vs Rank & Entropy
 
@@ -113,6 +134,11 @@ draw(PNG(joinpath("figures", "entropy_v_AUCall.png"), dpi = 300),
             x =:value, y =:Entropy,
             color=:InteractionType, ygroup =:Type, xgroup =:Dimension,
             Geom.subplot_grid(Geom.point, free_y_axis=true),
-            alpha = [0.6], Guide.xlabel("Resilience"), Guide.ylabel("Extinction mechanism")))
+            alpha = [0.6], Guide.xlabel("Resilience"), Guide.ylabel("Extinction mechanism"),
+            Scale.color_discrete_manual(colorant"#648FFF",
+                                        colorant"#785EF0",
+                                        colorant"#DC267F",
+                                        colorant"#FE6100",
+                                        colorant"#FFB000")))
 
 ## End of script
