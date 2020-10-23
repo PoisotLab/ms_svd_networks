@@ -187,7 +187,7 @@ draw(
     plot(AUC,
         x =:value, y =:Entropy,
         color=:InteractionType, ygroup =:Type, xgroup =:Dimension,
-        Geom.subplot_grid(Geom.point, free_y_axis=true, free_x_axis=true),
+        Geom.subplot_grid(Geom.point, free_y_axis=true),
         alpha = [0.8], Guide.xlabel("Resilience"), Guide.ylabel("Extinction mechanism")
     )
 )
