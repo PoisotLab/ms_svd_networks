@@ -27,7 +27,8 @@ networks = DataFrame(
     defficiency = Float64[],
     richness = Int64[],
     nestedness = Float64[],
-    spectral_radius = Float64[]
+    spectral_radius = Float64[],
+    connectance = Float64[]
     )
 
 for wol in web_of_life()
@@ -40,6 +41,7 @@ for wol in web_of_life()
         D[:nestedness] = η(N)
         D[:spectral_radius] = ρ(N)
         D[:richness] = richness(N)
+        D[:connectance] = connectance(N)
         D[:defficiency] = ((maxrank(N) - rank(N)) / maxrank(N))
         push!(networks, D)
     end
@@ -74,7 +76,7 @@ paper_theme = Theme(
     discrete_color_scale = colour_palette
 )
 Gadfly.push_theme(paper_theme)
-Gadfly.set_default_plot_size(15cm, 12cm)
+Gadfly.set_default_plot_size(18cm, 12cm)
 
 
 ## Interaction Type vs Rank & Entropy
@@ -146,11 +148,11 @@ draw(
     PNG(joinpath("figures", "others_v_entropy.png"), dpi = 300),
     plot(
         stack(
-            stack(networks, [:entropy], [:nestedness, :spectral_radius, :type], variable_name =:measure, value_name=:value),
-            [:nestedness, :spectral_radius],
+            stack(networks, [:entropy], [:nestedness, :spectral_radius, :connectance, :type], variable_name =:measure, value_name=:value),
+            [:nestedness, :spectral_radius, :connectance],
         variable_name =:method, value_name=:metric),
         x=:metric, y=:value,
-        color=:type, ygroup =:measure, xgroup =:method, Geom.subplot_grid(Geom.point, free_y_axis=true),
+        color=:type, ygroup =:measure, xgroup =:method, Geom.subplot_grid(Geom.point, free_x_axis=true),
         alpha = [0.8], Guide.xlabel(nothing), Guide.ylabel(nothing)
     )
 )
@@ -188,7 +190,7 @@ draw(
         x =:value, y =:Entropy,
         color=:InteractionType, ygroup =:Type, xgroup =:Dimension,
         Geom.subplot_grid(Geom.point, free_y_axis=true),
-        alpha = [0.8], Guide.xlabel("Resilience"), Guide.ylabel("Extinction mechanism")
+        Guide.xlabel("Resilience"), Guide.ylabel("Extinction mechanism")
     )
 )
 
