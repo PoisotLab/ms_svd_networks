@@ -2,6 +2,13 @@
 bibliography: [references.bib]
 ---
 
+*Potential title ideas*
+
+* Using SVD and entropy provides a robust measure of the complexity of ecological networks (this does not refer to stability/resilience though)
+* Understanding the complexity and stability of ecological networks using SVD and information theory (*simple but not informative*)
+* Entropy and information theory as an approach to understanding the complexity and stability of ecological networks (*better but maybe still a bit 'vague'...*)
+* Entropy and information theory provides an informative approach to understanding the complexity of ecological networks, but not stability (*maybe a bit more directive/results-y BUT does it play it down?*)
+
 # Introduction
 
 Ecologists have turned to ecological networks as a mathematical formalism to
@@ -24,21 +31,21 @@ this system has more components, it follows that the system becomes *more
 complex*.
 
 None of these definitions are formally wrong, in that they capture an aspect of
-complexity that ties to the behavior of the system, *i.e.* its low
+complexity that ties to the behaviour of the system, *i.e.* its low
 predictability. Yet @Adami2002WhaCom provides a compelling argument for why the
-complexity of the behavior does not necessarily reflect the complexity of the
+complexity of the behaviour does not necessarily reflect the complexity of the
 system; in fact, one would be very hard pressed to think of a more simple system
 than the logistic map used by @May1976SimMat to illustrate how readily
-complexity of behavior emerges. Rather than yielding to the easy assumption that
+complexity of behaviour emerges. Rather than yielding to the easy assumption that
 a system will be complex because it has many parts, or because it exhibits a
-complex behavior, @Adami2002WhaCom suggests that we focus on measuring "physical
+complex behaviour, @Adami2002WhaCom suggests that we focus on measuring "physical
 complexity", *i.e.* the amount of information required to encode the system, and
 how much signal this information contains.
 
 Ecological networks are primarily represented by their adjacency matrices,
 *i.e.* a matrix in which every entry represents a pair of species, which can
 take a value of 1 when the two species interact, and a value of 0 when they do
-not. These matrices (as any matrices) can easily be factorized using Singular
+not. These matrices (as any matrices) can easily be factorised using Singular
 Value Decomposition [@Forsythe1967ComSol; @Golub1971SinVal], which offers two
 interesting candidate measures of complexity for ecological networks (both of
 which we describe at length in the methods). The first measure is the rank of
