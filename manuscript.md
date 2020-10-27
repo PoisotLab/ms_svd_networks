@@ -4,11 +4,17 @@ bibliography: [references.bib]
 
 *Potential title ideas*
 
-* Using SVD and entropy provides a robust measure of the complexity of ecological networks (*this does not refer to stability/resilience though*)
-* Understanding the complexity and stability of ecological networks using SVD and information theory (*simple but not informative*)
-* Entropy and information theory as an approach to understanding the complexity and stability of ecological networks (*better but maybe still a bit 'vague'...*)
-* Entropy and information theory provides an informative approach to understanding the complexity of ecological networks, but not stability (*maybe a bit more directive/results-y BUT does it play it down?*)
-* The complexity of ecological networks are more than the sum of their parts: Using entropy and information theory
+* Using SVD and entropy provides a robust measure of the complexity of
+ecological networks (*this does not refer to stability/resilience though*)
+* Understanding the complexity and stability of ecological networks using SVD
+and information theory (*simple but not informative*)
+* Entropy and information theory as an approach to understanding the complexity
+and stability of ecological networks (*better but maybe still a bit 'vague'*)
+* Entropy and information theory provides an informative approach to
+understanding the complexity of ecological networks, but not stability
+(*maybe a bit more directive/results-y BUT does it play it down?*)
+* The complexity of ecological networks are more than the sum of their parts:
+ Using entropy and information theory
 
 # Introduction
 
@@ -20,7 +26,8 @@ ties into ecological properties and processes [@Proulx2005NetThi;
 capture elements of network structure that relate to the ecology of the system
 they describe [@Delmas2018AnaEco].
 
-**TODO** short discussion of the fact that complexity is super important in the stability debate
+**TODO** short discussion of the fact that complexity is super important in the
+ stability debate
 
 And yet, *complexity* itself has proven an elusive concept to define in a
 rigorous way. It has over time been defined as connectance
@@ -91,7 +98,9 @@ richness of the least species-rich compartment of the bipartite network (or the
 richness in the case of unipartite networks). A matrix is "full-ranked" when
 $r=M$, *i.e.* all of its rows/columns are unique. Matrices that are not
 full-ranked are called rank deficient, and we can measure rank deficiency using
-$d = M-r$. So as to control for the difference in species richness of the different networks, we report the relative rank deficiency, *i.e.* expressed as a ratio between rank deficiency and the maximal rank:
+$d = M-r$. So as to control for the difference in species richness of the
+different networks, we report the relative rank deficiency, *i.e.* expressed as
+ a ratio between rank deficiency and the maximal rank:
 
 $$D = 1-\frac{r}{M}$${#eq:rankdefficiency}$$
 
@@ -135,17 +144,62 @@ that values are lower than unity, and quantify SVD entropy, using $s_i =
 
 $$J = -\frac{1}{\ln(k)}\Big\sum_{i=1}^k s_i\cdot\ln(s_i)$${#eq:svdentropy}
 
-## Comparing measures of complexity and network size
+## Comparing physical measures of complexity and network size
 
-In an effort to better understand the 'performance' of these physical measures of complexity we can start by comparing both relative rank deficiency and SVD entropy to the species richness of networks *i.e.* the network size. This was followed by comparing the SVD entropy of a network to its relative rank deficiency, *i.e* determining if using the rank of a network is sufficient in capturing its complexity.
+In an effort to better understand the 'performance' of these physical measures
+of complexity we started by comparing both relative rank deficiency and SVD
+entropy to the species richness of networks *i.e.* the network size. This was
+followed by comparing the SVD entropy of a network to its relative rank
+deficiency, *i.e* determining if using the rank of a network is a sufficient
+measure for capturing a network's complexity.
 
-## Comparing entropy to other measures of network complexity
+## SVD entropy compared to traditional measures of network complexity
 
-We then compared the relationship of SVD entropy to other measures of network complexity, namely nestedness ($\mathit{\eta}$) and spectral radius ($\mathit{\rho$}) and connectance ($\mathit{Co}$). The nestedness of a network is a measure of the degree of overlap between species links, where larger assemblages are made up of a subset of smaller ones that share common interactions. Networks with a higher degree of nestedness could be considered less 'complex' than when compared to networks with a higer degree of nestedness. <!--- nestedness was calculated from {EcologicalNetworks} which follows @Bastolla2009ArcMut - should we write out the fancy maths or is it enough to link? ---> The spectral radius of a matrix is the largest absolute value of its eigenvalues, which is another measure of network complexity and can be used as an indicator of the abilituy of a system to dampen disturbances @Phillips2011StrEco. Connectance is calculated as the fraction of the total number of realised interactions (or links) and the maximum number of possible interactions in a network @Martinez1992ConCon. This has been shown to be a good estimate of community resilience to disturbance [@Dunne2002NetStr].
+The relationship of SVD entropy was then compared to some of the more
+traditional measures of complexity, namely nestedness ($\mathit{\eta}$, which
+is a measure of network topology) and connectance ($\mathit{Co}$, a *defacto* 
+measure of complexity after species richness), alongside this we also included
+spectral radius ($\mathit{\rho$}).
+The nestedness of a network is a measure of the degree of
+overlap between species links (or strategies), where larger assemblages are
+made up of a subset of smaller ones that share common interactions. Networks
+with a higher degree of nestedness could be considered simpler than when
+compared to networks with a higher degree of nestedness. <!--- nestedness was
+calculated from {EcologicalNetworks} which follows @Bastolla2009ArcMut - should
+we write out the fancy maths or is it enough to link? ---> Connectance is
+concerned with the realised number of interactions (links) in an ecological
+network and is calculated as the fraction of the total number of realised
+interactions (or links) and the maximum number of possible interactions in a network
+@Martinez1992ConCon. This has been shown to be a good estimate of a community's
+resilience to perturbation [@Dunne2002NetStr]. The spectral radius of a matrix
+is the largest absolute value of its eigenvalues, which, in addition to being
+presented as a measure of network complexity has also been suggested as an
+indicator of the ability of a system to dampen disturbances @Phillips2011StrEco.
 
-## Assessing stability through targeted removal of species
+## Assessing stability through targeted extinctions
 
-One approach to calculating the stability of an ecological network is by simulating extinction events through the sequential removal of species, this is then followed by constructing an extinction curve that plots the relationship between species removed and cumulative, secondary extinctions [@Dunne2002NetStr; @Memmott2004TolPol]. Extinction events can be simulated in a manner of different ways, either by removing 1) a random individual, 2) systematically removing the most connected species (one with the highest number of interactions with other species) and 3) the least connected species [@Dunne2002NetStr]. After each extinction event we can remove species from the network that no longer have any interacting partners *i.e.* simulating secondary extinctions. This is then repeated until there are no species remaining in the network. Furthermore, we can restrict extinction events to only one dimension of the interaction matrix, *i.e.* removing only row or column species, or alternatively removing a species from any dimension of the matrix - provided they meet the extinction criteria outlined above. Extinction curves are then constructed by plotting the proportion of remaining species against those that have been removed, which can arguably be viewed as the proportion of species remaining as a function of time. If we implement this thinking then it stands to reason that a flatter curve 'maintains' its species pool for a longer time period and could be seen as more stable than when compared to a curve that has a much steeper decline. Arguably we can then relate the stability of an ecological network to the area under its extinction curve, which we can estimate using the trapezoidal rule.
+One approach to calculating the stability of an ecological network is by
+simulating extinction events through the sequential removal of species, this is
+then followed by constructing an extinction curve that plots the relationship
+between species removed and cumulative, secondary extinctions [@Dunne2002NetStr;
+@Memmott2004TolPol]. Extinction events can be simulated in a manner of different
+ways, either by removing 1) a random individual, 2) systematically removing the
+most connected species (one with the highest number of interactions with other
+species) and 3) the least connected species [@Dunne2002NetStr]. After each
+extinction event we can remove species from the network that no longer have
+any interacting partners *i.e.* simulating secondary extinctions. This is then
+repeated until there are no species remaining in the network. Furthermore, we
+can restrict extinction events to only one dimension of the interaction matrix,
+*i.e.* removing only row or column species, or alternatively removing a species
+from any dimension of the matrix - provided they meet the extinction criteria
+outlined above. Extinction curves are then constructed by plotting the
+proportion of remaining species against those that have been removed, which can
+arguably be viewed as the proportion of species remaining as a function of time.
+If we implement this thinking then it stands to reason that a flatter curve
+'maintains' its species pool for a longer time period and could be seen as more
+stable than when compared to a curve that has a much steeper decline. Arguably
+we can then relate the stability of an ecological network to the area under its
+extinction curve, which we can estimate using the trapezoidal rule.
 
 * Make note of Julia packages used?
  + Is there a ~~lazy~~ smart way to do this from the manifest??
@@ -157,29 +211,30 @@ One approach to calculating the stability of an ecological network is by simulat
 
 **COMMENT** The 'flow' of this section feels odd at times.. on the one hand I want flip the order so that it goes 1) heres a brief summary of entropy and network type, 2) Here is internal vs external complexity and 3) comparing to network size one of the coarser measures of complexity -> which then moves onto the other measures of complexity section BUT the current order also works as it allows us to 'exclude' rank as we show it isn't the ideal/best measure.
 
-Networks that have a higher species richness (size) tend to have a lower rank deficiency and a higher entropy, with no obvious differences between networks of different interaction types (see fig. @fig:size).
+Networks that have a higher species richness (size) tend to have a lower rank
+deficiency and a higher entropy, with no obvious differences between networks of
+different interaction types (see fig. @fig:size). Although arguably the
+relationship is not clear for either SVD entropy or Relative rank deficiency.
 
 ![The relationship between network richness and A) relative rank deficiency and B) entropy. The different types of interactions are indicated by the colours.](figures/size_v_rank&entropy.png){#fig:size}
 
 We do not see an obvious relationship between entropy and relative rank
 deficiency or differences between interaction types (fig. @fig:entropy_v_rank),
-this is because a large proportion (0.63) of the networks are full rank.
+this is in part due to a large proportion (0.63) of the networks being full rank.
 
 ![The relationship between entropy and the relative rank deficiency of different species interaction networks Colours indicate the different interaction types of the networks.](figures/entropy_v_rank.png){#fig:entropy_v_rank}
 
-Upon closer inspection we find that the entropy values of networks are quite
-high (between 0.8 - 1) and no obvious difference between interaction types, but
-some variation within the different interaction types <!--- although this last
-phrase might not be the 'best' as there is some 'clustering' for pollination
-networks... ---> (fig. @fig:type)
+Upon closer inspection we find that the entropy values of networks are consistently
+quite high (between 0.8 - 1) and no obvious differences in entropy values
+between interaction types. (fig. @fig:type)
 
 ![The calculated entropy of different interaction networks of different interaction types](figures/interactiontype_v_entropy.png){#fig:type}
 
 ## SVD entropy can preform as a measure of complexity
 
-We find that entropy appears to have a negative relationship with both
-nestedness and spectral radius, with no clear differences between the types of
-interactions (fig. @fig:other).
+We find that entropy has a clear negative relationship with
+nestedness, connectance and spectral radius, with no clear differences between
+the different types of interactions (fig. @fig:other). The
 
 ![The relationship between entropy and A.) the nestedness, and B) the spectral radius of interaction networks. Colours indicate the different interaction types of the networks.](figures/others_v_entropy.png){#fig:other} <!--- when I one day figure out how to do idiv plot labels -->
 
@@ -202,8 +257,9 @@ number of interactions.
 
 # Discussion
 
+* A brief interlude on the 'zero-inflated' Rank values?
 * Coarse network measures (rank & size) are not sufficient in capturing the complexity of a networks i.e. bigger is not going to be better where complexity is concerned and as a measure should be discarded
-* Regarding SVD entropy as a complexity measure we see it 'plays well' with the other 'traditional' measures and is arguably a more 'true' measure of complexity than looking at structural (behavioural) elements of networks. We should use it!
+* Regarding SVD entropy as a complexity measure we see it 'plays well' with the other 'traditional' measures of &/rho$, $\eta$ and *Co* and is arguably a more 'true' measure of complexity than looking at structural (behavioural) elements of networks. We should use it!
 * The complexity does not beget stability discussion...
 
 
