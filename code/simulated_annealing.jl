@@ -12,9 +12,6 @@ using DataFrames
 include(joinpath(pwd(), "code", "lib", "main.jl"))
 include(joinpath(pwd(), "code", "lib", "extinctions.jl"))
 
-f = (x) -> x ./ sum(x)
-
-# Examples
 function optim!(N; f=svd_entropy, target=0.0)
     λ = 0.999
     t0 = 2.0
@@ -39,10 +36,9 @@ function optim!(N; f=svd_entropy, target=0.0)
 end
 
 
-S = 12
-
-minL = S+2
-maxL = S^2
+S = 14
+minL = S+4
+maxL = S^2-4
 nreps = 20
 
 L = minL:2:maxL
@@ -94,12 +90,21 @@ for i in 1:length(MAX)
     )
 end
 
-p1 = plot(sims, x=:relcon, y=:entropy, color=:optim, Stat.smooth, Geom.line, Scale.color_discrete_hue())
+p1 = plot(sims, x=:relcon, y=:entropy, color=:optim, Stat.smooth(smoothing=0.5), Geom.line, Scale.color_discrete_manual(colorant"black", colorant"grey"), Guide.colorkey(title="Type", labels=["Most complex","Least complex"]))
 push!(p1, layer(sims, x=:relcon, y=:entropy, color=:optim, alpha=[0.2]))
 push!(p1, Coord.cartesian(xmin=0.0, xmax=1.0, ymin=0.0, ymax=1.0))
+push!(p1, Guide.xlabel("Connectance"))
+push!(p1, Guide.ylabel("SVD entropy"))
 
-p2 = plot(sims, x=:relcon, y=:reldef, color=:optim, Stat.smooth, Geom.line, Scale.color_discrete_hue())
-push!(p2, layer(sims, x=:relcon, y=:reldef, color=:optim, alpha=[0.2]))
+p2 = plot(sims, x=:relcon, y=:reldef, color=:optim, Stat.smooth(smoothing=0.2), Geom.line, Scale.color_discrete_manual(colorant"black", colorant"grey"), Guide.colorkey(title="Type", labels=["Most complex","Least complex"]))
+push!(p2, layer(sims, x=:relcon, y=:reldef, color=:optim, alpha=[0.1]))
 push!(p2, Coord.cartesian(xmin=0.0, xmax=1.0, ymin=0.0, ymax=1.0))
+push!(p2, Guide.xlabel("Connectance"))
+push!(p2, Guide.ylabel("Rel. rank deff."))
 
-hstack(p1, p2)
+Gadfly.set_default_plot_size(21cm, 12cm)
+draw(
+    PNG(joinpath("figures", "minmax_combined.png"), dpi=300),
+    hstack(p1, p2)
+)
+Gadfly.set_default_plot_size(18cm, 12cm)
