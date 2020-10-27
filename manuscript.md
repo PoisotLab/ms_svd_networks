@@ -2,41 +2,32 @@
 bibliography: [references.bib]
 ---
 
-*Potential title ideas*
-
-* Using SVD and entropy provides a robust measure of the complexity of
-ecological networks (*this does not refer to stability/resilience though*)
-* Understanding the complexity and stability of ecological networks using SVD
-and information theory (*simple but not informative*)
-* Entropy and information theory as an approach to understanding the complexity
-and stability of ecological networks (*better but maybe still a bit 'vague'*)
-* Entropy and information theory provides an informative approach to
-understanding the complexity of ecological networks, but not stability
-(*maybe a bit more directive/results-y BUT does it play it down?*)
-* The complexity of ecological networks are more than the sum of their parts:
- Using entropy and information theory
-
 # Introduction
 
 Ecologists have turned to ecological networks as a mathematical formalism to
 embrace the complexity of ecological communities [@Bascompte2007PlaMut]. Indeed,
 analysing ecological systems as networks has highlighted how their structure
 ties into ecological properties and processes [@Proulx2005NetThi;
-@Poulin2010NetAna], and there have been an explosion of measures that purport to
+@Poulin2010NetAna], and there has been an explosion of measures that purport to
 capture elements of network structure that relate to the ecology of the system
-they describe [@Delmas2018AnaEco].
+they describe [@Delmas2018AnaEco]. Complexity has often been a concept of
+interest in ecological network studies, because it has strong ties to stability
+[@Landi2018ComSta], either as a function of species persistence or as a function
+of the numerical stability of the network seen as a dynamical system. As such,
+many authors have looked for clues, in the network structure, as to why the
+networks do not collapse [@Borrelli2015SelIns; @Staniczenko2013GhoNes;
+@Gravel2016StaCom; @Brose2006AllSca]. While this relationship has been intensely
+discussed in the theoretical litterature, it might not actually manifest in
+empirical systems [@Jacquet2016NoCom].
 
-**TODO** short discussion of the fact that complexity is super important in the
- stability debate
-
-And yet, *complexity* itself has proven an elusive concept to define in a
-rigorous way. It has over time been defined as connectance
-[@Rozdilsky2001ComCan], as measures of the diversity of species or their
-interactions [@Landi2018ComSta], or as a combination of species richness and
-trophic diversity [@Duffy2007FunRol]. In short, network ecology as a field
-readily assumes that because we have more information about a system, or because
-this system has more components, it follows that the system becomes *more
-complex*.
+But across all a few decades of ecological network studies, *complexity* itself
+has proven an elusive concept to define in a rigorous way. It has over time been
+defined as connectance [@Rozdilsky2001ComCan], as measures of the diversity of
+species or their interactions [@Landi2018ComSta], or as a combination of species
+richness and trophic diversity [@Duffy2007FunRol]. In short, network ecology as
+a field readily assumes that because we have more information about a system, or
+because this system has more components, it follows that the system becomes more
+complex.
 
 None of these definitions are formally wrong, in that they capture an aspect of
 complexity that ties to the behaviour of the system, *i.e.* its low
@@ -156,25 +147,23 @@ measure for capturing a network's complexity.
 ## SVD entropy compared to traditional measures of network complexity
 
 The relationship of SVD entropy was then compared to some of the more
-traditional measures of complexity, namely nestedness ($\mathit{\eta}$, which
-is a measure of network topology) and connectance ($\mathit{Co}$, a *defacto* 
-measure of complexity after species richness), alongside this we also included
-spectral radius ($\mathit{\rho$}).
-The nestedness of a network is a measure of the degree of
-overlap between species links (or strategies), where larger assemblages are
-made up of a subset of smaller ones that share common interactions. Networks
-with a higher degree of nestedness could be considered simpler than when
-compared to networks with a higher degree of nestedness. <!--- nestedness was
-calculated from {EcologicalNetworks} which follows @Bastolla2009ArcMut - should
-we write out the fancy maths or is it enough to link? ---> Connectance is
-concerned with the realised number of interactions (links) in an ecological
-network and is calculated as the fraction of the total number of realised
-interactions (or links) and the maximum number of possible interactions in a network
-@Martinez1992ConCon. This has been shown to be a good estimate of a community's
-resilience to perturbation [@Dunne2002NetStr]. The spectral radius of a matrix
-is the largest absolute value of its eigenvalues, which, in addition to being
-presented as a measure of network complexity has also been suggested as an
-indicator of the ability of a system to dampen disturbances @Phillips2011StrEco.
+traditional measures of complexity, namely nestedness ($\mathit{\eta}$,
+following @Bastolla2009ArcMut), connectance ($\mathit{Co}$), and the spectral
+radius of the network ($\mathit{\rho$}, following @Staniczenko2013GhoNes).
+
+The nestedness of a network is a measure of the degree of overlap between
+species links (or strategies), where larger assemblages are made up of a subset
+of smaller ones that share common interactions. Networks with a higher degree of
+nestedness could be considered simpler than when compared to networks with a
+higher degree of nestedness. Connectance is concerned with the realised number
+of interactions (links) in an ecological network and is calculated as the
+fraction of the total number of realised interactions (or links) and the maximum
+number of possible interactions in a network @Martinez1992ConCon. This has been
+shown to be a good estimate of a community's resilience to perturbation
+[@Dunne2002NetStr]. The spectral radius of a matrix is the largest absolute
+value of its eigenvalues, which, in addition to being presented as a measure of
+network complexity has also been suggested as an indicator of the ability of a
+system to dampen disturbances @Phillips2011StrEco.
 
 ## Assessing stability through targeted extinctions
 
