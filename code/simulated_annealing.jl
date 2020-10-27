@@ -7,6 +7,7 @@ using StatsBase
 using Gadfly
 import Cairo, Fontconfig
 using Colors
+using DataFrames
 
 include(joinpath(pwd(), "code", "lib", "main.jl"))
 include(joinpath(pwd(), "code", "lib", "extinctions.jl"))
@@ -40,11 +41,11 @@ end
 
 S = 12
 
-minL = 12+2
-maxL = S^2-2
-nreps = 25
+minL = S+2
+maxL = S^2
+nreps = 20
 
-L = repeat(minL:2:maxL, nreps)
+L = minL:2:maxL
 Ns = []
 for l in L
     m = zeros(Bool, (S, S))
@@ -58,54 +59,47 @@ for l in L
     push!(Ns, N)
 end
 
+Ns = repeat(Ns, nreps)
+
 MAX = copy.(Ns)
 MIN = copy.(Ns)
 
 optim!.(MAX; target=1.0)
 optim!.(MIN; target=0.0)
 
+sims = DataFrame(
+    relcon = Float64[],
+    optim = Symbol[],
+    entropy = Float64[],
+    reldef = Float64[]
+)
+
+relcon = (N) -> (links(N).-richness(N; dims=1))./(prod(size(N)).-richness(N; dims=1))
 reldef = (N) -> ((maxrank(N) - rank(N)) / maxrank(N))
 
-ls = unique(L)
-m = zeros(Float64, length(ls))
-M = zeros(Float64, length(ls))
-mr = zeros(Float64, length(ls))
-Mr = zeros(Float64, length(ls))
-
-for (i,l) in enumerate(ls)
-    idx = findall(L .== l)
-    m[i] = first(findmin(svd_entropy.(MIN[idx])))
-    M[i] = first(findmax(svd_entropy.(MAX[idx])))
-    mr[i] = mean(reldef.(MIN[idx]))
-    Mr[i] = mean(reldef.(MAX[idx]))
+for i in 1:length(MAX)
+    push!(sims, (
+        relcon(MAX[i]),
+        :maximum,
+        svd_entropy(MAX[i]),
+        reldef(MAX[i])
+        )
+    )
+    push!(sims, (
+        relcon(MIN[i]),
+        :minimum,
+        svd_entropy(MIN[i]),
+        reldef(MIN[i])
+        )
+    )
 end
 
+p1 = plot(sims, x=:relcon, y=:entropy, color=:optim, Stat.smooth, Geom.line, Scale.color_discrete_hue())
+push!(p1, layer(sims, x=:relcon, y=:entropy, color=:optim, alpha=[0.2]))
+push!(p1, Coord.cartesian(xmin=0.0, xmax=1.0, ymin=0.0, ymax=1.0))
 
-X = (ls.-(S-1))./(S^2-(S-1))
+p2 = plot(sims, x=:relcon, y=:reldef, color=:optim, Stat.smooth, Geom.line, Scale.color_discrete_hue())
+push!(p2, layer(sims, x=:relcon, y=:reldef, color=:optim, alpha=[0.2]))
+push!(p2, Coord.cartesian(xmin=0.0, xmax=1.0, ymin=0.0, ymax=1.0))
 
-p2 = plot(x=X, y=M, Geom.path)
-push!(p2, layer(x=X, y=m, Geom.path))
-push!(p2, layer(x=X, ymin=m, ymax=M, Geom.ribbon))
-push!(p2, Guide.xlabel("Corrected connectance"))
-push!(p2, Guide.ylabel("Entropy"))
-
-draw(
-    PNG(joinpath("figures", "minmax_entropy.png"), dpi = 300),
-    p2
-)
-
-
-p3 = plot(x=X, y=Mr, Geom.path, color=[colorant"black"])
-push!(p3, layer(x=X, y=mr, Geom.path, color=[colorant"grey"]))
-push!(p3, Guide.xlabel("Corrected connectance"))
-push!(p3, Guide.ylabel("Average rank defficiency"))
-
-draw(
-    PNG(joinpath("figures", "minmax_rank.png"), dpi = 300),
-    p3
-)
-
-draw(
-    PNG(joinpath("figures", "minmax_combined.png"), dpi = 300),
-    hstack(p2, p3)
-)
+hstack(p1, p2)
