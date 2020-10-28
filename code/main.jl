@@ -14,6 +14,7 @@ using Gadfly
 import Cairo, Fontconfig
 using Colors
 using DataFrames, Query
+using GLM, ANOVA
 
 ## Import the functions and methods we need
 include(joinpath(pwd(), "code", "lib", "main.jl"))
@@ -78,6 +79,14 @@ paper_theme = Theme(
 Gadfly.push_theme(paper_theme)
 Gadfly.set_default_plot_size(18cm, 12cm)
 
+## ANOVA for interaction types
+
+model = fit(LinearModel,
+            @formula(entropy ~  type),
+            networks,
+            contrasts = Dict(:type => EffectsCoding()))
+anova(model)
+
 
 ## Interaction Type vs Rank & Entropy
 draw(
@@ -85,7 +94,7 @@ draw(
     plot(networks,
         x=:type, y=:entropy,
         color=:type,
-        Geom.beeswarm, 
+        Geom.beeswarm,
         Guide.xlabel("Interaction Type"), Guide.ylabel("Entropy"),
         Scale.x_discrete(order=[1,5,2,3,4])
     )
