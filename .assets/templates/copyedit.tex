@@ -50,6 +50,10 @@ $endif$
 {\small
 $for(creators)$
 \textsc{$creators.givennames$\,$creators.familyname$}\\
+$for(creators.affiliations)$
+{\small\itshape $creators.affiliations$}\\
+$endfor$
+\medskip
 $endfor$
 }
 
@@ -61,6 +65,8 @@ $endif$
 $if(alignment)$
 \begin{$alignment$}
 $endif$
+
+\clearpage
 
 $body$
 
