@@ -159,7 +159,7 @@ the relative rank deficiency of the generated networks.
 The relationship of SVD entropy was then compared to some of the more
 traditional measures of complexity, namely nestedness ($\mathit{\eta}$,
 following @Bastolla2009ArcMut), connectance ($\mathit{Co}$), and the spectral
-radius of the network ($\mathit{\rho$}, following @Staniczenko2013GhoNes).
+radius of the network ($\mathit{\rho$}$, following @Staniczenko2013GhoNes).
 
 The nestedness of a network is a measure of the degree of overlap between
 species links (or strategies), where larger assemblages are made up of a subset
@@ -238,11 +238,11 @@ we do find that different types of interaction networks have differing
 complexity. When comparing calculated SVD entropy between interaction types
 using an ANOVA (after excluding Plant-Ant and Plant-Herbivore interactions due
 to their small sample size) we find a significant difference between group means
-(F(2,27) = 47.047, *p* < .001). A Tukey's HSD test revels that plant-pollinator
-networks ($\mu_{\mathit{Entropy}}$ = 0.92) are more complex than both host-
-parasite networks ($\mu_{\mathit{Entropy}}$ = 0.89, *p* < .001) and seed
-dispersal ($\mu_{\mathit{Entropy}}$ = 0.89, *p* < .001). With no significant
-difference between host-parisite and seed dispersal networks. Suggesting that
+($F = 47.047, \mathit{p} < .001$). A Tukey's HSD test revels that plant-pollinator
+networks ($\mu_{\mathit{Entropy}} = .924$) are more complex than both host-
+parasite networks ($\mu_{\mathit{Entropy}} = .885, \mathit{p} < .001$) and seed
+dispersal ($\mu_{\mathit{Entropy}} = .888, \mathit{p} < .001$). With no significant
+difference between host-parasite and seed dispersal networks ($\mathit{p} = .889$). Suggesting that
 mutualistic networks may be more complex, possibly due to the fact that these
 networks have been shown to minimise competition [@Bastolla2009ArcMut] and
 favour unique interactions, thereby increasing network complexity.
@@ -265,7 +265,7 @@ This is an interesting result -- ecological networks are indeed extremely
 complex, but whereas ecologists have usually interpreted connectance as a
 measure of complexity, it is in fact sparse networks that are the complex ones.
 
-![TODO](figures/minmax_combined.png){#fig:simann}
+![The relationship between the maximum and minimum value of SVD entropy of a collection of random interaction networks (using simulated annealing) for a given connectance spanning from 0 to 1 (left panel) and how this relates to the relative rank deficiency of networks (right panel)](figures/minmax_combined.png){#fig:simann}
 
 The right panel of +@fig:simann shows the average rank deficiency of networks
 for which SVD entropy was either maximised or minimised. Interestingly, complex
@@ -346,8 +346,11 @@ further exploring why we observe this strong relationship between the
 physical and behavioural complexity of networks yet they seem to be underpinning
 different aspects of network properties.
 <!--- not sure if this is the correct term ---> In short, having a fundamentally correct
-way of defining network complexity will allow for more standardisation and
+approach to defining network complexity will allow for more standardisation and
 unification as we work towards bettering our understanding of its role in
-ecological processes.
+ecological processes.α
+
+*Maybe the reason that networks do not collapse is because they're inherently complex?*
+as a returning point to something raised in the intro
 
 # References
