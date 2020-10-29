@@ -159,7 +159,7 @@ the relative rank deficiency of the generated networks.
 The relationship of SVD entropy was then compared to some of the more
 traditional measures of complexity, namely nestedness ($\mathit{\eta}$,
 following @Bastolla2009ArcMut), connectance ($\mathit{Co}$), and the spectral
-radius of the network ($\mathit{\rho$}$, following @Staniczenko2013GhoNes).
+radius of the network ($\mathit{\rho}$, following @Staniczenko2013GhoNes).
 
 The nestedness of a network is a measure of the degree of overlap between
 species links (or strategies), where larger assemblages are made up of a subset
@@ -216,7 +216,7 @@ networks had SVD entropy larger than 0.8, which is indicative of a strong
 complexity.
 
 ![The relationship between network richness and relative rank deficiency, and
-entropy. The different types of interactions are indicated by the
+SVD entropy. The different types of interactions are indicated by the
 colours.](figures/size_v_rankentropy.png){#fig:size}
 
 As expected following the observation that ecological networks are
@@ -238,10 +238,10 @@ we do find that different types of interaction networks have differing
 complexity. When comparing calculated SVD entropy between interaction types
 using an ANOVA (after excluding Plant-Ant and Plant-Herbivore interactions due
 to their small sample size) we find a significant difference between group means
-($F = 47.047, \mathit{p} < .001$). A Tukey's HSD test revels that plant-pollinator
+($F = 47.047,  \text{\mathit{p}} < .001$). A Tukey's HSD test revels that plant-pollinator
 networks ($\mu_{\mathit{Entropy}} = .924$) are more complex than both host-
-parasite networks ($\mu_{\mathit{Entropy}} = .885, \mathit{p} < .001$) and seed
-dispersal ($\mu_{\mathit{Entropy}} = .888, \mathit{p} < .001$). With no significant
+parasite networks ($\mu_{\mathit{Entropy}} = .885, \text{\mathit{p}} < .001$) and seed
+dispersal ($\mu_{\mathit{Entropy}} = .888,  \text{\mathit{p}} < .001$). With no significant
 difference between host-parasite and seed dispersal networks ($\mathit{p} = .889$). Suggesting that
 mutualistic networks may be more complex, possibly due to the fact that these
 networks have been shown to minimise competition [@Bastolla2009ArcMut] and
@@ -293,27 +293,27 @@ demonstration that mutualistic networks are shaped to minimise competition --
 this can be done by avoiding to duplicate overlap in interactions, thereby
 resulting in a network that is close to full rank, and with high SVD entropy.
 Interestingly, +@fig:other suggests that both nestedness and connectance measure
-the *lack* of complexity in an ecological network, which is in contrast to how
+the *lack* of complexity in an ecological network, which contrasts to how
 they may commonly be viewed [@Landi2018ComSta].
 
-![The relationship between entropy and the nestedness (left panel), spectral
+![The relationship between SVD entropy and the nestedness (left panel), spectral
 radius (central panel) and connectance (right panel) of ecological networks.
 Colours indicate the different interaction types of the networks.](figures/others_v_entropy.png){#fig:other}
 
 ## Complex networks are not more robust to extinction
 
-When looking at the relationship between entropy and the area under an
+When looking at the relationship between SVD entropy and the area under an
 extinction curve (as a proxy for resilience to extinction) we find differences
 depending on both the extinction mechanism as well as along which dimension the
 species removal occurred (+@fig:resilience). As a whole we do not observe any
-obvious relationships between entropy and resilience, nor for different
+obvious relationships between SVD entropy and resilience, nor for different
 interaction types. We do however see differences in the resilience of networks
 depending on how the extinctions were simulated. Generally we see a higher
 resilience in networks where species of only a specific group are removed or in
 networks where species were either randomly removed or based on an increasing
 number of interactions.
 
-![The relationship between entropy and the area under an extinction curve (as a
+![The relationship between SVD entropy and the area under an extinction curve (as a
 proxy for resilience to extinction) for both different extinction mechanisms
 (Random = the removal of a random species, Decreasing = the removal of species
 in order of decreasing number of interactions (i.e most to least number of
