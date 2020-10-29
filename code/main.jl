@@ -81,12 +81,19 @@ Gadfly.set_default_plot_size(18cm, 12cm)
 
 ## ANOVA for interaction types
 
+#remove Networks types with low n
+q1 = @from i in networks begin
+            @where i.type != Symbol("Plant-Ant")
+            @where i.type != Symbol("Plant-Herbivore")
+            @select {i.entropy, i.type}
+            @collect DataFrame
+       end
+
 model = fit(LinearModel,
             @formula(entropy ~  type),
-            networks,
+            q1,
             contrasts = Dict(:type => EffectsCoding()))
 anova(model)
-
 
 ## Interaction Type vs Rank & Entropy
 draw(
@@ -120,7 +127,7 @@ draw(
 ms = Dict(:defficiency=>"Relative rank defficiency", :entropy=>"SVD entropy")
 
 draw(
-    PNG(joinpath("figures", "size_v_rank&entropy.png"), dpi=300),
+    PNG(joinpath("figures", "size_v_rankentropy.png"), dpi=300),
     plot(
         stack(networks, [:defficiency, :entropy], variable_name =:measure, value_name=:value),
         x=:richness, y=:value,
