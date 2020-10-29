@@ -95,6 +95,9 @@ model = fit(LinearModel,
             contrasts = Dict(:type => EffectsCoding()))
 anova(model)
 
+#=TODO
+add Tukey HSD=#
+
 ## Interaction Type vs Rank & Entropy
 draw(
     PNG(joinpath("figures", "interactiontype_v_entropy.png"), dpi=300),
