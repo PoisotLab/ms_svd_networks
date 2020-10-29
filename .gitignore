@@ -2,3 +2,4 @@ dist/
 references.json
 affiliations.json
 *.log
+*synctex*
