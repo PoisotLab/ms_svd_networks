@@ -51,13 +51,17 @@ $endif$
 
 {\small
 $for(authors)$
-\textsc{$authors.givennames$\,$authors.familyname$} ($for(authors.affilcode)$$authors.affilcode$${ sep }, $endfor$)\\
+\textsc{$authors.givennames$\,$authors.familyname$} ($for(authors.affilcode)$$authors.affilcode$${ sep },$endfor$$if(authors.email)$,*$endif$)\\
 $endfor$
 }
 
 {\small
 $for(institutions)$
 ($institutions.id$)\,$institutions.name$\\
+$endfor$
+$for(authors)$
+$if(authors.email)$
+(*)\,\texttt{$author.email$}\\
 $endfor$
 }
 
