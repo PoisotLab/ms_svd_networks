@@ -48,12 +48,14 @@ $if(title)$
 $endif$
 
 {\small
-$for(creators)$
-\textsc{$creators.givennames$\,$creators.familyname$}\\
-$for(creators.affiliations)$
-{\small\itshape $creators.affiliations$}\\
+$for(authors)$
+\textsc{$authors.givennames$\,$authors.familyname$} ($for {authors.affilcode}$ $authors.affilcode$ $endfor$)\\
 $endfor$
-\medskip
+}
+
+{\small
+$for(institutions)$
+$institutions$
 $endfor$
 }
 
