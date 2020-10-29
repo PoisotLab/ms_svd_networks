@@ -346,32 +346,30 @@ networks.](figures/entropy_v_AUCall.png){#fig:resilience}
 
 As highlighted in +@fig:other SVD entropy can be used as an additional measure
 of network complexity. However, as shown in +@fig:resilience, the assumption
-that network complexity begets resilience to extinction begins to fall apart
-when we use SVD entropy as our measure of complexity. This is in contrast to
-previous studies that have shown how connectance plays a role in the
-resilience of networks to extinctions [@Dunne2002NetStr; @Memmott2004TolPol].
-This does not discount the role of using *structural* measures of networks
-(e.g. connectance, nestedness or spectreal radius) as indicators of their
-resilience (although possibly hinting as to why there is no strong emerging
-consensus as to how structural complexity relates to this) but rather points
-to an erroneous assumption as to what aspects of a network we have previously
-used to define its complexity.
+that network complexity begets resilience to extinction begins to unravel when
+we use a measure of physical complexity. This is in contrast to previous studies
+that have shown how connectance plays a role in the resilience of networks to
+extinctions [@Dunne2002NetStr; @Memmott2004TolPol]. This does not discount the
+role of using *structural* measures of network complexity (*e.g.* connectance,
+nestedness or spectreal radius) as indicators of their resilience (although
+possibly hinting as to why there is no strong emerging consensus as to how
+structural complexity relates to this), but rather points to an erroneous
+assumption as to what aspects of a network we have previously used to define its
+complexity.
 
 # Conclusion
 
 We present SVD entropy as a starting point to unifying (and standardising) how
 we should approach defining the complexity of ecological networks. The use of a
 unified definition will allow us to revisit how complexity relates to the
-ecological properties of networks using a standardised method, or
-further exploring why we observe this strong relationship between the
-physical and behavioural complexity of networks yet they seem to be underpinning
-different aspects of network properties.
-<!--- not sure if this is the correct term ---> In short, having a fundamentally correct
-approach to defining network complexity will allow for more standardisation and
-unification as we work towards bettering our understanding of its role in
-ecological processes.α
-
-*Maybe the reason that networks do not collapse is because they're inherently complex?*
-as a returning point to something raised in the intro
+ecological properties of networks using a standardised method, or further
+exploring why, despite the strong relationship between the physical and
+behavioural complexity of networks, they seem to be underpinning different
+aspects of network properties. One important result from using SVD entropy is
+that the complexity of ecological networks is indeed *immense*. This hints at
+the existence of mechanisms minimizing the overlap in interaction partners
+within networks, thereby increasing complementarity; for this reason, we are
+hopeful that the analysis of physical complexity will lead to emerging questions
+about what shapes ecological networks.
 
 # References
