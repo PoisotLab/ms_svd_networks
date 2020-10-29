@@ -50,7 +50,7 @@ $endif$
 
 {\small
 $for(authors)$
-\textsc{$authors.givennames$\,$authors.familyname$} ($for(authors.affilcode)$ $authors.affilcode$${ sep },$endfor$)\\
+\textsc{$authors.givennames$\,$authors.familyname$} ($for(authors.affilcode)$ $authors.affilcode$${ sep }, $endfor$)\\
 $endfor$
 }
 
@@ -64,6 +64,11 @@ $if(toc)$
 \tableofcontents
 $endif$
 
+$if(description)$
+\begin{abstract}
+$description$
+\end{abstract}
+$endif$
 
 $if(alignment)$
 \begin{$alignment$}
