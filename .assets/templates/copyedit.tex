@@ -50,7 +50,7 @@ $endif$
 
 {\small
 $for(authors)$
-\textsc{$authors.givennames$\,$authors.familyname$} ($for {authors.affilcode}$ $authors.affilcode$ $endfor$)\\
+\textsc{$authors.givennames$\,$authors.familyname$} ($for(authors.affilcode)$ $authors.affilcode$${ sep },$endfor$)\\
 $endfor$
 }
 
