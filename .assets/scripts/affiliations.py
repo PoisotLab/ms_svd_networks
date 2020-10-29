@@ -21,7 +21,7 @@ for creator in creators:
 
 affiliations = {}
 affiliations["authors"] = creators
-affiliations["institutions"] = {k: v for k, v in sorted(affiliation_to_number.items(), key=lambda item: item[1])}
+affiliations["institutions"] = [{"id": v, "name": k} for k, v in sorted(affiliation_to_number.items(), key=lambda item: item[1])]
 
 with open("affiliations.json", "w") as outfile:
     json.dump(affiliations, outfile, sort_keys=False, indent=4, separators=(',', ': '))
