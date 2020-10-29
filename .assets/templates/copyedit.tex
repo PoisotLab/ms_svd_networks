@@ -6,6 +6,7 @@
 \usepackage[english]{babel}
 \usepackage{geometry}
 \geometry{verbose,letterpaper,tmargin=3cm,bmargin=3cm,lmargin=3cm,rmargin=3cm}
+\usepackage{setspace}
 
 \input{../.assets/templates/pandoc}
 
@@ -69,6 +70,8 @@ $if(alignment)$
 $endif$
 
 \clearpage
+\linenumbers
+\doublespacing
 
 $body$
 
