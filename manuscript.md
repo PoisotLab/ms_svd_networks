@@ -253,18 +253,16 @@ differing SVD entropies. When comparing calculated SVD entropy between
 interaction types using an ANOVA (after excluding Plant-Ant and Plant-Herbivore
 interactions due to their small sample size in our dataset) we find a
 significant difference between group means ($F = 47.047,  p < 10^{-3}$). A
-Tukey's HSD test reveals that plant-pollinator networks ($\mu_{\text{SVD
-entropy}} = .924$) are more complex than both host- parasite networks
-($\mu_{\text{SVD entropy} = .885, p < 10^{-3}$) and seed dispersal
-($\mu_{\text{SVD entropy} = .888, p < 10^{-3}$). Host-parasite and seed
-dispersal networks had apparently no difference in average complexity ($p =
-.889$). These results suggest that mutualistic networks may be more complex,
-which matches with previous litterature: these networks have been shown to
-minimise competition [@Bastolla2009ArcMut] and favour unique interactions,
-thereby increasing network complexity. This specific structure can appear as a
-side-process of either ecological [@Maynard2018NetSpa] or evolutionary
-[@Valverde2018ArcMut] processes, but nevertheless leaves a profound imprint on
-the complexity of the networks.
+Tukey's HSD test reveals that plant-pollinator networks ($\mu = .924$) are more
+complex than both host- parasite networks ($\mu = .885, p < 10^{-3}$) and seed
+dispersal ($\mu = .888, p < 10^{-3}$). Host-parasite and seed dispersal networks
+had apparently no difference in average complexity ($p = .889$). These results
+suggest that mutualistic networks may be more complex, which matches with
+previous litterature: these networks have been shown to minimise competition
+[@Bastolla2009ArcMut] and favour unique interactions, thereby increasing network
+complexity. This specific structure can appear as a side-process of either
+ecological [@Maynard2018NetSpa] or evolutionary [@Valverde2018ArcMut] processes,
+but nevertheless leaves a profound imprint on the complexity of the networks.
 
 ![The calculated SVD entropy of different interaction networks of different
 interaction types](figures/interactiontype_v_entropy.png){#fig:type}
