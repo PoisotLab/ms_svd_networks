@@ -7,6 +7,7 @@
 \usepackage{geometry}
 \geometry{verbose,letterpaper,tmargin=3cm,bmargin=3cm,lmargin=3cm,rmargin=3cm}
 \usepackage{setspace}
+\usepackage{lineno}
 
 \input{../.assets/templates/pandoc}
 
@@ -50,7 +51,7 @@ $endif$
 
 {\small
 $for(authors)$
-\textsc{$authors.givennames$\,$authors.familyname$} ($for(authors.affilcode)$ $authors.affilcode$${ sep }, $endfor$)\\
+\textsc{$authors.givennames$\,$authors.familyname$} ($for(authors.affilcode)$$authors.affilcode$${ sep }, $endfor$)\\
 $endfor$
 }
 
@@ -80,9 +81,8 @@ $endif$
 
 $body$
 
-%$if(alignment)$
+$if(alignment)$
 \end{$alignment$}
 $endif$
-
 
 \end{document}
