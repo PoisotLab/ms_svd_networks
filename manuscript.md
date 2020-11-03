@@ -102,7 +102,7 @@ at once.
 The rank of $\mathbf{A}$ (noted as $r = \text{rk}(\mathbf{A})$) is the dimension
 of the vector space spanned by the matrix and corresponds to the number of
 linearly independent rows or columns; therefore, the maximum rank of a matrix
-($M = \text{rk}_{\tetx{max}}(\mathbf{A})$) will always be equal to the length of
+($M = \text{rk}_{\text{max}}(\mathbf{A})$) will always be equal to the length of
 the shortest dimension of $\mathbf{A}$, which ecologically speaking is the
 richness of the least species-rich compartment of the bipartite network (or the
 richness in the case of unipartite networks). A matrix is "full-ranked" when
