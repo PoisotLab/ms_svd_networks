@@ -2,8 +2,6 @@
 bibliography: [references.bib]
 ---
 
-# Introduction
-
 Ecologists have turned to network theory because it offers a powerful
 mathematical formalism to embrace the complexity of ecological communities
 [@Bascompte2007PlaMut]. Indeed, analysing ecological systems as networks
@@ -85,7 +83,7 @@ direction to unifying how we define complexity in the context of ecological
 networks, as it restores other measures (like connectance and nestedness) to
 their original role and signification.
 
-# Methods
+# Data and methods
 
 We used all bipartite networks from the `web-of-life.es` database, taken from
 the `EcologicalNetworks.jl` package [@Poisot2019EcoJl] for the *Julia*
@@ -154,66 +152,6 @@ that values are lower than unity, and quantify SVD entropy, using $s_i =
 
 $$J = -\frac{1}{\ln(k)}\Big\sum_{i=1}^k s_i\cdot\ln(s_i)$${#eq:svdentropy}
 
-## Uncovering the extreme complexity values at a given connectance
-
-We used simulated annealing [@Kirkpatrick1984OptSim] to generate networks with
-the highest, or lowest, possible SVD entropy values. From a set network size (30
-species, 15 on each side) with a random number of interactions (spanning the
-entire range from minimally to maximally connected), we reorganised interactions
-until the SVD entropy was as close to 0 or 1 as possible. We repeated the
-process 25 times for every number of interactions. We also measured the relative
-rank deficiency of the generated networks. This allows identifying the
-boundaries of both measures of complexity.
-
-## SVD entropy compared to traditional measures of network complexity
-
-We compared SVD entropy to some of the more common measures of complexity,
-namely nestedness ($\mathit{\eta}$, following @Bastolla2009ArcMut), connectance
-($\mathit{Co}$), and the spectral radius of the network ($\mathit{\rho}$,
-following @Staniczenko2013GhoNes). All of these measures are positively
-correlated, especially over the range of connectances covered by empirical
-bipartite ecological networks.
-
-The nestedness of a network is a measure of the degree of overlap between
-species links (or strategies), where larger assemblages are made up of a subset
-of smaller ones that share common interactions. Networks with a higher degree of
-nestedness could be considered simpler when compared to networks with a lower
-degree of nestedness. Connectance is the realised number of interactions (links)
-in an ecological network and is calculated as the fraction of the total number
-of realised interactions (or links) and the maximum number of possible
-interactions in a network [@Martinez1992ConCon]. This has been shown to be a
-good estimate of a community's resilience to perturbation [@Dunne2002NetStr].
-The spectral radius of a matrix is the largest absolute value of its
-eigenvalues, which, in addition to being presented as a measure of network
-complexity has also been suggested as an indicator of the ability of a system to
-dampen disturbances [@Phillips2011StrEco].
-
-## Assessing robustness through targeted extinctions
-
-One approach to calculating the overall structural robustness of an ecological
-network is by simulating extinction events through the sequential removal of
-species, which allows constructing an extinction curve that plots the
-relationship between species removed and cumulative secondary extinctions
-[@Dunne2002NetStr; @Memmott2004TolPol]. Extinction events can be simulated in a
-manner of different ways, either by removing 1) a random individual, 2)
-systematically removing the most connected species (one with the highest number
-of interactions with other species) and 3) the least connected species
-[@Dunne2002NetStr]. After each extinction event, we remove species from the
-network that no longer have any interacting partners, thereby simulating
-secondary extinctions. This is then repeated until there are no species
-remaining in the network. Furthermore, we can restrict extinction events to only
-one dimension of the interaction matrix, *i.e.* removing only top-level or
-bottom-level species, or alternatively removing a species from any dimension of
-the matrix. Extinction curves are then constructed by plotting the proportion of
-species remaining against those that have been removed; it stands to reason that
-a flatter curve 'maintains' its species pool for a longer number of cumulative
-extinctions, and could be seen as more resilient, when compared to a curve that
-has a much steeper decline. As per previous studies, we measure the robustness
-to extinction as the area under the extinction curve (AUC), calculated using the
-Trapezoidal rule. AUC values close to 0 means that a single extinction is enough
-to collapse the network almost entirely, and values close to 1 means that most
-species persist even when the number of extinctions is really high.
-
 # Results and discussion
 
 ## Most ecological networks are close to full-rank
@@ -246,6 +184,27 @@ the networks.](figures/entropy_v_rank.png){#fig:entropy_v_rank}
 
 ## Most elements of network structure capture network complexity
 
+We compared SVD entropy to some of the more common measures of complexity,
+namely nestedness ($\mathit{\eta}$, following @Bastolla2009ArcMut), connectance
+($\mathit{Co}$), and the spectral radius of the network ($\mathit{\rho}$,
+following @Staniczenko2013GhoNes). All of these measures are positively
+correlated, especially over the range of connectances covered by empirical
+bipartite ecological networks.
+
+The nestedness of a network is a measure of the degree of overlap between
+species links (or strategies), where larger assemblages are made up of a subset
+of smaller ones that share common interactions. Networks with a higher degree of
+nestedness could be considered simpler when compared to networks with a lower
+degree of nestedness. Connectance is the realised number of interactions (links)
+in an ecological network and is calculated as the fraction of the total number
+of realised interactions (or links) and the maximum number of possible
+interactions in a network [@Martinez1992ConCon]. This has been shown to be a
+good estimate of a community's resilience to perturbation [@Dunne2002NetStr].
+The spectral radius of a matrix is the largest absolute value of its
+eigenvalues, which, in addition to being presented as a measure of network
+complexity has also been suggested as an indicator of the ability of a system to
+dampen disturbances [@Phillips2011StrEco].
+
 We find that SVD entropy has a clear negative relationship with nestedness,
 spectral radius, and connectance (@fig:other). As in @fig:type, mutualistic
 networks tend to be more complex, and they also are both sparser and less nested
@@ -262,6 +221,30 @@ radius (central panel) and connectance (right panel) of ecological networks.
 Colours indicate the different interaction types of the networks.](figures/others_v_entropy.png){#fig:other}
 
 ## Complex networks are not more robust to extinction
+
+One approach to calculating the overall structural robustness of an ecological
+network is by simulating extinction events through the sequential removal of
+species, which allows constructing an extinction curve that plots the
+relationship between species removed and cumulative secondary extinctions
+[@Dunne2002NetStr; @Memmott2004TolPol]. Extinction events can be simulated in a
+manner of different ways, either by removing 1) a random individual, 2)
+systematically removing the most connected species (one with the highest number
+of interactions with other species) and 3) the least connected species
+[@Dunne2002NetStr]. After each extinction event, we remove species from the
+network that no longer have any interacting partners, thereby simulating
+secondary extinctions. This is then repeated until there are no species
+remaining in the network. Furthermore, we can restrict extinction events to only
+one dimension of the interaction matrix, *i.e.* removing only top-level or
+bottom-level species, or alternatively removing a species from any dimension of
+the matrix. Extinction curves are then constructed by plotting the proportion of
+species remaining against those that have been removed; it stands to reason that
+a flatter curve 'maintains' its species pool for a longer number of cumulative
+extinctions, and could be seen as more resilient, when compared to a curve that
+has a much steeper decline. As per previous studies, we measure the robustness
+to extinction as the area under the extinction curve (AUC), calculated using the
+Trapezoidal rule. AUC values close to 0 means that a single extinction is enough
+to collapse the network almost entirely, and values close to 1 means that most
+species persist even when the number of extinctions is really high.
 
 When looking at the relationship between SVD entropy and the area under an
 extinction curve (as a proxy for resilience to extinction) we find differences
@@ -322,6 +305,15 @@ interaction types](figures/interactiontype_v_entropy.png){#fig:type}
 
 ## Connectance constrains complexity (but also rank deficiency)
 
+We used simulated annealing [@Kirkpatrick1984OptSim] to generate networks with
+the highest, or lowest, possible SVD entropy values. From a set network size (30
+species, 15 on each side) with a random number of interactions (spanning the
+entire range from minimally to maximally connected), we reorganised interactions
+until the SVD entropy was as close to 0 or 1 as possible. We repeated the
+process 25 times for every number of interactions. We also measured the relative
+rank deficiency of the generated networks. This allows identifying the
+boundaries of both measures of complexity.
+
 By exploring the minimal and maximal values of SVD entropy for networks of a
 given size, we can show that the range of complexity that a network can express
 varies as a function of connectance (@fig:simann). As reported by
@@ -357,7 +349,41 @@ complexity regardless of connectance.
 
 ## Larger networks are less complex than they could be
 
+To assess whether ecological networks are more, or less, complex than expected,
+we applied two null models that generate pseudo-random networks: Type I
+[@Fortuna2006HabLosa], where interactions happen proportionally to connectance,
+and Type II [@Bascompte2003NesAss], where interactions happen proportionally to
+the joint degree of the two species involve. We generated 999 samples for every
+network in the dataset, and measured the *z*-score of the empirical network as 
 
+$$z_i = \frac{x_i-\mu_i}{\sigma_i}$${#eq:zscore}
+
+where $z_i$ is the SVD entropy of network $i$, and $\mu_i$ and $\sigma_i$ are
+respectively the average and standard deviation of the distribution of SVD
+entropy under the null model. Negative values of $z_i$ reflect a network that
+has lower entropy than expected under the assumptions of the null model. In
+@fig:nullmod, we show that despite high *absolute* values of SVD entropy,
+ecological networks are not as complex as they *can* be. This is consistently
+true for both null models, and for the three types of networks that had a
+sufficient sample size.
+
+![TODO](figures/nullmodel_histogram.png){#fig:nullmod}
+
+Previous work on random networks (using a model that is essentially the Type I
+null model) shows that sufficiently large networks achieve maximal von Neuman
+entropy [@Du2010NotNeu; @Passerini2011NeuEnt]. In @fig:larger, we compare the
+*logistic* of $z_i$ to the richness of the network. Transforming to the logistic
+smoothes out differences in absolute value that are apparent in @fig:nullmod,
+and projects the values in the unit range, with values above $0.5$ being more
+complex than expected. It is quite obvious that, across both models and the
+three types of interactions, only smaller networks achieve higher entropy.
+@Barbier2018GenAss and @Saravia2018EcoNet have previously noted that the early
+stages of network assembly usually result in severely constrained networks, due
+to the conditions required for multiple species to persist; as networks grow
+larger, these constraints may "relax", leading in networks with more redundancy,
+and therefore a lower complexity.
+
+![TODO](figures/nullmodel_richness.png){#fig:larger}
 
 # Conclusion
 
