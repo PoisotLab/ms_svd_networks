@@ -219,12 +219,12 @@ species persist even when the number of extinctions is really high.
 ## Most ecological networks are close to full-rank
 
 The majority (63% of our dataset) of bipartite ecological networks have a
-relative rank defficiency of 0 (+@fig:size), which indicates that all species
+relative rank defficiency of 0 (@fig:size), which indicates that all species
 have different and unique interaction lists. Interestingly, the networks that
 had a comparatively larger relative rank deficiency tended to be smaller ones.
 Yet because most of the networks return the same value, matrix rank does not
 appear to be a useful or discriminant measure of network complexity. Another
-striking result (from +@fig:size) is that the SVD entropy of ecological networks
+striking result (from @fig:size) is that the SVD entropy of ecological networks
 is really large -- although the value can range from 0 to 1, all ecological
 networks had SVD entropy larger than 0.8, which is indicative of a strong
 complexity.
@@ -236,13 +236,66 @@ colours.](figures/size_v_rankentropy.png){#fig:size}
 As expected following the observation that ecological networks are
 overwhelmingly full ranked, we do not see a relationship between SVD entropy and
 relative rank deficiency, neither do we observe differences between interaction
-types (+@fig:entropy_v_rank). Based on these results, we feel confident that SVD
+types (@fig:entropy_v_rank). Based on these results, we feel confident that SVD
 entropy provides a more informative measure of the complexity of ecological
 networks, and will use it moving forward.
 
 ![The relationship between SVD entropy and the relative rank deficiency of different
 species interaction networks Colours indicate the different interaction types of
 the networks.](figures/entropy_v_rank.png){#fig:entropy_v_rank}
+
+## Most elements of network structure capture network complexity
+
+We find that SVD entropy has a clear negative relationship with nestedness,
+spectral radius, and connectance (@fig:other). As in @fig:type, mutualistic
+networks tend to be more complex, and they also are both sparser and less nested
+than other types of networks. @Bastolla2009ArcMut give a convincing
+demonstration that mutualistic networks are shaped to minimise competition --
+this can be done by avoiding to duplicate overlap in interactions, thereby
+resulting in a network that is close to full rank, and with high SVD entropy.
+Interestingly, @fig:other suggests that both nestedness and connectance measure
+the *lack* of complexity in an ecological network, which contrasts to how
+they may commonly be viewed [@Landi2018ComSta].
+
+![The relationship between SVD entropy and the nestedness (left panel), spectral
+radius (central panel) and connectance (right panel) of ecological networks.
+Colours indicate the different interaction types of the networks.](figures/others_v_entropy.png){#fig:other}
+
+## Complex networks are not more robust to extinction
+
+When looking at the relationship between SVD entropy and the area under an
+extinction curve (as a proxy for resilience to extinction) we find differences
+depending on both the extinction mechanism as well as along which dimension the
+species removal occurred (@fig:resilience). As a whole we do not observe any
+obvious relationships between SVD entropy and resilience, nor for different
+interaction types. We do however see differences in the resilience of networks
+depending on how the extinctions were simulated. Generally we see a higher
+resilience in networks where species of only a specific group are removed or in
+networks where species were either randomly removed or based on an increasing
+number of interactions.
+
+![The relationship between SVD entropy and the area under an extinction curve (as a
+proxy for resilience to extinction) for both different extinction mechanisms
+(Random = the removal of a random species, Decreasing = the removal of species
+in order of decreasing number of interactions (i.e most to least number of
+interactions), Increasing = the removal of species in order of increasing number
+of interactions) as well as along different dimensions (species groups) of the
+network (all = any species, 1 = only top-level species, and 2 = only bottom-
+level species) Colours indicate the different interaction types of the
+networks.](figures/entropy_v_AUCall.png){#fig:resilience}
+
+As highlighted in @fig:other SVD entropy can be used as an additional measure
+of network complexity. However, as shown in @fig:resilience, the assumption
+that network complexity begets resilience to extinction begins to unravel when
+we use a measure of physical complexity. This is in contrast to previous studies
+that have shown how connectance plays a role in the resilience of networks to
+extinctions [@Dunne2002NetStr; @Memmott2004TolPol]. This does not discount the
+role of using *structural* measures of network complexity (*e.g.* connectance,
+nestedness or spectreal radius) as indicators of their resilience (although
+possibly hinting as to why there is no strong emerging consensus as to how
+structural complexity relates to this), but rather points to an erroneous
+assumption as to what aspects of a network we have previously used to define its
+complexity.
 
 ## Plant-pollinator networks are slightly more complex
 
@@ -271,14 +324,14 @@ interaction types](figures/interactiontype_v_entropy.png){#fig:type}
 
 By exploring the minimal and maximal values of SVD entropy for networks of a
 given size, we can show that the range of complexity that a network can express
-varies as a function of connectance (+@fig:simann). As reported by
+varies as a function of connectance (@fig:simann). As reported by
 @Poisot2014WheEco, there is no variation when the networks are either minimally
 or maximally connected, but any connectance in between can give rise to networks
 of varying complexities. This being said -- minimally connected networks always
 show the largest complexity, and an increase in connectance will always decrease
 complexity. Interestingly, this relationship is monotonous, and there is no peak
 of complexity where the maximal number of possible networks combination exists,
-*i.e.* around $\text{Co} \approx 0.5$ [@Poisot2014WheEco]. This is an intriguing
+*i.e.* around $\text{Co} \approx 0.5$ [@Poisot2014WheEco]. This is an intriguing
 result -- ecological networks are indeed extremely complex, but whereas
 ecologists have usually interpreted connectance as a measure of complexity, it
 is in fact sparse networks that are the complex ones, and connectance acts to
@@ -286,74 +339,25 @@ decomplexify network structure.
 
 ![The relationship between the maximum and minimum value of SVD entropy of a collection of random interaction networks (using simulated annealing) for a given connectance spanning from 0 to 1 (left panel) and how this relates to the relative rank deficiency of networks (right panel)](figures/minmax_combined.png){#fig:simann}
 
-The right panel of +@fig:simann shows the average rank deficiency of networks
-for which SVD entropy was either maximised or minimised. Complex networks
-(meaning, maximally complex given their connectance) had a lower deficiency,
-indicating that except at extreme connectances, there are combinations of
-networks for which all species can interact in unique ways -- this is a natural
-consequence of the results reported by @Poisot2014WheEco, whereby the number of
-possible networks is only really constrained at the far ends of the connectance
-gradient. Minimally complex networks, on the other hand, saw their rank
-deficiency increase with connectance. This hints at the fact that the decrease
-in complexity with connectance may be primarily driven by the infeasibility of
+The right panel of @fig:simann shows the average rank deficiency of networks for
+which SVD entropy was either maximised or minimised. Complex networks (meaning,
+maximally complex given their connectance) had a lower deficiency, indicating
+that except at extreme connectances, there are combinations of networks for
+which all species can interact in unique ways -- this is a natural consequence
+of the results reported by @Poisot2014WheEco, whereby the number of possible
+networks is only really constrained at the far ends of the connectance gradient.
+Minimally complex networks, on the other hand, saw their rank deficiency
+increase with connectance. This hints at the fact that the decrease in
+complexity with connectance may be primarily driven by the infeasibility of
 having enough species for them to all interact uniquely as connectance
 increases. Because non-unique interactions tend to result in competition
 [@Bascompte2007PlaMut], this can "push" networks towards the full-rank
-configuration (as suggested by the results in +@fig:size), thereby maximising
+configuration (as suggested by the results in @fig:size), thereby maximising
 complexity regardless of connectance.
 
-## Most elements of network structure capture network complexity
+## Larger networks are less complex than they could be
 
-We find that SVD entropy has a clear negative relationship with nestedness,
-spectral radius, and connectance (+@fig:other). As in +@fig:type, mutualistic
-networks tend to be more complex, and they also are both sparser and less nested
-than other types of networks. @Bastolla2009ArcMut give a convincing
-demonstration that mutualistic networks are shaped to minimise competition --
-this can be done by avoiding to duplicate overlap in interactions, thereby
-resulting in a network that is close to full rank, and with high SVD entropy.
-Interestingly, +@fig:other suggests that both nestedness and connectance measure
-the *lack* of complexity in an ecological network, which contrasts to how
-they may commonly be viewed [@Landi2018ComSta].
 
-![The relationship between SVD entropy and the nestedness (left panel), spectral
-radius (central panel) and connectance (right panel) of ecological networks.
-Colours indicate the different interaction types of the networks.](figures/others_v_entropy.png){#fig:other}
-
-## Complex networks are not more robust to extinction
-
-When looking at the relationship between SVD entropy and the area under an
-extinction curve (as a proxy for resilience to extinction) we find differences
-depending on both the extinction mechanism as well as along which dimension the
-species removal occurred (+@fig:resilience). As a whole we do not observe any
-obvious relationships between SVD entropy and resilience, nor for different
-interaction types. We do however see differences in the resilience of networks
-depending on how the extinctions were simulated. Generally we see a higher
-resilience in networks where species of only a specific group are removed or in
-networks where species were either randomly removed or based on an increasing
-number of interactions.
-
-![The relationship between SVD entropy and the area under an extinction curve (as a
-proxy for resilience to extinction) for both different extinction mechanisms
-(Random = the removal of a random species, Decreasing = the removal of species
-in order of decreasing number of interactions (i.e most to least number of
-interactions), Increasing = the removal of species in order of increasing number
-of interactions) as well as along different dimensions (species groups) of the
-network (all = any species, 1 = only top-level species, and 2 = only bottom-
-level species) Colours indicate the different interaction types of the
-networks.](figures/entropy_v_AUCall.png){#fig:resilience}
-
-As highlighted in +@fig:other SVD entropy can be used as an additional measure
-of network complexity. However, as shown in +@fig:resilience, the assumption
-that network complexity begets resilience to extinction begins to unravel when
-we use a measure of physical complexity. This is in contrast to previous studies
-that have shown how connectance plays a role in the resilience of networks to
-extinctions [@Dunne2002NetStr; @Memmott2004TolPol]. This does not discount the
-role of using *structural* measures of network complexity (*e.g.* connectance,
-nestedness or spectreal radius) as indicators of their resilience (although
-possibly hinting as to why there is no strong emerging consensus as to how
-structural complexity relates to this), but rather points to an erroneous
-assumption as to what aspects of a network we have previously used to define its
-complexity.
 
 # Conclusion
 
