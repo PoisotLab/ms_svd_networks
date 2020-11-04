@@ -147,10 +147,10 @@ values of SVD entropy reflects that all vectors are equally important, *i.e.*
 that the structure of the ecological network cannot efficiently be compressed,
 and therefore indicates high complexity [@Gu2016HowLon]. Because networks have
 different dimensions, we use Pielou's evenness [@Pielou1975EcoDiv] to ensure
-that values are lower than unity, and quantify SVD entropy, using $s_i =
-\sigma_i/\text{sum}(\sigma)$ as:
+that values are lower than unity, and quantify SVD entropy, using
+$s_i = \sigma_i/\text{sum}(\sigma)$ as:
 
-$$J = -\frac{1}{\ln(k)}\Big\sum_{i=1}^k s_i\cdot\ln(s_i)$${#eq:svdentropy}
+$$J = -\frac{1}{\ln(k)}\sum_{i=1}^k s_i\cdot\ln(s_i)$${#eq:svdentropy}
 
 # Results and discussion
 
@@ -185,8 +185,8 @@ the networks.](figures/entropy_v_rank.png){#fig:entropy_v_rank}
 ## Most elements of network structure capture network complexity
 
 We compared SVD entropy to some of the more common measures of complexity,
-namely nestedness ($\mathit{\eta}$, following @Bastolla2009ArcMut), connectance
-($\mathit{Co}$), and the spectral radius of the network ($\mathit{\rho}$,
+namely nestedness ($\eta$, following @Bastolla2009ArcMut), connectance
+($\text{Co}$), and the spectral radius of the network ($\rho$,
 following @Staniczenko2013GhoNes). All of these measures are positively
 correlated, especially over the range of connectances covered by empirical
 bipartite ecological networks.
