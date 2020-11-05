@@ -377,7 +377,7 @@ Previous work on random networks (using a model that is essentially the Type I
 null model) shows that sufficiently large networks achieve maximal von Neuman
 entropy [@Du2010NotNeu; @Passerini2011NeuEnt]. In @fig:larger, we compare the
 *logistic* of $z_i$ to the richness of the network. Transforming to the logistic
-smoothes out differences in absolute value that are apparent in @fig:nullmod,
+smooths out differences in absolute value that are apparent in @fig:nullmod,
 and projects the values in the unit range, with values above $0.5$ being more
 complex than expected. It is quite obvious that, across both models and the
 three types of interactions, only smaller networks achieve higher entropy.
@@ -394,12 +394,10 @@ and therefore a lower complexity.
 We present SVD entropy as a starting point to unifying (and standardising) how
 we should approach defining the complexity of ecological networks. The use of a
 unified definition will allow us to revisit how complexity relates to the
-ecological properties of networks using a standardised method, or further
-exploring why, despite the strong relationship between the physical and
-behavioural complexity of networks, they seem to be underpinning different
-aspects of network properties. One important result from using SVD entropy is
-that the complexity of ecological networks is indeed *immense*. However, we 
-find that ecological networks are not *as* complex as what they could be, especially 
+ecological properties of networks using a standardised method. 
+One important result from using SVD entropy is that the complexity of ecological 
+networks is indeed *immense*. However, we find that ecological networks are not 
+*as* complex as what they could be when compared to a random network, especially 
 when looking at larger networks. We suggest that this might be related to the assembly 
 dynamics of networks but this still raises the question as to why larger (or more mature) 
 networks are not 'maintaining' this expected or potential complexity.
