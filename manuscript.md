@@ -398,10 +398,10 @@ ecological properties of networks using a standardised method, or further
 exploring why, despite the strong relationship between the physical and
 behavioural complexity of networks, they seem to be underpinning different
 aspects of network properties. One important result from using SVD entropy is
-that the complexity of ecological networks is indeed *immense*. This hints at
-the existence of mechanisms minimizing the overlap in interaction partners
-within networks, thereby increasing complementarity; for this reason, we are
-hopeful that the analysis of physical complexity will lead to emerging questions
-about what shapes ecological networks.
+that the complexity of ecological networks is indeed *immense*. However, we 
+find that ecological networks are not *as* complex as what they could be, especially 
+when looking at larger networks. We suggest that this might be related to the assembly 
+dynamics of networks but this still raises the question as to why larger (or more mature) 
+networks are not 'maintaining' this expected or potential complexity.
 
 # References
