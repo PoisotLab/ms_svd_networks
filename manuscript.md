@@ -351,7 +351,7 @@ complexity regardless of connectance.
 
 To assess whether ecological networks are more, or less, complex than expected,
 we applied two null models that generate pseudo-random networks: Type I
-[@Fortuna2006HabLosa], where interactions happen proportionally to connectance,
+[@Fortuna2006HabLos], where interactions happen proportionally to connectance,
 and Type II [@Bascompte2003NesAss], where interactions happen proportionally to
 the joint degree of the two species involve. The models are equivalent to,
 respectively, the Erdos-Renyi and Configuration models [@Newman2010NetInt], both
