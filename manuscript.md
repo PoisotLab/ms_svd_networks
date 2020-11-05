@@ -353,12 +353,16 @@ To assess whether ecological networks are more, or less, complex than expected,
 we applied two null models that generate pseudo-random networks: Type I
 [@Fortuna2006HabLosa], where interactions happen proportionally to connectance,
 and Type II [@Bascompte2003NesAss], where interactions happen proportionally to
-the joint degree of the two species involve. We generated 999 samples for every
-network in the dataset, and measured the *z*-score of the empirical network as 
+the joint degree of the two species involve. The models are equivalent to,
+respectively, the Erdos-Renyi and Configuration models [@Newman2010NetInt], both
+of which are maximum entropy generative models that reflfect global (Type I) or
+local (Type II) constraints [@Park2004StaMec]. We generated 999 samples for
+every network in the dataset, and measured the *z*-score of the empirical
+network as 
 
 $$z_i = \frac{x_i-\mu_i}{\sigma_i}$${#eq:zscore}
 
-where $z_i$ is the SVD entropy of network $i$, and $\mu_i$ and $\sigma_i$ are
+where $x_i$ is the SVD entropy of network $i$, and $\mu_i$ and $\sigma_i$ are
 respectively the average and standard deviation of the distribution of SVD
 entropy under the null model. Negative values of $z_i$ reflect a network that
 has lower entropy than expected under the assumptions of the null model. In
