@@ -358,7 +358,7 @@ respectively, the Erdos-Renyi and Configuration models [@Newman2010NetInt], both
 of which are maximum entropy generative models that reflfect global (Type I) or
 local (Type II) constraints [@Park2004StaMec]. We generated 999 samples for
 every network in the dataset, and measured the *z*-score of the empirical
-network as 
+network as
 
 $$z_i = \frac{x_i-\mu_i}{\sigma_i}$${#eq:zscore}
 
