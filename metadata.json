@@ -5,7 +5,7 @@
   "creators": [
     {
       "affiliations": [
-        "Université de Montréal",
+        "Département de Sciences Biologiques, Université de Montréal",
         "Québec Centre for Biodiversity Sciences"
       ],
       "familyname": "Strydom",
@@ -13,8 +13,16 @@
       "orcid": "0000-0001-6067-1349"
     },
     {
+      "affiliation": [
+        "School of Mathematics and Statistics, University of Canterbury"
+      ],
+      "familyname": "Dalla Riva",
+      "givennames": "Giulio V.",
+      "orcid": "0000-0002-3454-0633"
+    }
+    {
       "affiliations": [
-        "Université de Montréal",
+        "Département de Sciences Biologiques, Université de Montréal",
         "Québec Centre for Biodiversity Sciences"
       ],
       "familyname": "Poisot",
