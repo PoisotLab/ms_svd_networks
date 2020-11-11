@@ -77,7 +77,9 @@ non-structural approach to defining the (surprisingly high) complexity of
 ecological networks, by relating them to their 'physical' as opposed to
 'behavioural' complexity. In this process we showcase a breakdown in the
 assumption that all measures of complexity of networks are indicative of their
-robustness to extinctions. We propose that taking a physical approach to
+robustness to extinctions. Finally, we show that, despite their high complexity,
+observed networks are less complex when compared to pseudo-random networks,
+especially for larger networks. We propose that taking a physical approach to
 quantifying the complexity of ecological networks is a step in the right
 direction to unifying how we define complexity in the context of ecological
 networks, as it restores other measures (like connectance and nestedness) to
@@ -93,7 +95,7 @@ different dimensions in the interaction matrix. Thus, columns in the matrix
 represent one group (or type) of species and rows represent the other group of
 species involved in the interaction. Because SVD gives similar results on the
 matrix and its transpose, it captures the complexity of both sides of the system
-at once. 
+at once.
 
 ## Estimating complexity with rank deficiency
 
@@ -353,9 +355,9 @@ To assess whether ecological networks are more, or less, complex than expected,
 we applied two null models that generate pseudo-random networks: Type I
 [@Fortuna2006HabLos], where interactions happen proportionally to connectance,
 and Type II [@Bascompte2003NesAss], where interactions happen proportionally to
-the joint degree of the two species involve. The models are equivalent to,
+the joint degree of the two species involved. The models are equivalent to,
 respectively, the Erdos-Renyi and Configuration models [@Newman2010NetInt], both
-of which are maximum entropy generative models that reflfect global (Type I) or
+of which are maximum entropy generative models that reflect global (Type I) or
 local (Type II) constraints [@Park2004StaMec]. We generated 999 samples for
 every network in the dataset, and measured the *z*-score of the empirical
 network as
@@ -367,7 +369,7 @@ respectively the average and standard deviation of the distribution of SVD
 entropy under the null model. Negative values of $z_i$ reflect a network that
 has lower entropy than expected under the assumptions of the null model. In
 @fig:nullmod, we show that despite high *absolute* values of SVD entropy,
-ecological networks are not as complex as they *can* be. This is consistently
+ecological networks are not as complex as they *could* be. This is consistently
 true for both null models, and for the three types of networks that had a
 sufficient sample size.
 
@@ -394,12 +396,13 @@ and therefore a lower complexity.
 We present SVD entropy as a starting point to unifying (and standardising) how
 we should approach defining the complexity of ecological networks. The use of a
 unified definition will allow us to revisit how complexity relates to the
-ecological properties of networks using a standardised method. 
-One important result from using SVD entropy is that the complexity of ecological 
-networks is indeed *immense*. However, we find that ecological networks are not 
-*as* complex as what they could be when compared to a random network, especially 
-when looking at larger networks. We suggest that this might be related to the assembly 
-dynamics of networks but this still raises the question as to why larger (or more mature) 
-networks are not 'maintaining' this expected or potential complexity.
+ecological properties of networks using a standardised method.
+One important result from using SVD entropy is that the complexity of ecological
+networks is indeed *immense*, yet despite this high complexity networks are still not
+reaching their *maximum* potential complexity. We suggest that the assembly
+dynamics of networks  may explain this observation but this still raises the question
+as to why larger (or more mature) networks are not 'maintaining' their expected
+complexity and prompts further exploration as to the role of ecological assembly
+in structuring networks.
 
 # References
