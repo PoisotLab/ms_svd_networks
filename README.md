@@ -4,7 +4,7 @@ Generally in ecology we have struggled to define the complexity of ecological ne
 
 ## Manuscript versions
 
-[master_draft]: https://poisotlab.github.io/ms_svd_networks/ms_svd_networks.pdf
+[master_draft]: https://poisotlab.github.io/ms_svd_networks/ms_svd_networks-copyedit.pdf
 [master_tex]: https://poisotlab.github.io/ms_svd_networks/ms_svd_networks.tex
 [master_html]: https://poisotlab.github.io/ms_svd_networks/
 [master_preprint]: https://poisotlab.github.io/ms_svd_networks/
@@ -12,6 +12,5 @@ Generally in ecology we have struggled to define the complexity of ecological ne
 <!--- - [:newspaper: preprint][master_preprint] --->
 - *Preprint link pending moderation*
 - [:blue_book: website][master_html]
-- [:page_facing_up: draft][master_tex]
 - [:pencil: draft][master_draft]
 
