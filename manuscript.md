@@ -374,7 +374,7 @@ true for both null models, and for the three types of networks that had a
 sufficient sample size.
 
 ![The counts of the $z_i$-scores of different types of networks for both Type I 
-(null1) and Type II (null2) null models. Negative $z_i$ values indicate networks 
+and Type II null models. Negative $z_i$-scores indicate networks 
 with an SVD entropy that is lower *i.e.* less complex than expected](figures/nullmodel_histogram.png){#fig:nullmod}
 
 Previous work on random networks (using a model that is essentially the Type I
@@ -391,8 +391,8 @@ to the conditions required for multiple species to persist; as networks grow
 larger, these constraints may "relax", leading in networks with more redundancy,
 and therefore a lower complexity.
 
-![The logistic $z_i$-scores of different types of networks for both Type I (null1) and 
-Type II (null2) null models compared to the species richness of the network. With $z_i$ values 
+![The logistic $z_i$-scores of different types of networks for both Type I and 
+Type II null models compared to the species richness of the network. Where $z_i$-scores 
 below 0.5 indicate networks with an SVD entropy that is lower *i.e.* less complex than 
 expected](figures/nullmodel_richness.png){#fig:larger}
 
