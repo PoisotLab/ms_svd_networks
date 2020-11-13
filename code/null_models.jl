@@ -10,14 +10,11 @@ using Colors
 using DataFrames
 
 colour_palette = Scale.color_discrete_manual(
-    colorant"#e69f00",
-    colorant"#56b4e9",
-    colorant"#009e73",
-    colorant"#f0e442",
-    colorant"#0072b2",
-    colorant"#d55e00",
-    colorant"#cc79a7",
-    colorant"#000000"
+    colorant"#648FFF",
+    colorant"#785EF0",
+    colorant"#DC267F",
+    colorant"#FE6100",
+    colorant"#FFB000"
     )
 
 ## Theme for the plots
