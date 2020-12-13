@@ -181,17 +181,41 @@ f_random = _order_species_for_removal();
 f_increasing = _order_species_for_removal(true);
 f_decreasing = _order_species_for_removal(false);
 
-AUC = DataFrame(Random_all = [extinction_robustness(extinction(B, f_random)) for B in Bs],
-Increasing_all = [extinction_robustness(extinction(B, f_increasing)) for B in Bs],
-Decreasing_all = [extinction_robustness(extinction(B, f_decreasing)) for B in Bs],
-Random_1 = [extinction_robustness(extinction(B, f_random, dims = 1), dims = 2) for B in Bs],
-Increasing_1 = [extinction_robustness(extinction(B, f_increasing, dims = 1), dims = 2) for B in Bs],
-Decreasing_1 = [extinction_robustness(extinction(B, f_decreasing, dims = 1), dims = 2) for B in Bs],
-Random_2 = [extinction_robustness(extinction(B, f_random, dims = 2), dims = 1) for B in Bs],
-Increasing_2 = [extinction_robustness(extinction(B, f_increasing, dims = 2), dims = 1) for B in Bs],
-Decreasing_2 = [extinction_robustness(extinction(B, f_decreasing, dims = 2), dims = 1) for B in Bs],
-Entropy = svd_entropy.(Bs),
-InteractionType = [y[:Type_of_interactions] for y in web_of_life()])
+AUC = DataFrame(
+    ID = String[],
+    type = Symbol[],
+    entropy = Float64[],
+    Random_all = Float64[],
+    Increasing_all = Float64[],
+    Decreasing_all = Float64[],
+    Random_1 = Float64[],
+    Increasing_1 = Float64[],
+    Decreasing_1 = Float64[],
+    Random_2 = Float64[],
+    Increasing_2 = Float64[],
+    Decreasing_2 = Float64[]
+    )
+
+for wol in web_of_life()
+    N = simplify(convert(BipartiteNetwork, web_of_life(wol.ID)))
+    if richness(N) <= 200
+        D = Dict{Symbol, Any}()
+        D[:ID] = wol.ID
+        D[:type] = Symbol(wol.Type_of_interactions)
+        D[:entropy] = svd_entropy(N)
+        D[:Random_all] = extinction_robustness(extinction(N, f_random))
+        D[:Increasing_all] = extinction_robustness(extinction(N, f_increasing))
+        D[:Decreasing_all] = extinction_robustness(extinction(N, f_decreasing))
+        D[:Random_1] = extinction_robustness(extinction(N, f_random, dims = 1), dims = 2)
+        D[:Increasing_1] = extinction_robustness(extinction(N, f_increasing, dims = 1), dims = 2)
+        D[:Decreasing_1] = extinction_robustness(extinction(N, f_decreasing, dims = 1), dims = 2)
+        D[:Random_2] = extinction_robustness(extinction(N, f_random, dims = 2), dims = 1)
+        D[:Increasing_2] = extinction_robustness(extinction(N, f_increasing, dims = 2), dims = 1)
+        D[:Decreasing_2] = extinction_robustness(extinction(N, f_decreasing, dims = 2), dims = 1)
+        push!(AUC, D)
+    end
+end
+
 #Melt data into long format
 AUC = stack(AUC, [:Random_all, :Random_1, :Random_2, :Decreasing_all, :Decreasing_1,
 :Decreasing_2, :Increasing_all, :Increasing_1, :Increasing_2],
