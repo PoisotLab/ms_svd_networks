@@ -24,9 +24,13 @@ include(joinpath(pwd(), "code", "lib", "extinctions.jl"))
 networks = DataFrame(
     ID = String[],
     type = Symbol[],
+    latitude = Union{Missing,Float64}[],
+    longitude = Union{Missing,Float64}[],
     entropy = Float64[],
     defficiency = Float64[],
     richness = Int64[],
+    s1 = Int64[],
+    s2 = Int64[],
     nestedness = Float64[],
     spectral_radius = Float64[],
     connectance = Float64[]
@@ -34,9 +38,11 @@ networks = DataFrame(
 
 for wol in web_of_life()
     N = simplify(convert(BipartiteNetwork, web_of_life(wol.ID)))
-    if richness(N) <= 200
+    if richness(N) <= 300
         D = Dict{Symbol, Any}()
         D[:ID] = wol.ID
+        D[:latitude] = wol.Latitude == "" ? missing : wol.Latitude
+        D[:longitude] = wol.Longitude == "" ? missing : wol.Longitude
         D[:type] = Symbol(wol.Type_of_interactions)
         D[:entropy] = svd_entropy(N)
         D[:nestedness] = η(N)
@@ -44,9 +50,24 @@ for wol in web_of_life()
         D[:richness] = richness(N)
         D[:connectance] = connectance(N)
         D[:defficiency] = ((maxrank(N) - rank(N)) / maxrank(N))
+        D[:s1] = richness(N, dims=1)
+        D[:s2] = richness(N, dims=2)
         push!(networks, D)
     end
 end
+
+mmin = (x) -> minimum(filter(!ismissing, x))
+mmax = (x) -> maximum(filter(!ismissing, x))
+
+gdf = groupby(networks, :type)
+summ = combine(gdf,
+    :ID => length => :n,
+    :latitude => mmin => :minlat,
+    :latitude => mmax => :maxlat,
+    :s1 => mean => :rtop,
+    :s2 => mean => :rdown
+)
+sort!(summ, :n, rev=true)
 
 # Colour palette
 colour_palette = Scale.color_discrete_manual(

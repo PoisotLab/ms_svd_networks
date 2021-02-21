@@ -4,7 +4,7 @@ bibliography: [references.bib]
 
 Ecologists have turned to network theory because it offers a powerful
 mathematical formalism to embrace the complexity of ecological communities
-[@Bascompte2007PlaMut]. Indeed, analysing ecological systems as networks
+[@Bascompte2007PlaMut]. Indeed, analyzing ecological systems as networks
 highlighted how their structure ties into ecological properties and processes
 [@Proulx2005NetThi; @Poulin2010NetAna], and there has been a subsequent
 explosion of measures that purport to capture elements of network structure, to
@@ -87,15 +87,36 @@ their original role and signification.
 
 # Data and methods
 
-We used all bipartite networks from the `web-of-life.es` database, taken from
-the `EcologicalNetworks.jl` package [@Poisot2019EcoJl] for the *Julia*
-[@Bezanson2017JulFre] programming language. Using bipartite networks means that
-interacting species are split into two sets (or interacting groups) and along
-different dimensions in the interaction matrix. Thus, columns in the matrix
-represent one group (or type) of species and rows represent the other group of
-species involved in the interaction. Because SVD gives similar results on the
-matrix and its transpose, it captures the complexity of both sides of the system
-at once.
+We used all bipartite networks contained in the `web-of-life.es` database. This
+database extracted species interaction networks from supplementary materials
+across all inhabited continents and covers a large array of sampling years,
+environments, organisms, and sampling methodologies. As such, this dataset is
+particularly suited to describe general trends across *all* ecological networks.
+We specifically worked on the version of this dataset distributed with the
+`EcologicalNetworks.jl` package [@Poisot2019EcoJl] for the *Julia*
+[@Bezanson2017JulFre] programming language, in which all analyses were
+conducted. Using bipartite networks means that interacting species are split
+into two sets (or interacting groups) and along different dimensions in the
+interaction matrix. Thus, columns in the matrix represent one group (or type) of
+species and rows represent the other group of species involved in the
+interaction. Because SVD gives similar results on the matrix and its transpose,
+it captures the complexity of both sides of the system at once. A summary of the
+dataset is given in @tbl:summary.
+
+| Interaction type | Sample size | Latitude range             | Richness (top) | Richness (bottom) |
+|------------------|-------------|----------------------------|----------------|-------------------|
+| Host-Parasite    | 51          | 38.77 $\rightarrow$  72.65 | 20.47          | 12.23             |
+| Plant-Ant        | 4           | -16.11 $\rightarrow$ -2.40 | 18.75          | 21.75             |
+| Plant-Herbivore  | 4           | 30.20 $\rightarrow$  64.91 | 49.5           | 29.25             |
+| Pollination      | 134         | -43.09 $\rightarrow$ 81.81 | 40.22          | 18.02             |
+| Seed Dispersal   | 33          | -28.95 $\rightarrow$ 53.05 | 18.75          | 25.12             |
+
+: Overview of the `web-of-life.es` dataset. We used all networks with up to 500
+species. Although there are spatial biases in the sampling of interaction types
+(and some interaction types being under-represented), this dataset covers a
+range of latitudes from -43 degrees south to 81 degrees north. The average
+richess of the top and bottom level of the bipartite networks are also given in
+the last columns. {#tbl:summary}
 
 ## Estimating complexity with rank deficiency
 
