@@ -290,7 +290,7 @@ proxy for resilience to extinction) for both different extinction mechanisms
 in order of decreasing number of interactions (i.e most to least number of
 interactions), Increasing = the removal of species in order of increasing number
 of interactions) as well as along different dimensions (species groups) of the
-network (all = any species, 1 = only top-level species, and 2 = only bottom-
+network (All = any species, Top-level = only top-level species, and Bottom-level = only bottom-
 level species) Colours indicate the different interaction types of the
 networks.](figures/entropy_v_AUCall.png){#fig:resilience}
 

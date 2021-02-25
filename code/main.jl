@@ -24,50 +24,30 @@ include(joinpath(pwd(), "code", "lib", "extinctions.jl"))
 networks = DataFrame(
     ID = String[],
     type = Symbol[],
-    latitude = Union{Missing,Float64}[],
-    longitude = Union{Missing,Float64}[],
     entropy = Float64[],
-    defficiency = Float64[],
+    deficiency = Float64[],
     richness = Int64[],
-    s1 = Int64[],
-    s2 = Int64[],
-    nestedness = Float64[],
+    Nestedness = Float64[],
     spectral_radius = Float64[],
-    connectance = Float64[]
+    Connectance = Float64[]
     )
 
 for wol in web_of_life()
     N = simplify(convert(BipartiteNetwork, web_of_life(wol.ID)))
-    if richness(N) <= 300
+    if richness(N) <= 200
         D = Dict{Symbol, Any}()
         D[:ID] = wol.ID
-        D[:latitude] = wol.Latitude == "" ? missing : wol.Latitude
-        D[:longitude] = wol.Longitude == "" ? missing : wol.Longitude
         D[:type] = Symbol(wol.Type_of_interactions)
         D[:entropy] = svd_entropy(N)
-        D[:nestedness] = η(N)
+        D[:Nestedness] = η(N)
         D[:spectral_radius] = ρ(N)
         D[:richness] = richness(N)
-        D[:connectance] = connectance(N)
-        D[:defficiency] = ((maxrank(N) - rank(N)) / maxrank(N))
-        D[:s1] = richness(N, dims=1)
-        D[:s2] = richness(N, dims=2)
+        D[:Connectance] = connectance(N)
+        D[:deficiency] = ((maxrank(N) - rank(N)) / maxrank(N))
         push!(networks, D)
     end
 end
 
-mmin = (x) -> minimum(filter(!ismissing, x))
-mmax = (x) -> maximum(filter(!ismissing, x))
-
-gdf = groupby(networks, :type)
-summ = combine(gdf,
-    :ID => length => :n,
-    :latitude => mmin => :minlat,
-    :latitude => mmax => :maxlat,
-    :s1 => mean => :rtop,
-    :s2 => mean => :rdown
-)
-sort!(summ, :n, rev=true)
 
 # Colour palette
 colour_palette = Scale.color_discrete_manual(
@@ -131,29 +111,26 @@ draw(
     )
 )
 
-## Entropy and relative rank defficiency
+## Entropy and relative rank deficiency
 draw(
     PNG(joinpath("figures", "entropy_v_rank.png"), dpi = 300),
     plot(networks,
-        x=:defficiency, y=:entropy,
+        x=:deficiency, y=:entropy,
         color=:type,
         Geom.point,
-        Guide.xlabel("Relative rank defficiency"), Guide.ylabel("Entropy")
+        Guide.xlabel("Relative rank deficiency"), Guide.ylabel("Entropy")
     )
 )
 
 ## Size vs Rank & Entropy
 
-#= TODO
-* Change labels on Y axes (this could come down to changing things in the DataFrame?)
-* Labels on subplots e.g. A/B (see below for an attempt) using layers =#
-
-ms = Dict(:defficiency=>"Relative rank defficiency", :entropy=>"SVD entropy")
+rename!(networks,:deficiency => Symbol("Relative rank deficiency"))
+rename!(networks,:entropy => Symbol("SVD entropy"))
 
 draw(
     PNG(joinpath("figures", "size_v_rankentropy.png"), dpi=300),
     plot(
-        stack(networks, [:defficiency, :entropy], variable_name =:measure, value_name=:value),
+        stack(networks, [Symbol("Relative rank deficiency"), Symbol("SVD entropy")], variable_name =:measure, value_name=:value),
         x=:richness, y=:value,
         color=:type, ygroup =:measure,
         #Scale.ygroup(labels=i->f(i), levels=collect(keys(ms))), # this should work, it doesn't
@@ -164,32 +141,17 @@ draw(
     )
 )
 
-#= 1st pass at labelling sub plots... its not going well...
-plot(stack(Outputs, [:RankDefficiencyRel, :Entropy], variable_name =:measure, value_name=:value),
-ygroup =:measure,
-Geom.subplot_grid(
-layer(
-x=:Richness, y=:value, color=:InteractionType, Geom.point),
-layer(DataFrame(x = [0.1,0.1],
-y = [0.51,1.1],
-label = ["A", "B"],
-group = ["RankDefficiencyRel", "Entropy"]),
-x=:x, y=:y, label =:label, ygroup =:group, Geom.label),
-free_y_axis=true),
-alpha = [0.6], Guide.xlabel("Richness"), Guide.ylabel(nothing))=#
 
 ## Other measures of networks vs Rank & Entropy
 
-#= TODO
-* Change labels on X axes (this could come down to changing things in the DataFrame?)
-* Labels on subplots e.g. A/B (see below for an attempt) using layers =#
+rename!(networks,:spectral_radius => Symbol("Spectral radius"))
 
 draw(
     PNG(joinpath("figures", "others_v_entropy.png"), dpi = 300),
     plot(
         stack(
-            stack(networks, [:entropy], [:nestedness, :spectral_radius, :connectance, :type], variable_name =:measure, value_name=:value),
-            [:nestedness, :spectral_radius, :connectance],
+            stack(networks, [Symbol("SVD entropy")], [:Nestedness, Symbol("Spectral radius"), :Connectance, :type], variable_name =:measure, value_name=:value),
+            [:Nestedness, Symbol("Spectral radius"), :Connectance],
         variable_name =:method, value_name=:metric),
         x=:metric, y=:value,
         color=:type, ygroup =:measure, xgroup =:method, Geom.subplot_grid(Geom.point, free_x_axis=true),
@@ -244,17 +206,17 @@ variable_name =:measure, value_name=:value);
 #Split out by dimension and extinction mechanism
 AUC = hcat(AUC, DataFrame([(Type=a,Dimension=b) for (a,b) in split.(AUC.measure, "_")]))
 
-#= TODO
-* Change labels on X axes (this could come down to changing things in the DataFrame?)
-* Labels on subplots e.g. A/B (see below for an attempt) using layers
-* decide how we want to refer to 'mechanism' and 'dimension' =#
+replace!(AUC.Dimension, "all" => "All")
+replace!(AUC.Dimension, "1" => "Top-level")
+replace!(AUC.Dimension, "2" => "Bottom-level")
+
 draw(
     PNG(joinpath("figures", "entropy_v_AUCall.png"), dpi = 300),
     plot(AUC,
-        x =:value, y =:Entropy,
-        color=:InteractionType, ygroup =:Type, xgroup =:Dimension,
+        x =:value, y =:entropy,
+        color=:type, ygroup =:Type, xgroup =:Dimension,
         Geom.subplot_grid(Geom.point, free_y_axis=true),
-        Guide.xlabel("Resilience"), Guide.ylabel("Extinction mechanism")
+        Guide.xlabel("Resilience by Species group"), Guide.ylabel("Extinction mechanism")
     )
 )
 
