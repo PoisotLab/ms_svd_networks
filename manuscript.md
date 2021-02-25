@@ -133,7 +133,7 @@ $d = M-r$. So as to control for the difference in species richness of the
 different networks, we report the relative rank deficiency, *i.e.* expressed as
 a ratio between rank deficiency and the maximal rank:
 
-$$D = 1-\frac{r}{M}$${#eq:rankdefficiency}
+$$D = 1-\frac{r}{M}$${#eq:rankdeficiency}
 
 This measure returns values between 0 (the matrix is full ranked) and $1-M^{-1}
 \approx 1$ (the matrix has rank 1). This serves as a coarse estimate of
@@ -148,11 +148,13 @@ Singular Value Decomposition (SVD) is the factorisation of a matrix $\mathbf{A}$
 of real numbers as well) into the form $\mathbf{U}\cdot\mathbf{\Sigma}\cdot
 \mathbf{V}^T$. $\mathbf{U}$ is an $m \times m$ orthogonal matrix and
 $\mathbf{V}$ an $n \times n$ orthogonal matrix. The columns in these matrices
-are, respectively, the left- and right-singular vectors of $\mathbf{A}$.
-$\mathbf{\Sigma}$ is a diagonal matrix, where $\sigma_{i} = \Sigma{ii}$, which
+are, respectively, the left- and right-singular vectors of $\mathbf{A}$, 
+were $\mathbf{U} = \mathbf{A}\mathbf{A}^T$ and $\mathbf{UV} = \mathbf{A}^T\mathbf{A}$.
+$\mathbf{\Sigma}$ is a matrix that only contains non-negative $\sigma$ 
+values along its diagonal. Where $\sigma_{i} = \Sigma{ii}$, which
 contains the singular values of $\mathbf{A}$. When the values of
-$\mathbf{\sigma}$ are arranged in descending order, the singular values are
-unique, though the singular vectors may not be.
+$\mathbf{\sigma}$ are arranged in descending order, the singular values ($\mathbf{\Sigma}$) are
+unique, though the singular vectors ($\mathbf{U}$ and $\mathbf{V}$) may not be.
 
 After the Eckart-Young-Mirsky theorem [@Eckart1936AppOne; @Golub1987GenEck], the
 number of non-zero entries (after rounding of small values if required due to
@@ -180,7 +182,7 @@ $$J = -\frac{1}{\ln(k)}\sum_{i=1}^k s_i\cdot\ln(s_i)$${#eq:svdentropy}
 ## Most ecological networks are close to full-rank
 
 The majority (63% of our dataset) of bipartite ecological networks have a
-relative rank defficiency of 0 (@fig:size), which indicates that all species
+relative rank deficiency of 0 (@fig:size), which indicates that all species
 have different and unique interaction lists. Interestingly, the networks that
 had a comparatively larger relative rank deficiency tended to be smaller ones.
 Yet because most of the networks return the same value, matrix rank does not
@@ -208,13 +210,14 @@ the networks.](figures/entropy_v_rank.png){#fig:entropy_v_rank}
 ## Most elements of network structure capture network complexity
 
 We compared SVD entropy to some of the more common measures of complexity,
-namely nestedness ($\eta$, following @Bastolla2009ArcMut), connectance
+namely nestedness ($\eta$, fas per @Bastolla2009ArcMut), connectance
 ($\text{Co}$), and the spectral radius of the network ($\rho$,
 following @Staniczenko2013GhoNes). All of these measures are positively
 correlated, especially over the range of connectances covered by empirical
 bipartite ecological networks.
 
-The nestedness of a network is a measure of the degree of overlap between
+Nestedness is calculated based on the number of interactions shared between 
+species pairs and is a measure of the degree of overlap between
 species links (or strategies), where larger assemblages are made up of a subset
 of smaller ones that share common interactions. Networks with a higher degree of
 nestedness could be considered simpler when compared to networks with a lower
