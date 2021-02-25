@@ -4,7 +4,7 @@ bibliography: [references.bib]
 
 Ecologists have turned to network theory because it offers a powerful
 mathematical formalism to embrace the complexity of ecological communities
-[@Bascompte2007PlaMut]. Indeed, analyzing ecological systems as networks
+[@Bascompte2007PlaMut]. Indeed, analysing ecological systems as networks
 highlighted how their structure ties into ecological properties and processes
 [@Proulx2005NetThi; @Poulin2010NetAna], and there has been a subsequent
 explosion of measures that purport to capture elements of network structure, to
@@ -67,8 +67,9 @@ encodes an equal amount of information, as the singular values capture the
 importance of each rank to reconstruct the original matrix; this approach
 therefore serves as a measure of "internal complexity".
 
-In this manuscript, we evaluate both the rank and the SVD entropy as measures of
-the complexity of ecological networks, by using a collection of 220 bipartite
+In this manuscript, we present and evaluate the use of both rank and SVD entropy 
+as more intuitive 'physical' measures of the complexity of ecological networks. 
+This is done by using a collection of 220 bipartite
 networks from various types of interaction, sizes, connectances, and
 environments. We show that while the rank of the adjacency matrix holds little
 information, SVD entropy functions as an appropriate quantification of the
