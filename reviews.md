@@ -17,7 +17,14 @@ bibliographic literature. Figures are well-drawn and clear.
 
 I see two main limitations. The first is that it is not defined a specific
 hypothesis, and all the paper stands in between a theoretical paper and an
-exercise. The second is that the source of data comes from a single repository
+exercise. 
+
+> We've 'tightened up' the opening statement to our final paragraph of the 
+> introduction to highlight that we are presenting both rank and SVD 
+> entropy as a novel and intuitive measure of the complexity of 
+> ecological networks
+
+The second is that the source of data comes from a single repository
 organized by the same author of the software they use for computation. We,
 therefore, must somewhat rely upon these data, without any chance to test the
 concepts expressed with independent datasets. As a reader, I am therefore unable
@@ -38,6 +45,8 @@ limiting the analysis to theoretical considerations.
 It is not clear which of the data present in the cited repository have been
 used, and who exactly prepared the database, when, and with which observational
 method.
+
+> This has been addressed in the previous comment
 
 ## Other comments
 
@@ -67,16 +76,18 @@ a) the concept of simulated annealing which, although widely used in various
 fields, may not be known and above all a greater detail of the steps necessary
 to generate networks with the highest, or lowest, possible SVD entropy values.
 
+> **TODO**
+
 b) some details on the nomenclature of the matrices used (for example singular
 matrix, diagonal matrix, transposed matrix, etc.) so that the reader has a
 clearer basis for calculating the entropy VSD.
 
 > This has been addressed in-text as opposed to an appendix. Although Singular
 > Value Decomposition forms the initial step in calculating entropy it is the
-> Sigma matrix that is of interest for further calculations and it is more
+> $\mathbf{\Sigma}$ matrix that is of interest for further calculations and it is more
 > important that the reader grasp those concepts as opposed to getting bogged
 > down in some of the other mathematical details. That being said we have
-> briefly included how the U and VT matrices are derived (ca. l. 152 in .md) and
+> briefly included how the $\mathbf{\Sigma}$ and $\mathbf{\Sigma}$ matrices are derived (ca. l. 152 in .md) and
 > expanded on the definition of a diagonal matrix (ca. l. 153 in .md)
 
 c) how is nestedness calculated?

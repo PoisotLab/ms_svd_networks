@@ -67,9 +67,10 @@ encodes an equal amount of information, as the singular values capture the
 importance of each rank to reconstruct the original matrix; this approach
 therefore serves as a measure of "internal complexity".
 
-In this manuscript, we present and evaluate the use of both rank and SVD entropy 
-as more intuitive 'physical' measures of the complexity of ecological networks. 
-This is done by using a collection of 220 bipartite
+In this manuscript, we present and evaluate the use of both the rank and SVD 
+entropy of ecological networks as more intuitive and 'physical' measures of their 
+complexity than when compared traditional measures of complexity used for 
+networks. This is done by using a collection of 220 bipartite
 networks from various types of interaction, sizes, connectances, and
 environments. We show that while the rank of the adjacency matrix holds little
 information, SVD entropy functions as an appropriate quantification of the
@@ -150,7 +151,7 @@ of real numbers as well) into the form $\mathbf{U}\cdot\mathbf{\Sigma}\cdot
 \mathbf{V}^T$. $\mathbf{U}$ is an $m \times m$ orthogonal matrix and
 $\mathbf{V}$ an $n \times n$ orthogonal matrix. The columns in these matrices
 are, respectively, the left- and right-singular vectors of $\mathbf{A}$, 
-were $\mathbf{U} = \mathbf{A}\mathbf{A}^T$ and $\mathbf{UV} = \mathbf{A}^T\mathbf{A}$.
+were $\mathbf{U} = \mathbf{A}\mathbf{A}^T$ and $\mathbf{V} = \mathbf{A}^T\mathbf{A}$.
 $\mathbf{\Sigma}$ is a matrix that only contains non-negative $\sigma$ 
 values along its diagonal. Where $\sigma_{i} = \Sigma{ii}$, which
 contains the singular values of $\mathbf{A}$. When the values of
