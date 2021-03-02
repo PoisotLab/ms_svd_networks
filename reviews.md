@@ -17,12 +17,12 @@ bibliographic literature. Figures are well-drawn and clear.
 
 I see two main limitations. The first is that it is not defined a specific
 hypothesis, and all the paper stands in between a theoretical paper and an
-exercise. 
+exercise.
 
-> We've 'tightened up' the opening statement to our final paragraph of the 
-> introduction to highlight that we are presenting both rank and SVD 
-> entropy as a novel and intuitive measure of the complexity of 
-> ecological networks
+> The opening statement of final paragraph of the introduction has been
+> rephrased to highlight that we are presenting both rank and SVD
+> entropy as a novel and intuitive measure of the complexity of
+> ecological networks.
 
 The second is that the source of data comes from a single repository
 organized by the same author of the software they use for computation. We,
@@ -87,8 +87,9 @@ clearer basis for calculating the entropy VSD.
 > $\mathbf{\Sigma}$ matrix that is of interest for further calculations and it is more
 > important that the reader grasp those concepts as opposed to getting bogged
 > down in some of the other mathematical details. That being said we have
-> briefly included how the $\mathbf{\Sigma}$ and $\mathbf{\Sigma}$ matrices are derived (ca. l. 152 in .md) and
+> briefly included how the $\mathbf{\U}$ and $\mathbf{\V}$ matrices are derived (ca. l. 152 in .md) and have
 > expanded on the definition of a diagonal matrix (ca. l. 153 in .md)
+> (which is arguably more critical in terms of reader comprehension)
 
 c) how is nestedness calculated?
 
@@ -124,4 +125,3 @@ matrix, diagonal matrix, transposed matrix, etc.) so that the reader has a
 clearer basis for calculating the entropy VSD.
 
 c) how is nestedness calculated?
-
