@@ -34,14 +34,14 @@ networks = DataFrame(
 
 for wol in web_of_life()
     N = simplify(convert(BipartiteNetwork, web_of_life(wol.ID)))
-    if richness(N) <= 200
+    if EcologicalNetworks.richness(N) <= 200
         D = Dict{Symbol, Any}()
         D[:ID] = wol.ID
         D[:type] = Symbol(wol.Type_of_interactions)
         D[:entropy] = svd_entropy(N)
         D[:Nestedness] = η(N)
         D[:spectral_radius] = ρ(N)
-        D[:richness] = richness(N)
+        D[:richness] = EcologicalNetworks.richness(N)
         D[:Connectance] = connectance(N)
         D[:deficiency] = ((maxrank(N) - rank(N)) / maxrank(N))
         push!(networks, D)
@@ -60,7 +60,7 @@ colour_palette = Scale.color_discrete_manual(
 
 ## Theme for the plots
 
-paper_theme = Theme(
+paper_theme = Gadfly.Theme(
     panel_stroke = colorant"#000000",
     panel_fill = colorant"#ffffff",
     panel_line_width = 0.5mm,
@@ -102,7 +102,7 @@ add Tukey HSD=#
 ## Interaction Type vs Rank & Entropy
 draw(
     PNG(joinpath("figures", "interactiontype_v_entropy.png"), dpi=300),
-    plot(networks,
+    Gadfly.plot(networks,
         x=:type, y=:entropy,
         color=:type,
         Geom.beeswarm,
@@ -124,18 +124,19 @@ draw(
 
 ## Size vs Rank & Entropy
 
-rename!(networks,:deficiency => Symbol("Relative rank deficiency"))
-rename!(networks,:entropy => Symbol("SVD entropy"))
+rename!(networks,:deficiency => Symbol("Rel. rank def."));
+rename!(networks,:entropy => Symbol("SVD entropy"));
 
 draw(
     PNG(joinpath("figures", "size_v_rankentropy.png"), dpi=300),
-    plot(
-        stack(networks, [Symbol("Relative rank deficiency"), Symbol("SVD entropy")], variable_name =:measure, value_name=:value),
+    Gadfly.plot(
+        stack(networks, [Symbol("Rel. rank def."), Symbol("SVD entropy")], variable_name =:measure, value_name=:value),
         x=:richness, y=:value,
         color=:type, ygroup =:measure,
         #Scale.ygroup(labels=i->f(i), levels=collect(keys(ms))), # this should work, it doesn't
         Geom.subplot_grid(
-            Geom.point, free_y_axis=true
+            Geom.point, free_y_axis=true,
+            Guide.ylabel(orientation=:vertical)
         ),
         Guide.xlabel("Richness"), Guide.ylabel(nothing)
     )
