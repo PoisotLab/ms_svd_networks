@@ -4,7 +4,7 @@ bibliography: [references.bib]
 
 Ecologists have turned to network theory because it offers a powerful
 mathematical formalism to embrace the complexity of ecological communities
-[@Bascompte2007PlaMut]. Indeed, analyzing ecological systems as networks
+[@Bascompte2007PlaMut]. Indeed, analysing ecological systems as networks
 highlighted how their structure ties into ecological properties and processes
 [@Proulx2005NetThi; @Poulin2010NetAna], and there has been a subsequent
 explosion of measures that purport to capture elements of network structure, to
@@ -67,8 +67,10 @@ encodes an equal amount of information, as the singular values capture the
 importance of each rank to reconstruct the original matrix; this approach
 therefore serves as a measure of "internal complexity".
 
-In this manuscript, we evaluate both the rank and the SVD entropy as measures of
-the complexity of ecological networks, by using a collection of 220 bipartite
+In this manuscript, we present and evaluate the use of both the rank and SVD
+entropy of ecological networks as a more intuitive and robust measure of
+complexity when compared to traditional approaches to defining complexity.
+This is done by using a collection of 220 bipartite
 networks from various types of interaction, sizes, connectances, and
 environments. We show that while the rank of the adjacency matrix holds little
 information, SVD entropy functions as an appropriate quantification of the
@@ -133,7 +135,7 @@ $d = M-r$. So as to control for the difference in species richness of the
 different networks, we report the relative rank deficiency, *i.e.* expressed as
 a ratio between rank deficiency and the maximal rank:
 
-$$D = 1-\frac{r}{M}$${#eq:rankdefficiency}
+$$D = 1-\frac{r}{M}$${#eq:rankdeficiency}
 
 This measure returns values between 0 (the matrix is full ranked) and $1-M^{-1}
 \approx 1$ (the matrix has rank 1). This serves as a coarse estimate of
@@ -148,11 +150,13 @@ Singular Value Decomposition (SVD) is the factorisation of a matrix $\mathbf{A}$
 of real numbers as well) into the form $\mathbf{U}\cdot\mathbf{\Sigma}\cdot
 \mathbf{V}^T$. $\mathbf{U}$ is an $m \times m$ orthogonal matrix and
 $\mathbf{V}$ an $n \times n$ orthogonal matrix. The columns in these matrices
-are, respectively, the left- and right-singular vectors of $\mathbf{A}$.
-$\mathbf{\Sigma}$ is a diagonal matrix, where $\sigma_{i} = \Sigma{ii}$, which
+are, respectively, the left- and right-singular vectors of $\mathbf{A}$,
+were $\mathbf{U} = \mathbf{A}\mathbf{A}^T$ and $\mathbf{V} = \mathbf{A}^T\mathbf{A}$.
+$\mathbf{\Sigma}$ is a matrix that only contains non-negative $\sigma$
+values along its diagonal and all other entries are zero. Where $\sigma_{i} = \Sigma{ii}$, which
 contains the singular values of $\mathbf{A}$. When the values of
-$\mathbf{\sigma}$ are arranged in descending order, the singular values are
-unique, though the singular vectors may not be.
+$\mathbf{\sigma}$ are arranged in descending order, the singular values ($\mathbf{\Sigma}$) are
+unique, though the singular vectors ($\mathbf{U}$ and $\mathbf{V}$) may not be.
 
 After the Eckart-Young-Mirsky theorem [@Eckart1936AppOne; @Golub1987GenEck], the
 number of non-zero entries (after rounding of small values if required due to
@@ -180,7 +184,7 @@ $$J = -\frac{1}{\ln(k)}\sum_{i=1}^k s_i\cdot\ln(s_i)$${#eq:svdentropy}
 ## Most ecological networks are close to full-rank
 
 The majority (63% of our dataset) of bipartite ecological networks have a
-relative rank defficiency of 0 (@fig:size), which indicates that all species
+relative rank deficiency of 0 (@fig:size), which indicates that all species
 have different and unique interaction lists. Interestingly, the networks that
 had a comparatively larger relative rank deficiency tended to be smaller ones.
 Yet because most of the networks return the same value, matrix rank does not
@@ -208,14 +212,15 @@ the networks.](figures/entropy_v_rank.png){#fig:entropy_v_rank}
 ## Most elements of network structure capture network complexity
 
 We compared SVD entropy to some of the more common measures of complexity,
-namely nestedness ($\eta$, following @Bastolla2009ArcMut), connectance
+namely nestedness ($\eta$, as per @Bastolla2009ArcMut), connectance
 ($\text{Co}$), and the spectral radius of the network ($\rho$,
 following @Staniczenko2013GhoNes). All of these measures are positively
 correlated, especially over the range of connectances covered by empirical
 bipartite ecological networks.
 
-The nestedness of a network is a measure of the degree of overlap between
-species links (or strategies), where larger assemblages are made up of a subset
+Nestedness is calculated based on the number of interactions shared between
+species pairs and is a measure of the degree of overlap between
+species links (or strategies) in the community, where larger assemblages are made up of a subset
 of smaller ones that share common interactions. Networks with a higher degree of
 nestedness could be considered simpler when compared to networks with a lower
 degree of nestedness. Connectance is the realised number of interactions (links)
@@ -286,7 +291,7 @@ proxy for resilience to extinction) for both different extinction mechanisms
 in order of decreasing number of interactions (i.e most to least number of
 interactions), Increasing = the removal of species in order of increasing number
 of interactions) as well as along different dimensions (species groups) of the
-network (all = any species, 1 = only top-level species, and 2 = only bottom-
+network (All = any species, Top-level = only top-level species, and Bottom-level = only bottom-
 level species) Colours indicate the different interaction types of the
 networks.](figures/entropy_v_AUCall.png){#fig:resilience}
 
@@ -394,8 +399,8 @@ ecological networks are not as complex as they *could* be. This is consistently
 true for both null models, and for the three types of networks that had a
 sufficient sample size.
 
-![The counts of the $z_i$-scores of different types of networks for both Type I 
-and Type II null models. Negative $z_i$-scores indicate networks 
+![The counts of the $z_i$-scores of different types of networks for both Type I
+and Type II null models. Negative $z_i$-scores indicate networks
 with an SVD entropy that is lower *i.e.* less complex than expected](figures/nullmodel_histogram.png){#fig:nullmod}
 
 Previous work on random networks (using a model that is essentially the Type I
@@ -412,9 +417,9 @@ to the conditions required for multiple species to persist; as networks grow
 larger, these constraints may "relax", leading in networks with more redundancy,
 and therefore a lower complexity.
 
-![The logistic $z_i$-scores of different types of networks for both Type I and 
-Type II null models compared to the species richness of the network. Where $z_i$-scores 
-below 0.5 indicate networks with an SVD entropy that is lower *i.e.* less complex than 
+![The logistic $z_i$-scores of different types of networks for both Type I and
+Type II null models compared to the species richness of the network. Where $z_i$-scores
+below 0.5 indicate networks with an SVD entropy that is lower *i.e.* less complex than
 expected](figures/nullmodel_richness.png){#fig:larger}
 
 # Conclusion

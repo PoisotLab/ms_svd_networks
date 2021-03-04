@@ -47,7 +47,7 @@ sims = DataFrame(
     reldef = Float64[]
 )
 
-relcon = (N) -> (links(N).-richness(N; dims=1))./(prod(size(N)).-richness(N; dims=1))
+relcon = (N) -> (links(N).-EcologicalNetworks.richness(N; dims=1))./(prod(size(N)).-EcologicalNetworks.richness(N; dims=1))
 reldef = (N) -> ((maxrank(N) - rank(N)) / maxrank(N))
 
 for i in 1:length(MAX)
@@ -67,17 +67,17 @@ for i in 1:length(MAX)
     )
 end
 
-p1 = plot(sims, x=:relcon, y=:entropy, color=:optim, Stat.smooth(smoothing=0.5), Geom.line, Scale.color_discrete_manual(colorant"black", colorant"grey"), Guide.colorkey(title="Type", labels=["Most complex","Least complex"]))
+p1 = Gadfly.plot(sims, x=:relcon, y=:entropy, color=:optim, Stat.smooth(smoothing=0.5), Geom.line, Scale.color_discrete_manual(colorant"black", colorant"grey"), Guide.colorkey(title="Type", labels=["Most complex","Least complex"]))
 push!(p1, layer(sims, x=:relcon, y=:entropy, color=:optim, alpha=[0.2]))
 push!(p1, Coord.cartesian(xmin=0.0, xmax=1.0, ymin=0.0, ymax=1.0))
 push!(p1, Guide.xlabel("Connectance"))
 push!(p1, Guide.ylabel("SVD entropy"))
 
-p2 = plot(sims, x=:relcon, y=:reldef, color=:optim, Stat.smooth(smoothing=0.2), Geom.line, Scale.color_discrete_manual(colorant"black", colorant"grey"), Guide.colorkey(title="Type", labels=["Most complex","Least complex"]))
+p2 = Gadfly.plot(sims, x=:relcon, y=:reldef, color=:optim, Stat.smooth(smoothing=0.2), Geom.line, Scale.color_discrete_manual(colorant"black", colorant"grey"), Guide.colorkey(title="Type", labels=["Most complex","Least complex"]))
 push!(p2, layer(sims, x=:relcon, y=:reldef, color=:optim, alpha=[0.1]))
 push!(p2, Coord.cartesian(xmin=0.0, xmax=1.0, ymin=0.0, ymax=1.0))
 push!(p2, Guide.xlabel("Connectance"))
-push!(p2, Guide.ylabel("Rel. rank deff."))
+push!(p2, Guide.ylabel("Rel. rank def."))
 
 Gadfly.set_default_plot_size(21cm, 12cm)
 draw(

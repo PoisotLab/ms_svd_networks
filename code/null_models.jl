@@ -19,7 +19,7 @@ colour_palette = Scale.color_discrete_manual(
 
 ## Theme for the plots
 
-paper_theme = Theme(
+paper_theme = Gadfly.Theme(
     panel_stroke = colorant"#000000",
     panel_fill = colorant"#ffffff",
     panel_line_width = 0.5mm,
@@ -72,7 +72,7 @@ for n in n_small
                 n.ID,
                 n.Type_of_interactions,
                 svd_entropy(N),
-                richness(N),
+                EcologicalNetworks.richness(N),
                 links(N),
                 connectance(N),
                 m,
@@ -87,25 +87,30 @@ successes = res[findall(.!isnan.(res.zscore)),:]
 successes = successes[findall(successes.zscore .>= -20.0),:]
 successes.score = f.(successes.zscore)
 
-p1 = plot(successes,
+replace!(successes.model, null1 => "Type 1");
+replace!(successes.model, null2 => "Type 2");
+
+p1 = Gadfly.plot(successes,
     x = :zscore,
     color = :type,
     ygroup = :model,
-    xgroup = :type,    
+    xgroup = :type,
     Geom.subplot_grid(
-        Geom.histogram
+        Geom.histogram,
+        Guide.xticks(orientation=:horizontal)
     ),
 )
 
-p2 = plot(successes,
+p2 = Gadfly.plot(successes,
     x = :richness,
     y = :score,
     color = :type,
     ygroup = :model,
-    xgroup = :type,    
+    xgroup = :type,
     Geom.subplot_grid(
         Geom.point,
-        Scale.x_log2
+        Scale.x_log2,
+        Guide.xticks(orientation=:horizontal)
     ),
 )
 
