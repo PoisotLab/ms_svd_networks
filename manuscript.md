@@ -1,7 +1,3 @@
----
-bibliography: [references.bib]
----
-
 Ecologists have turned to network theory because it offers a powerful
 mathematical formalism to embrace the complexity of ecological communities
 [@Bascompte2007PlaMut]. Indeed, analysing ecological systems as networks
@@ -213,10 +209,10 @@ the networks.](figures/entropy_v_rank.png){#fig:entropy_v_rank}
 
 We compared SVD entropy to some of the more common measures of complexity,
 namely nestedness ($\eta$, as per @Bastolla2009ArcMut), connectance
-($\text{Co}$), and the spectral radius of the network ($\rho$,
-following @Staniczenko2013GhoNes). All of these measures are positively
-correlated, especially over the range of connectances covered by empirical
-bipartite ecological networks.
+($\text{Co}$), and the spectral radius of the network ($\rho$, following
+@Staniczenko2013GhoNes). All of these measures are positively correlated,
+especially over the range of connectances covered by empirical bipartite
+ecological networks.
 
 Nestedness is calculated based on the number of interactions shared between
 species pairs and is a measure of the degree of overlap between
@@ -340,7 +336,18 @@ entire range from minimally to maximally connected), we reorganised interactions
 until the SVD entropy was as close to 0 or 1 as possible. We repeated the
 process 25 times for every number of interactions. We also measured the relative
 rank deficiency of the generated networks. This allows identifying the
-boundaries of both measures of complexity.
+boundaries of both measures of complexity. The specific simulated annealing we
+used is as follows. We set an initial temperature $T_0 = 2$. At every timestep
+$t$ (up until $t = 10^4$), the temperature is set to $T_t = T_0\times\lambda^t$,
+so that is decays exponentially at a rate $\lambda = 1 - 10^{-4}$. At each
+timestep, we switch two interactions in the network $\mathcal{N}$ at random to
+generate a proposal network $\mathcal{M}$. The score of this proposal is the
+difference between the squared error of $\mathcal{N}$ and $\mathcal{M}$m *i.e.*
+$\Delta = (f(\mathcal{M})-\theta)^2-(f(\mathcal{N})-\theta)^2$, where $f$ is the
+SVD entropy and $\theta$ is the target for optimisation (either 0 or 1 for
+respectively minimally or maximally complex). A proposal is accepted with
+probability $\text{P}(\mathcal{N} \rightarrow \mathcal{M} | \Delta) =
+\text{exp}\left(-\Delta\times T_t^{-1}\right)$.
 
 By exploring the minimal and maximal values of SVD entropy for networks of a
 given size, we can show that the range of complexity that a network can express

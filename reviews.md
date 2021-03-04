@@ -20,9 +20,13 @@ hypothesis, and all the paper stands in between a theoretical paper and an
 exercise.
 
 > The opening statement of final paragraph of the introduction has been
-> rephrased to highlight that we are presenting both rank and SVD
-> entropy as a novel and intuitive measure of the complexity of
-> ecological networks.
+> rephrased to highlight that we are presenting both rank and SVD entropy as a
+> novel and intuitive measure of the complexity of ecological networks. To be
+> fully straightforward, this paper was not motivated by a specific hypothesis,
+> but by the need to explore the suitability of a specific approach to measuring
+> network complexity. That being said, we have expanded the discussion to
+> highlight how these new results allow framing the question of complexity
+> within novel hypotheses, related notably to assembly and coexistence.
 
 The second is that the source of data comes from a single repository
 organized by the same author of the software they use for computation. We,
@@ -34,7 +38,9 @@ to assess to which extent the conclusions are supported by the data.
 > overview of the bipartite networks used, which we present as a summary table.
 > This includes the sample size, latitudinal range, and top and bottom richness
 > for the different interaction types to highlights the diversity of datasets
-> used
+> used. To answer the core point: these datasets have been *aggregated* at the
+> same place, but come from dozens of different studies. We are confident in the
+> fact that this *strengthens* our results.
 
 ## Please comment on the methods, results and data interpretation. If there are any objective errors, or if the conclusions are not supported, you should detail your concerns.
 
@@ -42,11 +48,17 @@ As expressed above, I would recommend more clarity about the used dataset, and
 possibly I would add data from other sources. Alternatively, I would recommend
 limiting the analysis to theoretical considerations.
 
+> As the data comes from multiple sources, we have decided to keep the analysis
+> as is.
+
 It is not clear which of the data present in the cited repository have been
 used, and who exactly prepared the database, when, and with which observational
 method.
 
-> This has been addressed in the previous comment
+> This has been addressed in the previous comment - additionally, our work is
+> fully reproducible, and the scripts used for analysis do give access to all
+> references. If the editor wishes it, we can compile a summary table with
+> references in the end, but we do feel like it would be overlong.
 
 ## Other comments
 
@@ -76,7 +88,11 @@ a) the concept of simulated annealing which, although widely used in various
 fields, may not be known and above all a greater detail of the steps necessary
 to generate networks with the highest, or lowest, possible SVD entropy values.
 
-> **TODO**
+> This is a very good point - we have added a full explanation of the simulated
+> annealing approach we used, including the hyperparameters values. Because we
+> are under the length limit for this article type, we have added this
+> information to the text, in the "Connectance constrains complexity (but also
+> rank deficiency)" section.
 
 b) some details on the nomenclature of the matrices used (for example singular
 matrix, diagonal matrix, transposed matrix, etc.) so that the reader has a
@@ -84,19 +100,21 @@ clearer basis for calculating the entropy VSD.
 
 > This has been addressed in-text as opposed to an appendix. Although Singular
 > Value Decomposition forms the initial step in calculating entropy it is the
-> $\mathbf{\Sigma}$ matrix that is of interest for further calculations and it is more
-> important that the reader grasp those concepts as opposed to getting bogged
-> down in some of the other mathematical details. That being said we have
-> briefly included how the $\mathbf{\U}$ and $\mathbf{\V}$ matrices are derived (ca. l. 152 in .md) and have
-> expanded on the definition of a diagonal matrix (ca. l. 153 in .md)
-> (which is arguably more critical in terms of reader comprehension)
+> $\mathbf{\Sigma}$ matrix that is of interest for further calculations and it
+> is more important that the reader grasp those concepts as opposed to getting
+> bogged down in some of the other mathematical details (which might require to
+> stray very far from the ecology and into linear algebra). That being said, we
+> have briefly included how the $\mathbf{\U}$ and $\mathbf{\V}$ matrices are
+> derived (ca. l. 152 in .md) and have expanded on the definition of a diagonal
+> matrix (ca. l. 153 in .md).
 
 c) how is nestedness calculated?
 
-> We already point to the paper which describes calculating nestedness in l. 213
-> but have also added that “nestedness is calculated based on the number of
-> shared links between species pairs...” in the preceding paragraph (ca l. 219)
-> to better mirror how we have described connectance and spectral radius.
+> We have clarified this point by that “nestedness is calculated based on the
+> number of shared links between species pairs...” in the preceding paragraph
+> (ca l. 219) to better mirror how we have described connectance and spectral
+> radius. The original article describing $\eta$ has a lengthy appendix on how
+> the calculation actually works.
 
 ## Please comment on the methods, results and data interpretation. If there are any objective errors, or if the conclusions are not supported, you should detail your concerns.
 
