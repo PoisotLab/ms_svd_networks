@@ -98,15 +98,16 @@ b) some details on the nomenclature of the matrices used (for example singular
 matrix, diagonal matrix, transposed matrix, etc.) so that the reader has a
 clearer basis for calculating the entropy VSD.
 
-> This has been addressed in-text as opposed to an appendix. Although Singular
+> This has been addressed in-textin the section "Estimating complexity with SVD 
+> entropy" as opposed to an appendix. Although Singular
 > Value Decomposition forms the initial step in calculating entropy it is the
 > $\mathbf{\Sigma}$ matrix that is of interest for further calculations and it
 > is more important that the reader grasp those concepts as opposed to getting
 > bogged down in some of the other mathematical details (which might require to
 > stray very far from the ecology and into linear algebra). That being said, we
 > have briefly included how the $\mathbf{\U}$ and $\mathbf{\V}$ matrices are
-> derived (ca. l. 152 in .md) and have expanded on the definition of a diagonal
-> matrix (ca. l. 153 in .md).
+> derived and have expanded on the definition of a diagonal
+> matrix.
 
 c) how is nestedness calculated?
 
