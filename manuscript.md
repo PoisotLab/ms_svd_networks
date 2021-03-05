@@ -64,7 +64,7 @@ importance of each rank to reconstruct the original matrix; this approach
 therefore serves as a measure of "internal complexity".
 
 In this manuscript, we present and evaluate the use of both the rank and SVD
-entropy of ecological networks as a more intuitive and robust measure of
+entropy of ecological networks as alternative and more robust measures of
 complexity when compared to traditional approaches to defining complexity.
 This is done by using a collection of 220 bipartite
 networks from various types of interaction, sizes, connectances, and
@@ -144,7 +144,7 @@ test on uniqueness, which calls for more quantitative approaches to complexity.
 Singular Value Decomposition (SVD) is the factorisation of a matrix $\mathbf{A}$
 (where $\mathbf{A}_{m,n} \in\mathbb{B}$ in our case, but SVD works for matrices
 of real numbers as well) into the form $\mathbf{U}\cdot\mathbf{\Sigma}\cdot
-\mathbf{V}^T$. $\mathbf{U}$ is an $m \times m$ orthogonal matrix and
+\mathbf{V}^T$. Where $\mathbf{U}$ is an $m \times m$ orthogonal matrix and
 $\mathbf{V}$ an $n \times n$ orthogonal matrix. The columns in these matrices
 are, respectively, the left- and right-singular vectors of $\mathbf{A}$,
 were $\mathbf{U} = \mathbf{A}\mathbf{A}^T$ and $\mathbf{V} = \mathbf{A}^T\mathbf{A}$.
@@ -342,7 +342,7 @@ $t$ (up until $t = 10^4$), the temperature is set to $T_t = T_0\times\lambda^t$,
 so that is decays exponentially at a rate $\lambda = 1 - 10^{-4}$. At each
 timestep, we switch two interactions in the network $\mathcal{N}$ at random to
 generate a proposal network $\mathcal{M}$. The score of this proposal is the
-difference between the squared error of $\mathcal{N}$ and $\mathcal{M}$m *i.e.*
+difference between the squared error of $\mathcal{N}$ and $\mathcal{M}$ *i.e.*
 $\Delta = (f(\mathcal{M})-\theta)^2-(f(\mathcal{N})-\theta)^2$, where $f$ is the
 SVD entropy and $\theta$ is the target for optimisation (either 0 or 1 for
 respectively minimally or maximally complex). A proposal is accepted with
