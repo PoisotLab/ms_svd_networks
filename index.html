@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SVD entropy reveals the high complexity of ecological networks</title>
+    <script src="https://hypothes.is/embed.js" async></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+    integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,500;1,400;1,500&display=swap');
+
+        :root {
+            --citation: #1976D2;
+            --structure: hsl(210, 61%, 43%);
+            
+            --light: #474747;
+            --pale: #a5a5a5;
+            --grey: #e0e0e0;
+            --nav: #fdfdfd;
+
+            --width: 820px;
+            --inner-space: 1.2em;
+        }
+
+        body {
+            font-family: "Roboto", sans-serif;
+            margin: 0 0;
+            padding: 0 0;
+        }
+
+        article > p {
+            line-height: 135%;
+        }
+        article > h1 {
+            padding-top: 3em;
+        }
+        a {
+            text-decoration: none;
+            color: #000;
+            border-bottom: 1px solid var(--structure);
+        }
+        a:hover {
+            font-weight: 500;
+        }
+        .citation {
+            color: var(--citation);
+        }
+        .container {
+            margin: 0em auto;
+            max-width: var(--width);
+            padding: var(--inner-space);
+        }
+        header > .container {
+            margin-top: 4em;
+        }
+        code, pre {
+            font-family: "Roboto Mono", monospace;
+        }
+        pre {
+            white-space: pre-wrap;
+        }
+        h1, h2, h3 {
+            color: var(--structure);
+            font-family: "Roboto Condensed", sans-serif;
+            font-weight: 400;
+        }
+        header {
+            font-family: "Roboto Condensed", sans-serif;
+            z-index: 5;
+            color: black;
+            margin-top: 4rem;
+        }
+        .header--title {
+            font-weight: 400;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        .header--authors > span {
+            color: var(--light);
+            font-weight: 400;
+        }
+        main {
+            padding-top: 8em !important;
+            padding-bottom: 8em !important;
+        }
+        footer {
+            background-color: var(--grey);
+            font-weight: 300;
+        }
+        .abstract {
+            color: var(--light);
+            margin-bottom: 5em;
+        }
+        figure {
+            max-width: 100%;
+            border: 1px solid var(--pale);
+            border-radius: 2px;
+            margin: 1em 0.5em;
+        }
+        figure > img {
+            max-width: 100%;
+            display: block;
+            margin: 0em auto;
+        }
+        figure > figcaption {
+            padding: var(--inner-space);
+        }
+        table {
+            width: 100%;
+            min-width: 100%;
+            border-collapse: collapse;
+        }
+        table > caption {
+            padding: var(--inner-space);
+        }
+        figcaption, caption {
+            color: var(--light);
+            font-weight: 300;
+        }
+        thead {
+            color: var(--structure);
+        }
+        td, th {
+            padding: 3px;
+        }
+        tr {
+            border-top: 1px solid var(--structure);
+            border-bottom: 1px solid var(--structure);
+        }
+        tbody > tr:nth-child(even) {background: var(--grey)};
+        tbody {
+            border-bottom: 1px solid var(--structure);
+        }
+        #refs {
+            font-size: 90%;
+            column-count: 2;
+        }
+        #refs > .csl-entry {
+            padding-bottom: 0.2em;
+            padding-top: 0.2em;
+        }
+        .hanging-indent > .csl-entry {
+            padding-left: 15px ;
+            text-indent: -15px ;
+        }    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.css"
+    integrity="sha384-D+9gmBxUQogRLqvARvNLmA9hS2x//eK1FhVb9PiU86gmcrBrJAQT8okdJ4LMp2uv" crossorigin="anonymous" />
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.js"
+    integrity="sha384-483A6DwYfKeDa0Q52fJmxFXkcPCFfnXMoXblOkJ4JcA8zATN6Tm78UNL72AKk+0O"
+    crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/contrib/auto-render.min.js"
+    integrity="sha384-yACMu8JWxKzSp/C1YV86pzGiQ/l1YUfE8oPuahJQxzehAjEt2GiQuy/BIvl9KyeF"
+    crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            renderMathInElement(document.body, {
+                delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false }
+                ]
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="header--title">SVD entropy reveals the high complexity of ecological networks</div>
+            <div class="header--authors">
+                                <span class="header--author">
+                                        <a href="https://orcid.org/0000-0001-6067-1349" target="_blank">
+                        Tanya Strydom
+                    </a>
+                                                                <sup class="affilcode">1</sup>
+                                            <sup class="affilcode">2</sup>
+                                    </span>
+                                <span class="header--author">
+                                        <a href="https://orcid.org/0000-0002-3454-0633" target="_blank">
+                        Giulio V. Dalla Riva
+                    </a>
+                                                                <sup class="affilcode">3</sup>
+                                    </span>
+                                <span class="header--author">
+                                        <a href="https://orcid.org/0000-0002-0735-5184" target="_blank">
+                        Timothée Poisot
+                    </a>
+                                                                <sup class="affilcode">1</sup>
+                                            <sup class="affilcode">2</sup>
+                                    </span>
+                            </div>
+        </div>
+    </header>
+    
+    <main class="container">
+        <section class="abstract">
+            <b>Abstract:</b> Quantifying the complexity of ecological networks has remained elusive. Primarily, complexity has been defined on the basis of the structural (or behavioural) complexity of the system. These definitions ignore the notion of ‘physical complexity,’ which can measure the amount of information contained in an ecological network, and how difficult it would be to compress. We present relative rank deficiency and SVD entropy as measures of ‘external’ and ‘internal’ complexity respectively. Using bipartite ecological networks, we find that they all show a very high, almost maximal, physical complexity. Pollination networks, in particular, are more complex when compared to other types of interactions. In addition, we find that SVD entropy relates to other structural measures of complexity (nestedness, connectance, and spectral radius), but does not inform about the resilience of a network when using simulated extinction cascades, which has previously been reported for structural measures of complexity. We argue that SVD entropy provides a fundamentally more ‘correct’ measure of network complexity and should be added to the toolkit of descriptors of ecological networks moving forward.<br />
+            <div class="artifacts">
+                <a href="draft.pdf" title="Draft PDF" target="_blank">draft</a>
+                <a href="preprint.pdf" title="Preprint PDF" target="_blank">preprint</a>
+            </div>
+        </section>
+        
+        <article>
+            <p>Ecologists have turned to network theory because it offers a powerful mathematical formalism to embrace the complexity of ecological communities <span class="citation" data-cites="Bascompte2007PlaMut">(Jordi Bascompte and Jordano 2007)</span>. Indeed, analysing ecological systems as networks highlighted how their structure ties into ecological properties and processes <span class="citation" data-cites="Proulx2005NetThi Poulin2010NetAna">(Proulx, Promislow, and Phillips 2005; Poulin 2010)</span>, and there has been a subsequent explosion of measures that purport to capture elements of network structure, to be related to the ecology of the system they describe <span class="citation" data-cites="Delmas2018AnaEco">(Delmas et al. 2018)</span>. Since the early days of network ecology, ecological networks have been called “complex.” This sustained interest for the notion of complexity stems, in part, from the strong ties it has to stability <span class="citation" data-cites="Landi2018ComSta">(Landi et al. 2018)</span>. As such, many authors have looked for clues, in the network structure, as to why the networks do not collapse <span class="citation" data-cites="Borrelli2015SelIns Staniczenko2013GhoNes Gravel2016StaCom Brose2006AllSca">(Borrelli 2015; Staniczenko, Kopp, and Allesina 2013; Gravel, Massol, and Leibold 2016; Brose, Williams, and Martinez 2006)</span>. Yet decades of theoretical refinements on the relationship between complexity and stability had a hard time when rigorously tested on empirical datasets <span class="citation" data-cites="Jacquet2016NoCom">(Jacquet et al. 2016)</span>; although ecological networks may be complex, our current measures of complexity do not translate into predictions about stability.</p>
+            <p>Surprisingly, <em>complexity</em> itself has proven an elusive concept to define in a rigorous way. It has over time been defined as connectance <span class="citation" data-cites="Rozdilsky2001ComCan">(Rozdilsky and Stone 2001)</span>, as measures of the diversity of species or their interactions <span class="citation" data-cites="Landi2018ComSta">(Landi et al. 2018)</span>, or as a combination of species richness and trophic diversity <span class="citation" data-cites="Duffy2007FunRol">(Duffy et al. 2007)</span>. In short, network ecology as a field readily assumes that because we have more information about a system, or because this system has more components, or simply because this system can be expressed as a network, it follows that the system is complex. But such a diversity of definitions, for a concept that is so central to our quest to understand network stability, decreases the clarity of what complexity means, and what all of these alternative definitions do actually capture. This is a common thread in some measures of ecological network structure, as has been discussed at length for the various definitions of nestedness <span class="citation" data-cites="Ulrich2009ConSG">(Ulrich, Almeida-Neto, and Gotelli 2009)</span>.</p>
+            <p>None of the previous definitions of complexity are formally wrong, in that they do capture an aspect of complexity that ultimately ties to the behaviour of the system, <em>i.e.</em> its low predictability over time. Yet <span class="citation" data-cites="Adami2002WhaCom">Adami (2002)</span> provides a compelling argument for why the complexity of the behaviour does not necessarily reflects the complexity of the system; in fact, one would be very hard pressed to think of a more simple system than the logistic map used by <span class="citation" data-cites="May1976SimMat">May (1976)</span> to illustrate how easily complexity of behaviour emerges. Rather than yielding to the easy assumption that a system will be complex because it has many parts, or because it exhibits a complex behaviour, <span class="citation" data-cites="Adami2002WhaCom">Adami (2002)</span> suggests that we focus on measuring “physical complexity,” <em>i.e.</em> the amount of information required to encode the system, and how much signal this information contains. Complex systems, in this perspective, are those who cannot easily be compressed - and this is a notion we can explore for the structure of ecological networks.</p>
+            <p>Ecological networks are primarily represented by their adjacency matrices, <em>i.e.</em> a matrix in which every entry represents a pair of species, which can take a value of 1 when the two species interact, and a value of 0 when they do not. These matrices (as any matrices) can easily be factorised using Singular Value Decomposition <span class="citation" data-cites="Forsythe1967ComSol Golub1971SinVal">(Forsythe and Moler 1967; Gene H. Golub and Reinsch 1971)</span>, which offers two interesting candidate measures of complexity for ecological networks (both of which we describe at length in the methods). The first measure is the rank of the matrix, which works as an estimate of “external complexity,” in that it describes the dimension of the vector space of this matrix, and therefore the number of linearly independent rows (or columns) of it. From an ecological standpoint, this quantifies the number of unique “strategies” represented in the network: a network with two modules that are distinct complete graphs has a rank of 2. The second measure is an application of the entropy measure of <span class="citation" data-cites="Shannon1948MatThe">Shannon (1948)</span> to the non-zero singular values of the matrix obtained through SVD. This so-called SVD entropy measures the extent to which each rank encodes an equal amount of information, as the singular values capture the importance of each rank to reconstruct the original matrix; this approach therefore serves as a measure of “internal complexity.”</p>
+            <p>In this manuscript, we present and evaluate the use of both the rank and SVD entropy of ecological networks as alternative and more robust measures of complexity when compared to traditional approaches to defining complexity. This is done by using a collection of 220 bipartite networks from various types of interaction, sizes, connectances, and environments. We show that while the rank of the adjacency matrix holds little information, SVD entropy functions as an appropriate quantification of the complexity of ecological systems. Notably, SVD entropy is an intuitive, robust, non-structural approach to defining the (surprisingly high) complexity of ecological networks, by relating them to their ‘physical’ as opposed to ‘behavioural’ complexity. In this process we showcase a breakdown in the assumption that all measures of complexity of networks are indicative of their robustness to extinctions. Finally, we show that, despite their high complexity, observed networks are less complex when compared to pseudo-random networks, especially for larger networks. We propose that taking a physical approach to quantifying the complexity of ecological networks is a step in the right direction to unifying how we define complexity in the context of ecological networks, as it restores other measures (like connectance and nestedness) to their original role and signification.</p>
+            <h1 id="data-and-methods">Data and methods</h1>
+            <p>We used all bipartite networks contained in the <code>web-of-life.es</code> database. This database extracted species interaction networks from supplementary materials across all inhabited continents and covers a large array of sampling years, environments, organisms, and sampling methodologies. As such, this dataset is particularly suited to describe general trends across <em>all</em> ecological networks. We specifically worked on the version of this dataset distributed with the <code>EcologicalNetworks.jl</code> package <span class="citation" data-cites="Poisot2019EcoJl">(Poisot et al. 2019)</span> for the <em>Julia</em> <span class="citation" data-cites="Bezanson2017JulFre">(Bezanson et al. 2017)</span> programming language, in which all analyses were conducted. Using bipartite networks means that interacting species are split into two sets (or interacting groups) and along different dimensions in the interaction matrix. Thus, columns in the matrix represent one group (or type) of species and rows represent the other group of species involved in the interaction. Because SVD gives similar results on the matrix and its transpose, it captures the complexity of both sides of the system at once. A summary of the dataset is given in tbl. 1.</p>
+            <div id="tbl:summary">
+            <table>
+            <caption>Table 1: Overview of the <code>web-of-life.es</code> dataset. We used all networks with up to 500 species. Although there are spatial biases in the sampling of interaction types (and some interaction types being under-represented), this dataset covers a range of latitudes from -43 degrees south to 81 degrees north. The average richess of the top and bottom level of the bipartite networks are also given in the last columns.</caption>
+            <thead>
+            <tr class="header">
+            <th>Interaction type</th>
+            <th>Sample size</th>
+            <th>Latitude range</th>
+            <th>Richness (top)</th>
+            <th>Richness (bottom)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="odd">
+            <td>Host-Parasite</td>
+            <td>51</td>
+            <td>38.77 <span class="math inline">→</span> 72.65</td>
+            <td>20.47</td>
+            <td>12.23</td>
+            </tr>
+            <tr class="even">
+            <td>Plant-Ant</td>
+            <td>4</td>
+            <td>-16.11 <span class="math inline">→</span> -2.40</td>
+            <td>18.75</td>
+            <td>21.75</td>
+            </tr>
+            <tr class="odd">
+            <td>Plant-Herbivore</td>
+            <td>4</td>
+            <td>30.20 <span class="math inline">→</span> 64.91</td>
+            <td>49.5</td>
+            <td>29.25</td>
+            </tr>
+            <tr class="even">
+            <td>Pollination</td>
+            <td>134</td>
+            <td>-43.09 <span class="math inline">→</span> 81.81</td>
+            <td>40.22</td>
+            <td>18.02</td>
+            </tr>
+            <tr class="odd">
+            <td>Seed Dispersal</td>
+            <td>33</td>
+            <td>-28.95 <span class="math inline">→</span> 53.05</td>
+            <td>18.75</td>
+            <td>25.12</td>
+            </tr>
+            </tbody>
+            </table>
+            </div>
+            <h2 id="estimating-complexity-with-rank-deficiency">Estimating complexity with rank deficiency</h2>
+            <p>The rank of <span class="math inline"><strong>A</strong></span> (noted as <span class="math inline"><em>r</em> = rk(<strong>A</strong>)</span>) is the dimension of the vector space spanned by the matrix and corresponds to the number of linearly independent rows or columns; therefore, the maximum rank of a matrix (<span class="math inline"><em>M</em> = rk<sub>max</sub>(<strong>A</strong>)</span>) will always be equal to the length of the shortest dimension of <span class="math inline"><strong>A</strong></span>, which ecologically speaking is the richness of the least species-rich compartment of the bipartite network (or the richness in the case of unipartite networks). A matrix is “full-ranked” when <span class="math inline"><em>r</em> = <em>M</em></span>, <em>i.e.</em> all of its rows/columns are unique. Matrices that are not full-ranked are called rank deficient, and we can measure rank deficiency using <span class="math inline"><em>d</em> = <em>M</em> − <em>r</em></span>. So as to control for the difference in species richness of the different networks, we report the relative rank deficiency, <em>i.e.</em> expressed as a ratio between rank deficiency and the maximal rank:</p>
+            <p><span id="eq:rankdeficiency"><span class="math display">$$D = 1-\frac{r}{M}\qquad(1)$$</span></span></p>
+            <p>This measure returns values between 0 (the matrix is full ranked) and <span class="math inline">1 − <em>M</em><sup> − 1</sup> ≈ 1</span> (the matrix has rank 1). This serves as a coarse estimate of complexity, as the more unique columns/rows are in the matrix, the larger this value will be. Yet it may also lack sensitivity, because it imposes a stringent test on uniqueness, which calls for more quantitative approaches to complexity.</p>
+            <h2 id="estimating-complexity-with-svd-entropy">Estimating complexity with SVD entropy</h2>
+            <p>Singular Value Decomposition (SVD) is the factorisation of a matrix <span class="math inline"><strong>A</strong></span> (where <span class="math inline"><strong>A</strong><sub><em>m</em>, <em>n</em></sub> ∈ 𝔹</span> in our case, but SVD works for matrices of real numbers as well) into the form <span class="math inline"><strong>U</strong> ⋅ <strong>Σ</strong> ⋅ <strong>V</strong><sup><em>T</em></sup></span>. Where <span class="math inline"><strong>U</strong></span> is an <span class="math inline"><em>m</em> × <em>m</em></span> orthogonal matrix and <span class="math inline"><strong>V</strong></span> an <span class="math inline"><em>n</em> × <em>n</em></span> orthogonal matrix. The columns in these matrices are, respectively, the left- and right-singular vectors of <span class="math inline"><strong>A</strong></span>, were <span class="math inline"><strong>U</strong> = <strong>A</strong><strong>A</strong><sup><em>T</em></sup></span> and <span class="math inline"><strong>V</strong> = <strong>A</strong><sup><em>T</em></sup><strong>A</strong></span>. <span class="math inline"><strong>Σ</strong></span> is a matrix that only contains non-negative <span class="math inline"><em>σ</em></span> values along its diagonal and all other entries are zero. Where <span class="math inline"><em>σ</em><sub><em>i</em></sub> = <em>Σ</em><em>i</em><em>i</em></span>, which contains the singular values of <span class="math inline"><strong>A</strong></span>. When the values of <span class="math inline"><strong>σ</strong></span> are arranged in descending order, the singular values (<span class="math inline"><strong>Σ</strong></span>) are unique, though the singular vectors (<span class="math inline"><strong>U</strong></span> and <span class="math inline"><strong>V</strong></span>) may not be.</p>
+            <p>After the Eckart-Young-Mirsky theorem <span class="citation" data-cites="Eckart1936AppOne Golub1987GenEck">(Eckart and Young 1936; G. H. Golub, Hoffman, and Stewart 1987)</span>, the number of non-zero entries (after rounding of small values if required due to numerical precision issues in computing the factorisation) in <span class="math inline"><strong>σ</strong></span> is the rank of matrix <span class="math inline"><strong>A</strong></span>. For the sake of simplicity in notation, we will use <span class="math inline"><em>k</em> = rk(<strong>A</strong>)</span>) for the rank of the matrix. Because only the first <span class="math inline"><em>k</em></span> elements of <span class="math inline"><strong>σ</strong></span> are non-zero, and that the result of the SVD is a simple matrix multiplication, one can define a truncated SVD containing only the first <span class="math inline"><em>k</em></span> singular values.</p>
+            <p>Intuitively, the singular value <span class="math inline"><em>i</em></span> (<span class="math inline"><em>σ</em><sub><em>i</em></sub></span>) measures how much of the dataset is (proportionally) explained by each vector - therefore, one can measure the entropy of <span class="math inline"><strong>σ</strong></span> following <span class="citation" data-cites="Shannon1948MatThe">Shannon (1948)</span>. High values of SVD entropy reflects that all vectors are equally important, <em>i.e.</em> that the structure of the ecological network cannot efficiently be compressed, and therefore indicates high complexity <span class="citation" data-cites="Gu2016HowLon">(Gu and Shao 2016)</span>. Because networks have different dimensions, we use Pielou’s evenness <span class="citation" data-cites="Pielou1975EcoDiv">(Pielou 1975)</span> to ensure that values are lower than unity, and quantify SVD entropy, using <span class="math inline"><em>s</em><sub><em>i</em></sub> = <em>σ</em><sub><em>i</em></sub>/sum(<em>σ</em>)</span> as:</p>
+            <p><span id="eq:svdentropy"><span class="math display">$$J = -\frac{1}{\ln(k)}\sum_{i=1}^k s_i\cdot\ln(s_i)\qquad(2)$$</span></span></p>
+            <h1 id="results-and-discussion">Results and discussion</h1>
+            <h2 id="most-ecological-networks-are-close-to-full-rank">Most ecological networks are close to full-rank</h2>
+            <p>The majority (63% of our dataset) of bipartite ecological networks have a relative rank deficiency of 0 (fig. 1), which indicates that all species have different and unique interaction lists. Interestingly, the networks that had a comparatively larger relative rank deficiency tended to be smaller ones. Yet because most of the networks return the same value, matrix rank does not appear to be a useful or discriminant measure of network complexity. Another striking result (from fig. 1) is that the SVD entropy of ecological networks is really large – although the value can range from 0 to 1, all ecological networks had SVD entropy larger than 0.8, which is indicative of a strong complexity.</p>
+            <figure>
+            <img src="figures/size_v_rankentropy.png" id="fig:size" alt="Figure 1: The relationship between network richness and relative rank deficiency, and SVD entropy. The different types of interactions are indicated by the colours." /><figcaption aria-hidden="true">Figure 1: The relationship between network richness and relative rank deficiency, and SVD entropy. The different types of interactions are indicated by the colours.</figcaption>
+            </figure>
+            <p>As expected following the observation that ecological networks are overwhelmingly full ranked, we do not see a relationship between SVD entropy and relative rank deficiency, neither do we observe differences between interaction types (fig. 2). Based on these results, we feel confident that SVD entropy provides a more informative measure of the complexity of ecological networks, and will use it moving forward.</p>
+            <figure>
+            <img src="figures/entropy_v_rank.png" id="fig:entropy_v_rank" alt="Figure 2: The relationship between SVD entropy and the relative rank deficiency of different species interaction networks Colours indicate the different interaction types of the networks." /><figcaption aria-hidden="true">Figure 2: The relationship between SVD entropy and the relative rank deficiency of different species interaction networks Colours indicate the different interaction types of the networks.</figcaption>
+            </figure>
+            <h2 id="most-elements-of-network-structure-capture-network-complexity">Most elements of network structure capture network complexity</h2>
+            <p>We compared SVD entropy to some of the more common measures of complexity, namely nestedness (<span class="math inline"><em>η</em></span>, as per <span class="citation" data-cites="Bastolla2009ArcMut">Bastolla et al. (2009)</span>), connectance (<span class="math inline">Co</span>), and the spectral radius of the network (<span class="math inline"><em>ρ</em></span>, following <span class="citation" data-cites="Staniczenko2013GhoNes">Staniczenko, Kopp, and Allesina (2013)</span>). All of these measures are positively correlated, especially over the range of connectances covered by empirical bipartite ecological networks.</p>
+            <p>Nestedness is calculated based on the number of interactions shared between species pairs and is a measure of the degree of overlap between species links (or strategies) in the community, where larger assemblages are made up of a subset of smaller ones that share common interactions. Networks with a higher degree of nestedness could be considered simpler when compared to networks with a lower degree of nestedness. Connectance is the realised number of interactions (links) in an ecological network and is calculated as the fraction of the total number of realised interactions (or links) and the maximum number of possible interactions in a network <span class="citation" data-cites="Martinez1992ConCon">(Martinez 1992)</span>. This has been shown to be a good estimate of a community’s resilience to perturbation <span class="citation" data-cites="Dunne2002NetStr">(Dunne, Williams, and Martinez 2002)</span>. The spectral radius of a matrix is the largest absolute value of its eigenvalues, which, in addition to being presented as a measure of network complexity has also been suggested as an indicator of the ability of a system to dampen disturbances <span class="citation" data-cites="Phillips2011StrEco">(Phillips 2011)</span>.</p>
+            <p>We find that SVD entropy has a clear negative relationship with nestedness, spectral radius, and connectance (fig. 3). As in fig. 5, mutualistic networks tend to be more complex, and they also are both sparser and less nested than other types of networks. <span class="citation" data-cites="Bastolla2009ArcMut">Bastolla et al. (2009)</span> give a convincing demonstration that mutualistic networks are shaped to minimise competition – this can be done by avoiding to duplicate overlap in interactions, thereby resulting in a network that is close to full rank, and with high SVD entropy. Interestingly, fig. 3 suggests that both nestedness and connectance measure the <em>lack</em> of complexity in an ecological network, which contrasts to how they may commonly be viewed <span class="citation" data-cites="Landi2018ComSta">(Landi et al. 2018)</span>.</p>
+            <figure>
+            <img src="figures/others_v_entropy.png" id="fig:other" alt="Figure 3: The relationship between SVD entropy and the nestedness (left panel), spectral radius (central panel) and connectance (right panel) of ecological networks. Colours indicate the different interaction types of the networks." /><figcaption aria-hidden="true">Figure 3: The relationship between SVD entropy and the nestedness (left panel), spectral radius (central panel) and connectance (right panel) of ecological networks. Colours indicate the different interaction types of the networks.</figcaption>
+            </figure>
+            <h2 id="complex-networks-are-not-more-robust-to-extinction">Complex networks are not more robust to extinction</h2>
+            <p>One approach to calculating the overall structural robustness of an ecological network is by simulating extinction events through the sequential removal of species, which allows constructing an extinction curve that plots the relationship between species removed and cumulative secondary extinctions <span class="citation" data-cites="Dunne2002NetStr Memmott2004TolPol">(Dunne, Williams, and Martinez 2002; Memmott, Waser, and Price 2004)</span>. Extinction events can be simulated in a manner of different ways, either by removing 1) a random individual, 2) systematically removing the most connected species (one with the highest number of interactions with other species) and 3) the least connected species <span class="citation" data-cites="Dunne2002NetStr">(Dunne, Williams, and Martinez 2002)</span>. After each extinction event, we remove species from the network that no longer have any interacting partners, thereby simulating secondary extinctions. This is then repeated until there are no species remaining in the network. Furthermore, we can restrict extinction events to only one dimension of the interaction matrix, <em>i.e.</em> removing only top-level or bottom-level species, or alternatively removing a species from any dimension of the matrix. Extinction curves are then constructed by plotting the proportion of species remaining against those that have been removed; it stands to reason that a flatter curve ‘maintains’ its species pool for a longer number of cumulative extinctions, and could be seen as more resilient, when compared to a curve that has a much steeper decline. As per previous studies, we measure the robustness to extinction as the area under the extinction curve (AUC), calculated using the Trapezoidal rule. AUC values close to 0 means that a single extinction is enough to collapse the network almost entirely, and values close to 1 means that most species persist even when the number of extinctions is really high.</p>
+            <p>When looking at the relationship between SVD entropy and the area under an extinction curve (as a proxy for resilience to extinction) we find differences depending on both the extinction mechanism as well as along which dimension the species removal occurred (fig. 4). As a whole we do not observe any obvious relationships between SVD entropy and resilience, nor for different interaction types. We do however see differences in the resilience of networks depending on how the extinctions were simulated. Generally we see a higher resilience in networks where species of only a specific group are removed or in networks where species were either randomly removed or based on an increasing number of interactions.</p>
+            <figure>
+            <img src="figures/entropy_v_AUCall.png" id="fig:resilience" alt="Figure 4: The relationship between SVD entropy and the area under an extinction curve (as a proxy for resilience to extinction) for both different extinction mechanisms (Random = the removal of a random species, Decreasing = the removal of species in order of decreasing number of interactions (i.e most to least number of interactions), Increasing = the removal of species in order of increasing number of interactions) as well as along different dimensions (species groups) of the network (All = any species, Top-level = only top-level species, and Bottom-level = only bottom- level species) Colours indicate the different interaction types of the networks." /><figcaption aria-hidden="true">Figure 4: The relationship between SVD entropy and the area under an extinction curve (as a proxy for resilience to extinction) for both different extinction mechanisms (Random = the removal of a random species, Decreasing = the removal of species in order of decreasing number of interactions (i.e most to least number of interactions), Increasing = the removal of species in order of increasing number of interactions) as well as along different dimensions (species groups) of the network (All = any species, Top-level = only top-level species, and Bottom-level = only bottom- level species) Colours indicate the different interaction types of the networks.</figcaption>
+            </figure>
+            <p>As highlighted in fig. 3 SVD entropy can be used as an additional measure of network complexity. However, as shown in fig. 4, the assumption that network complexity begets resilience to extinction begins to unravel when we use a measure of physical complexity. This is in contrast to previous studies that have shown how connectance plays a role in the resilience of networks to extinctions <span class="citation" data-cites="Dunne2002NetStr Memmott2004TolPol">(Dunne, Williams, and Martinez 2002; Memmott, Waser, and Price 2004)</span>. This does not discount the role of using <em>structural</em> measures of network complexity (<em>e.g.</em> connectance, nestedness or spectreal radius) as indicators of their resilience (although possibly hinting as to why there is no strong emerging consensus as to how structural complexity relates to this), but rather points to an erroneous assumption as to what aspects of a network we have previously used to define its complexity.</p>
+            <h2 id="plant-pollinator-networks-are-slightly-more-complex">Plant-pollinator networks are slightly more complex</h2>
+            <p>Although we don’t observe clear differences in the relationship between different interaction types when comparing amongst various measures of complexity, we do find that different types of interaction networks have differing SVD entropies. When comparing calculated SVD entropy between interaction types using an ANOVA (after excluding Plant-Ant and Plant-Herbivore interactions due to their small sample size in our dataset) we find a significant difference between group means (<span class="math inline"><em>F</em> = 47.047, <em>p</em> &lt; 10<sup> − 3</sup></span>). A Tukey’s HSD test reveals that plant-pollinator networks (<span class="math inline"><em>μ</em> = .924</span>) are more complex than both host- parasite networks (<span class="math inline"><em>μ</em> = .885, <em>p</em> &lt; 10<sup> − 3</sup></span>) and seed dispersal (<span class="math inline"><em>μ</em> = .888, <em>p</em> &lt; 10<sup> − 3</sup></span>). Host-parasite and seed dispersal networks had apparently no difference in average complexity (<span class="math inline"><em>p</em> = .889</span>). These results suggest that mutualistic networks may be more complex, which matches with previous litterature: these networks have been shown to minimise competition <span class="citation" data-cites="Bastolla2009ArcMut">(Bastolla et al. 2009)</span> and favour unique interactions, thereby increasing network complexity. This specific structure can appear as a side-process of either ecological <span class="citation" data-cites="Maynard2018NetSpa">(Maynard, Serván, and Allesina 2018)</span> or evolutionary <span class="citation" data-cites="Valverde2018ArcMut">(Valverde et al. 2018)</span> processes, but nevertheless leaves a profound imprint on the complexity of the networks.</p>
+            <figure>
+            <img src="figures/interactiontype_v_entropy.png" id="fig:type" alt="Figure 5: The calculated SVD entropy of different interaction networks of different interaction types" /><figcaption aria-hidden="true">Figure 5: The calculated SVD entropy of different interaction networks of different interaction types</figcaption>
+            </figure>
+            <h2 id="connectance-constrains-complexity-but-also-rank-deficiency">Connectance constrains complexity (but also rank deficiency)</h2>
+            <p>We used simulated annealing <span class="citation" data-cites="Kirkpatrick1984OptSim">(Kirkpatrick 1984)</span> to generate networks with the highest, or lowest, possible SVD entropy values. From a set network size (30 species, 15 on each side) with a random number of interactions (spanning the entire range from minimally to maximally connected), we reorganised interactions until the SVD entropy was as close to 0 or 1 as possible. We repeated the process 25 times for every number of interactions. We also measured the relative rank deficiency of the generated networks. This allows identifying the boundaries of both measures of complexity. The specific simulated annealing we used is as follows. We set an initial temperature <span class="math inline"><em>T</em><sub>0</sub> = 2</span>. At every timestep <span class="math inline"><em>t</em></span> (up until <span class="math inline"><em>t</em> = 10<sup>4</sup></span>), the temperature is set to <span class="math inline"><em>T</em><sub><em>t</em></sub> = <em>T</em><sub>0</sub> × <em>λ</em><sup><em>t</em></sup></span>, so that is decays exponentially at a rate <span class="math inline"><em>λ</em> = 1 − 10<sup> − 4</sup></span>. At each timestep, we switch two interactions in the network <span class="math inline">𝒩</span> at random to generate a proposal network <span class="math inline">ℳ</span>. The score of this proposal is the difference between the squared error of <span class="math inline">𝒩</span> and <span class="math inline">ℳ</span> <em>i.e.</em> <span class="math inline"><em>Δ</em> = (<em>f</em>(ℳ) − <em>θ</em>)<sup>2</sup> − (<em>f</em>(𝒩) − <em>θ</em>)<sup>2</sup></span>, where <span class="math inline"><em>f</em></span> is the SVD entropy and <span class="math inline"><em>θ</em></span> is the target for optimisation (either 0 or 1 for respectively minimally or maximally complex). A proposal is accepted with probability <span class="math inline">P(𝒩 → ℳ|<em>Δ</em>) = exp(−<em>Δ</em>×<em>T</em><sub><em>t</em></sub><sup> − 1</sup>)</span>.</p>
+            <p>By exploring the minimal and maximal values of SVD entropy for networks of a given size, we can show that the range of complexity that a network can express varies as a function of connectance (fig. 6). As reported by <span class="citation" data-cites="Poisot2014WheEco">Poisot and Gravel (2014)</span>, there is no variation when the networks are either minimally or maximally connected, but any connectance in between can give rise to networks of varying complexities. This being said – minimally connected networks always show the largest complexity, and an increase in connectance will always decrease complexity. Interestingly, this relationship is monotonous, and there is no peak of complexity where the maximal number of possible networks combination exists, <em>i.e.</em> around <span class="math inline">Co ≈ 0.5</span> <span class="citation" data-cites="Poisot2014WheEco">(Poisot and Gravel 2014)</span>. This is an intriguing result – ecological networks are indeed extremely complex, but whereas ecologists have usually interpreted connectance as a measure of complexity, it is in fact sparse networks that are the complex ones, and connectance acts to decomplexify network structure.</p>
+            <figure>
+            <img src="figures/minmax_combined.png" id="fig:simann" alt="Figure 6: The relationship between the maximum and minimum value of SVD entropy of a collection of random interaction networks (using simulated annealing) for a given connectance spanning from 0 to 1 (left panel) and how this relates to the relative rank deficiency of networks (right panel)" /><figcaption aria-hidden="true">Figure 6: The relationship between the maximum and minimum value of SVD entropy of a collection of random interaction networks (using simulated annealing) for a given connectance spanning from 0 to 1 (left panel) and how this relates to the relative rank deficiency of networks (right panel)</figcaption>
+            </figure>
+            <p>The right panel of fig. 6 shows the average rank deficiency of networks for which SVD entropy was either maximised or minimised. Complex networks (meaning, maximally complex given their connectance) had a lower deficiency, indicating that except at extreme connectances, there are combinations of networks for which all species can interact in unique ways – this is a natural consequence of the results reported by <span class="citation" data-cites="Poisot2014WheEco">Poisot and Gravel (2014)</span>, whereby the number of possible networks is only really constrained at the far ends of the connectance gradient. Minimally complex networks, on the other hand, saw their rank deficiency increase with connectance. This hints at the fact that the decrease in complexity with connectance may be primarily driven by the infeasibility of having enough species for them to all interact uniquely as connectance increases. Because non-unique interactions tend to result in competition <span class="citation" data-cites="Bascompte2007PlaMut">(Jordi Bascompte and Jordano 2007)</span>, this can “push” networks towards the full-rank configuration (as suggested by the results in fig. 1), thereby maximising complexity regardless of connectance.</p>
+            <h2 id="larger-networks-are-less-complex-than-they-could-be">Larger networks are less complex than they could be</h2>
+            <p>To assess whether ecological networks are more, or less, complex than expected, we applied two null models that generate pseudo-random networks: Type I <span class="citation" data-cites="Fortuna2006HabLos">(Fortuna and Bascompte 2006)</span>, where interactions happen proportionally to connectance, and Type II <span class="citation" data-cites="Bascompte2003NesAss">(J. Bascompte et al. 2003)</span>, where interactions happen proportionally to the joint degree of the two species involved. The models are equivalent to, respectively, the Erdos-Renyi and Configuration models <span class="citation" data-cites="Newman2010NetInt">(Newman 2010)</span>, both of which are maximum entropy generative models that reflect global (Type I) or local (Type II) constraints <span class="citation" data-cites="Park2004StaMec">(Park and Newman 2004)</span>. We generated 999 samples for every network in the dataset, and measured the <em>z</em>-score of the empirical network as</p>
+            <p><span id="eq:zscore"><span class="math display">$$z_i = \frac{x_i-\mu_i}{\sigma_i}\qquad(3)$$</span></span></p>
+            <p>where <span class="math inline"><em>x</em><sub><em>i</em></sub></span> is the SVD entropy of network <span class="math inline"><em>i</em></span>, and <span class="math inline"><em>μ</em><sub><em>i</em></sub></span> and <span class="math inline"><em>σ</em><sub><em>i</em></sub></span> are respectively the average and standard deviation of the distribution of SVD entropy under the null model. Negative values of <span class="math inline"><em>z</em><sub><em>i</em></sub></span> reflect a network that has lower entropy than expected under the assumptions of the null model. In fig. 7, we show that despite high <em>absolute</em> values of SVD entropy, ecological networks are not as complex as they <em>could</em> be. This is consistently true for both null models, and for the three types of networks that had a sufficient sample size.</p>
+            <figure>
+            <img src="figures/nullmodel_histogram.png" id="fig:nullmod" alt="Figure 7: The counts of the z_i-scores of different types of networks for both Type I and Type II null models. Negative z_i-scores indicate networks with an SVD entropy that is lower i.e. less complex than expected" /><figcaption aria-hidden="true">Figure 7: The counts of the <span class="math inline"><em>z</em><sub><em>i</em></sub></span>-scores of different types of networks for both Type I and Type II null models. Negative <span class="math inline"><em>z</em><sub><em>i</em></sub></span>-scores indicate networks with an SVD entropy that is lower <em>i.e.</em> less complex than expected</figcaption>
+            </figure>
+            <p>Previous work on random networks (using a model that is essentially the Type I null model) shows that sufficiently large networks achieve maximal von Neuman entropy <span class="citation" data-cites="Du2010NotNeu Passerini2011NeuEnt">(Du et al. 2010; Passerini and Severini 2011)</span>. In fig. 8, we compare the <em>logistic</em> of <span class="math inline"><em>z</em><sub><em>i</em></sub></span> to the richness of the network. Transforming to the logistic smooths out differences in absolute value that are apparent in fig. 7, and projects the values in the unit range, with values above <span class="math inline">0.5</span> being more complex than expected. It is quite obvious that, across both models and the three types of interactions, only smaller networks achieve higher entropy. <span class="citation" data-cites="Barbier2018GenAss">Barbier et al. (2018)</span> and <span class="citation" data-cites="Saravia2018EcoNet">Saravia et al. (2018)</span> have previously noted that the early stages of network assembly usually result in severely constrained networks, due to the conditions required for multiple species to persist; as networks grow larger, these constraints may “relax,” leading in networks with more redundancy, and therefore a lower complexity.</p>
+            <figure>
+            <img src="figures/nullmodel_richness.png" id="fig:larger" alt="Figure 8: The logistic z_i-scores of different types of networks for both Type I and Type II null models compared to the species richness of the network. Where z_i-scores below 0.5 indicate networks with an SVD entropy that is lower i.e. less complex than expected" /><figcaption aria-hidden="true">Figure 8: The logistic <span class="math inline"><em>z</em><sub><em>i</em></sub></span>-scores of different types of networks for both Type I and Type II null models compared to the species richness of the network. Where <span class="math inline"><em>z</em><sub><em>i</em></sub></span>-scores below 0.5 indicate networks with an SVD entropy that is lower <em>i.e.</em> less complex than expected</figcaption>
+            </figure>
+            <h1 id="conclusion">Conclusion</h1>
+            <p>We present SVD entropy as a starting point to unifying (and standardising) how we should approach defining the complexity of ecological networks. The use of a unified definition will allow us to revisit how complexity relates to the ecological properties of networks using a standardised method. One important result from using SVD entropy is that the complexity of ecological networks is indeed <em>immense</em>, yet despite this high complexity networks are still not reaching their <em>maximum</em> potential complexity. We suggest that the assembly dynamics of networks may explain this observation but this still raises the question as to why larger (or more mature) networks are not ‘maintaining’ their expected complexity and prompts further exploration as to the role of ecological assembly in structuring networks.</p>
+            <h1 class="unnumbered" id="references">References</h1>
+            <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+            <div id="ref-Adami2002WhaCom" class="csl-entry" role="doc-biblioentry">
+            Adami, Christoph. 2002. <span>“What Is Complexity?”</span> <em>BioEssays</em> 24 (12): 1085–94. <a href="https://doi.org/10.1002/bies.10192">https://doi.org/10.1002/bies.10192</a>.
+            </div>
+            <div id="ref-Barbier2018GenAss" class="csl-entry" role="doc-biblioentry">
+            Barbier, Matthieu, Jean-François Arnoldi, Guy Bunin, and Michel Loreau. 2018. <span>“Generic Assembly Patterns in Complex Ecological Communities.”</span> <em>Proceedings of the National Academy of Sciences</em>, 201710352. <a href="https://doi.org/10.1073/pnas.1710352115">https://doi.org/10.1073/pnas.1710352115</a>.
+            </div>
+            <div id="ref-Bascompte2003NesAss" class="csl-entry" role="doc-biblioentry">
+            Bascompte, J., P. Jordano, C. J. Melian, and J. M. Olesen. 2003. <span>“The Nested Assembly of Plant-Animal Mutualistic Networks.”</span> <em>Proceedings of the National Academy of Sciences</em> 100 (16): 9383–87. <a href="https://doi.org/10.1073/pnas.1633576100">https://doi.org/10.1073/pnas.1633576100</a>.
+            </div>
+            <div id="ref-Bascompte2007PlaMut" class="csl-entry" role="doc-biblioentry">
+            Bascompte, Jordi, and Pedro Jordano. 2007. <span>“Plant-Animal Mutualistic Networks: The Architecture of Biodiversity.”</span> <em>Annual Review of Ecology, Evolution, and Systematics</em> 38 (1): 567–93. <a href="https://doi.org/10.1146/annurev.ecolsys.38.091206.095818">https://doi.org/10.1146/annurev.ecolsys.38.091206.095818</a>.
+            </div>
+            <div id="ref-Bastolla2009ArcMut" class="csl-entry" role="doc-biblioentry">
+            Bastolla, Ugo, Miguel A. Fortuna, Alberto Pascual-García, Antonio Ferrera, Bartolo Luque, and Jordi Bascompte. 2009. <span>“The Architecture of Mutualistic Networks Minimizes Competition and Increases Biodiversity.”</span> <em>Nature</em> 458 (7241): 1018–20. <a href="https://doi.org/10.1038/nature07950">https://doi.org/10.1038/nature07950</a>.
+            </div>
+            <div id="ref-Bezanson2017JulFre" class="csl-entry" role="doc-biblioentry">
+            Bezanson, J., A. Edelman, S. Karpinski, and V. Shah. 2017. <span>“Julia: A Fresh Approach to Numerical Computing.”</span> <em>SIAM Review</em> 59 (1): 65–98. <a href="https://doi.org/10.1137/141000671">https://doi.org/10.1137/141000671</a>.
+            </div>
+            <div id="ref-Borrelli2015SelIns" class="csl-entry" role="doc-biblioentry">
+            Borrelli, Jonathan J. 2015. <span>“Selection Against Instability: Stable Subgraphs Are Most Frequent in Empirical Food Webs.”</span> <em>Oikos</em> 124 (12): 1583–88. <a href="https://doi.org/10.1111/oik.02176">https://doi.org/10.1111/oik.02176</a>.
+            </div>
+            <div id="ref-Brose2006AllSca" class="csl-entry" role="doc-biblioentry">
+            Brose, Ulrich, Richard J. Williams, and Neo D. Martinez. 2006. <span>“Allometric Scaling Enhances Stability in Complex Food Webs.”</span> <em>Ecology Letters</em> 9 (11): 1228–36. <a href="https://doi.org/10.1111/j.1461-0248.2006.00978.x">https://doi.org/10.1111/j.1461-0248.2006.00978.x</a>.
+            </div>
+            <div id="ref-Delmas2018AnaEco" class="csl-entry" role="doc-biblioentry">
+            Delmas, Eva, Mathilde Besson, Marie-Hélène Brice, Laura A. Burkle, Giulio V. Dalla Riva, Marie-Josée Fortin, Dominique Gravel, et al. 2018. <span>“Analysing Ecological Networks of Species Interactions.”</span> <em>Biological Reviews</em>, 112540. <a href="https://doi.org/10.1111/brv.12433">https://doi.org/10.1111/brv.12433</a>.
+            </div>
+            <div id="ref-Du2010NotNeu" class="csl-entry" role="doc-biblioentry">
+            Du, Wenxue, Xueliang Li, Yiyang Li, and Simone Severini. 2010. <span>“A Note on the von Neumann Entropy of Random Graphs.”</span> <em>Linear Algebra and Its Applications</em> 433 (11): 1722–25. <a href="https://doi.org/10.1016/j.laa.2010.06.040">https://doi.org/10.1016/j.laa.2010.06.040</a>.
+            </div>
+            <div id="ref-Duffy2007FunRol" class="csl-entry" role="doc-biblioentry">
+            Duffy, J. Emmett, Bradley J. Cardinale, Kristin E. France, Peter B. McIntyre, Elisa Thébault, and Michel Loreau. 2007. <span>“The Functional Role of Biodiversity in Ecosystems: Incorporating Trophic Complexity.”</span> <em>Ecology Letters</em> 10 (6): 522–38. <a href="https://doi.org/10.1111/j.1461-0248.2007.01037.x">https://doi.org/10.1111/j.1461-0248.2007.01037.x</a>.
+            </div>
+            <div id="ref-Dunne2002NetStr" class="csl-entry" role="doc-biblioentry">
+            Dunne, Jennifer A., Richard J. Williams, and Neo D. Martinez. 2002. <span>“Network Structure and Biodiversity Loss in Food Webs: Robustness Increases with Connectance.”</span> <em>Ecology Letters</em> 5 (4): 558–67. <a href="https://doi.org/10.1046/j.1461-0248.2002.00354.x">https://doi.org/10.1046/j.1461-0248.2002.00354.x</a>.
+            </div>
+            <div id="ref-Eckart1936AppOne" class="csl-entry" role="doc-biblioentry">
+            Eckart, Carl, and Gale Young. 1936. <span>“The Approximation of One Matrix by Another of Lower Rank.”</span> <em>Psychometrika</em> 1 (3): 211–18. <a href="https://doi.org/10.1007/BF02288367">https://doi.org/10.1007/BF02288367</a>.
+            </div>
+            <div id="ref-Forsythe1967ComSol" class="csl-entry" role="doc-biblioentry">
+            Forsythe, George, and Cleve Moler. 1967. <em>Computer Solution of Linear Algebraic Systems</em>. Englewood Cliffs, New Jersey: Prentice Hall.
+            </div>
+            <div id="ref-Fortuna2006HabLos" class="csl-entry" role="doc-biblioentry">
+            Fortuna, Miguel A., and Jordi Bascompte. 2006. <span>“Habitat Loss and the Structure of Plant-Animal Mutualistic Networks: Mutualistic Networks and Habitat Loss.”</span> <em>Ecology Letters</em> 9 (3): 281–86. <a href="https://doi.org/10.1111/j.1461-0248.2005.00868.x">https://doi.org/10.1111/j.1461-0248.2005.00868.x</a>.
+            </div>
+            <div id="ref-Golub1987GenEck" class="csl-entry" role="doc-biblioentry">
+            Golub, G. H., Alan Hoffman, and G. W. Stewart. 1987. <span>“A Generalization of the Eckart-Young-Mirsky Matrix Approximation Theorem.”</span> <em>Linear Algebra and Its Applications</em> 88-89: 317–27. <a href="https://doi.org/10.1016/0024-3795(87)90114-5">https://doi.org/10.1016/0024-3795(87)90114-5</a>.
+            </div>
+            <div id="ref-Golub1971SinVal" class="csl-entry" role="doc-biblioentry">
+            Golub, Gene H., and Christian Reinsch. 1971. <span>“Singular Value Decomposition and Least Squares Solutions.”</span> In <em>Linear Algebra</em>, 134–51. Springer.
+            </div>
+            <div id="ref-Gravel2016StaCom" class="csl-entry" role="doc-biblioentry">
+            Gravel, Dominique, François Massol, and Mathew A. Leibold. 2016. <span>“Stability and Complexity in Model Meta-Ecosystems.”</span> <em>Nature Communications</em> 7: 12457. <a href="https://doi.org/10.1038/ncomms12457">https://doi.org/10.1038/ncomms12457</a>.
+            </div>
+            <div id="ref-Gu2016HowLon" class="csl-entry" role="doc-biblioentry">
+            Gu, Rongbao, and Yanmin Shao. 2016. <span>“How Long the Singular Value Decomposed Entropy Predicts the Stock Market? Evidence from the Dow Jones Industrial Average Index.”</span> <em>Physica A: Statistical Mechanics and Its Applications</em> 453 (C): 150–61.
+            </div>
+            <div id="ref-Jacquet2016NoCom" class="csl-entry" role="doc-biblioentry">
+            Jacquet, Claire, Charlotte Moritz, Lyne Morissette, Pierre Legagneux, François Massol, Philippe Archambault, and Dominique Gravel. 2016. <span>“No Complexitystability Relationship in Empirical Ecosystems.”</span> <em>Nature Communications</em> 7: 12573. <a href="https://doi.org/10.1038/ncomms12573">https://doi.org/10.1038/ncomms12573</a>.
+            </div>
+            <div id="ref-Kirkpatrick1984OptSim" class="csl-entry" role="doc-biblioentry">
+            Kirkpatrick, Scott. 1984. <span>“Optimization by Simulated Annealing: Quantitative Studies.”</span> <em>Journal of Statistical Physics</em> 34 (5-6): 975–86.
+            </div>
+            <div id="ref-Landi2018ComSta" class="csl-entry" role="doc-biblioentry">
+            Landi, Pietro, Henintsoa O. Minoarivelo, Åke Brännström, Cang Hui, and Ulf Dieckmann. 2018. <span>“Complexity and Stability of Ecological Networks: A Review of the Theory.”</span> <em>Population Ecology</em> 60 (4): 319–45. <a href="https://doi.org/10.1007/s10144-018-0628-3">https://doi.org/10.1007/s10144-018-0628-3</a>.
+            </div>
+            <div id="ref-Martinez1992ConCon" class="csl-entry" role="doc-biblioentry">
+            Martinez, Neo D. 1992. <span>“Constant Connectance in Community Food Webs.”</span> <em>The American Naturalist</em> 139 (6): 1208–18.
+            </div>
+            <div id="ref-May1976SimMat" class="csl-entry" role="doc-biblioentry">
+            May, Robert M. 1976. <span>“Simple Mathematical Models with Very Complicated Dynamics.”</span> <em>Nature</em> 261 (5560): 459. <a href="https://doi.org/10.1038/261459a0">https://doi.org/10.1038/261459a0</a>.
+            </div>
+            <div id="ref-Maynard2018NetSpa" class="csl-entry" role="doc-biblioentry">
+            Maynard, Daniel S., Carlos A. Serván, and Stefano Allesina. 2018. <span>“Network Spandrels Reflect Ecological Assembly.”</span> <em>Ecology Letters</em>, n/a–. <a href="https://doi.org/10.1111/ele.12912">https://doi.org/10.1111/ele.12912</a>.
+            </div>
+            <div id="ref-Memmott2004TolPol" class="csl-entry" role="doc-biblioentry">
+            Memmott, J., N. M. Waser, and M. V. Price. 2004. <span>“Tolerance of Pollination Networks to Species Extinctions.”</span> <em>Proceedings of the Royal Society B: Biological Sciences</em> 271 (1557): 2605–11. <a href="https://doi.org/10.1098/rspb.2004.2909">https://doi.org/10.1098/rspb.2004.2909</a>.
+            </div>
+            <div id="ref-Newman2010NetInt" class="csl-entry" role="doc-biblioentry">
+            Newman, Mark E. J. 2010. <em>Networks. An Introduction</em>. New York, NY: Oxford University Press.
+            </div>
+            <div id="ref-Park2004StaMec" class="csl-entry" role="doc-biblioentry">
+            Park, Juyong, and M. E. J. Newman. 2004. <span>“Statistical Mechanics of Networks.”</span> <em>Physical Review E</em> 70 (6): 066117. <a href="https://doi.org/10.1103/PhysRevE.70.066117">https://doi.org/10.1103/PhysRevE.70.066117</a>.
+            </div>
+            <div id="ref-Passerini2011NeuEnt" class="csl-entry" role="doc-biblioentry">
+            Passerini, Filippo, and Simone Severini. 2011. <span>“The von Neumann Entropy of Networks.”</span> <em>arXiv:0812.2597 [cond-Mat, Physics:quant-Ph, q-Bio]</em>. <a href="https://doi.org/10.4018/978-1-60960-171-3.ch005">https://doi.org/10.4018/978-1-60960-171-3.ch005</a>.
+            </div>
+            <div id="ref-Phillips2011StrEco" class="csl-entry" role="doc-biblioentry">
+            Phillips, Jonathan D. 2011. <span>“The Structure of Ecological State Transitions: Amplification, Synchronization, and Constraints in Responses to Environmental Change.”</span> <em>Ecological Complexity</em>, Special section: Complexity of Coupled Human and Natural Systems, 8 (4): 336–46. <a href="https://doi.org/10.1016/j.ecocom.2011.07.004">https://doi.org/10.1016/j.ecocom.2011.07.004</a>.
+            </div>
+            <div id="ref-Pielou1975EcoDiv" class="csl-entry" role="doc-biblioentry">
+            Pielou, E. C. 1975. <em>Ecological Diversity</em>. New York: Wiley.
+            </div>
+            <div id="ref-Poisot2019EcoJl" class="csl-entry" role="doc-biblioentry">
+            Poisot, Timothée, Zacharie Belisle, Laura Hoebeke, Michiel Stock, and Piotr Szefer. 2019. <span>“EcologicalNetworks.jl - Analysing Ecological Networks.”</span> <em>Ecography</em>. <a href="https://doi.org/10.1111/ecog.04310">https://doi.org/10.1111/ecog.04310</a>.
+            </div>
+            <div id="ref-Poisot2014WheEco" class="csl-entry" role="doc-biblioentry">
+            Poisot, Timothée, and Dominique Gravel. 2014. <span>“When Is an Ecological Network Complex? Connectance Drives Degree Distribution and Emerging Network Properties.”</span> <em>PeerJ</em> 2: e251. <a href="https://doi.org/10.7717/peerj.251">https://doi.org/10.7717/peerj.251</a>.
+            </div>
+            <div id="ref-Poulin2010NetAna" class="csl-entry" role="doc-biblioentry">
+            Poulin, Robert. 2010. <span>“Network Analysis Shining Light on Parasite Ecology and Diversity.”</span> <em>Trends in Parasitology</em> 26 (10): 492–98. <a href="https://doi.org/10.1016/j.pt.2010.05.008">https://doi.org/10.1016/j.pt.2010.05.008</a>.
+            </div>
+            <div id="ref-Proulx2005NetThi" class="csl-entry" role="doc-biblioentry">
+            Proulx, Stephen R., Daniel E. L. Promislow, and Patrick C. Phillips. 2005. <span>“Network Thinking in Ecology and Evolution.”</span> <em>Trends in Ecology &amp; Evolution</em> 20 (6): 345–53. <a href="https://doi.org/10.1016/j.tree.2005.04.004">https://doi.org/10.1016/j.tree.2005.04.004</a>.
+            </div>
+            <div id="ref-Rozdilsky2001ComCan" class="csl-entry" role="doc-biblioentry">
+            Rozdilsky, Ian D., and Lewi Stone. 2001. <span>“Complexity Can Enhance Stability in Competitive Systems.”</span> <em>Ecology Letters</em> 4 (5): 397–400. <a href="https://doi.org/10.1046/j.1461-0248.2001.00249.x">https://doi.org/10.1046/j.1461-0248.2001.00249.x</a>.
+            </div>
+            <div id="ref-Saravia2018EcoNet" class="csl-entry" role="doc-biblioentry">
+            Saravia, Leonardo A., Tomas Ignacio Marina, Marleen De Troch, and Fernando R. Momo. 2018. <span>“Ecological Network Assembly: How the Regional Meta Web Influence Local Food Webs.”</span> <em>bioRxiv</em>, 340430. <a href="https://doi.org/10.1101/340430">https://doi.org/10.1101/340430</a>.
+            </div>
+            <div id="ref-Shannon1948MatThe" class="csl-entry" role="doc-biblioentry">
+            Shannon, C. E. 1948. <span>“A Mathematical Theory of Communication.”</span> <em>The Bell System Technical Journal</em> 27 (3): 379–423. <a href="https://doi.org/10.1002/j.1538-7305.1948.tb01338.x">https://doi.org/10.1002/j.1538-7305.1948.tb01338.x</a>.
+            </div>
+            <div id="ref-Staniczenko2013GhoNes" class="csl-entry" role="doc-biblioentry">
+            Staniczenko, Phillip P. A., Jason C. Kopp, and Stefano Allesina. 2013. <span>“The Ghost of Nestedness in Ecological Networks.”</span> <em>Nature Communications</em> 4 (1): 1391. <a href="https://doi.org/10.1038/ncomms2422">https://doi.org/10.1038/ncomms2422</a>.
+            </div>
+            <div id="ref-Ulrich2009ConSG" class="csl-entry" role="doc-biblioentry">
+            Ulrich, Werner, Mário Almeida-Neto, and Nicholas J. Gotelli. 2009. <span>“A Consumer’s Guide to Nestedness Analysis.”</span> <em>Oikos</em> 118 (1): 3–17.
+            </div>
+            <div id="ref-Valverde2018ArcMut" class="csl-entry" role="doc-biblioentry">
+            Valverde, Sergi, Jordi Piñero, Bernat Corominas-Murtra, Jose Montoya, Lucas Joppa, and Ricard Solé. 2018. <span>“The Architecture of Mutualistic Networks as an Evolutionary Spandrel.”</span> <em>Nature Ecology &amp; Evolution</em> 2 (1): 94. <a href="https://doi.org/10.1038/s41559-017-0383-4">https://doi.org/10.1038/s41559-017-0383-4</a>.
+            </div>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <div class="container">
+            <h2>Affiliations</h2> 
+            <sup>1</sup>&nbsp;Département de Sciences Biologiques, Université de Montréal; <sup>2</sup>&nbsp;Québec Centre for Biodiversity Sciences; <sup>3</sup>&nbsp;School of Mathematics and Statistics, University of Canterbury
+            <br />
+            
+        </div>
+    </footer>
+    
+</body>
+</html>
