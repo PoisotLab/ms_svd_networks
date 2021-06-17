@@ -9,6 +9,7 @@
 <!--- - [:newspaper: preprint][master_preprint] --->
 - [:blue_book: website][master_html]
 - [:tada: manuscript](https://doi.org/10.3389/fevo.2021.623141)
+
 ## A quick primer: 
 
 Generally in ecology we have struggled to define the complexity of ecological networks. Many measures have been proposed, with these usually focusing on the *structural* complexity of the network as opposed to using the ‘*physical*’ complexity of the network. Here we used SVD entropy (based off of information theory) as well as the relative rank deficiency to quantify network complexity. Turns out ecological networks are extremely complex!
