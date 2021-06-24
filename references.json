@@ -1,0 +1,1446 @@
+[
+    {
+        "DOI": "10.1002/bies.10192",
+        "author": [
+            {
+                "family": "Adami",
+                "given": "Christoph"
+            }
+        ],
+        "container-title": "BioEssays",
+        "id": "Adami2002WhaCom",
+        "issue": "12",
+        "issued": {
+            "date-parts": [
+                [
+                    2002
+                ]
+            ]
+        },
+        "page": "1085-1094",
+        "title": "What is complexity?",
+        "type": "article-journal",
+        "volume": "24"
+    },
+    {
+        "DOI": "10.1073/pnas.1710352115",
+        "author": [
+            {
+                "family": "Barbier",
+                "given": "Matthieu"
+            },
+            {
+                "family": "Arnoldi",
+                "given": "Jean-Fran\u00e7ois"
+            },
+            {
+                "family": "Bunin",
+                "given": "Guy"
+            },
+            {
+                "family": "Loreau",
+                "given": "Michel"
+            }
+        ],
+        "container-title": "Proceedings of the National Academy of Sciences",
+        "id": "Barbier2018GenAss",
+        "issued": {
+            "date-parts": [
+                [
+                    2018
+                ]
+            ]
+        },
+        "page": "201710352",
+        "title": "Generic assembly patterns in complex ecological communities",
+        "type": "article-journal"
+    },
+    {
+        "DOI": "10.1073/pnas.1633576100",
+        "author": [
+            {
+                "family": "Bascompte",
+                "given": "J."
+            },
+            {
+                "family": "Jordano",
+                "given": "P."
+            },
+            {
+                "family": "Melian",
+                "given": "C. J."
+            },
+            {
+                "family": "Olesen",
+                "given": "J. M."
+            }
+        ],
+        "container-title": "Proceedings of the National Academy of Sciences",
+        "id": "Bascompte2003NesAss",
+        "issue": "16",
+        "issued": {
+            "date-parts": [
+                [
+                    2003
+                ]
+            ]
+        },
+        "page": "9383-9387",
+        "title": "The nested assembly of plant-animal mutualistic networks",
+        "type": "article-journal",
+        "volume": "100"
+    },
+    {
+        "DOI": "10.1146/annurev.ecolsys.38.091206.095818",
+        "author": [
+            {
+                "family": "Bascompte",
+                "given": "Jordi"
+            },
+            {
+                "family": "Jordano",
+                "given": "Pedro"
+            }
+        ],
+        "container-title": "Annual Review of Ecology, Evolution, and Systematics",
+        "id": "Bascompte2007PlaMut",
+        "issue": "1",
+        "issued": {
+            "date-parts": [
+                [
+                    2007
+                ]
+            ]
+        },
+        "page": "567-593",
+        "title": "Plant-Animal Mutualistic Networks: The Architecture of Biodiversity",
+        "type": "article-journal",
+        "volume": "38"
+    },
+    {
+        "DOI": "10.1038/nature07950",
+        "author": [
+            {
+                "family": "Bastolla",
+                "given": "Ugo"
+            },
+            {
+                "family": "Fortuna",
+                "given": "Miguel A."
+            },
+            {
+                "family": "Pascual-Garc\u00eda",
+                "given": "Alberto"
+            },
+            {
+                "family": "Ferrera",
+                "given": "Antonio"
+            },
+            {
+                "family": "Luque",
+                "given": "Bartolo"
+            },
+            {
+                "family": "Bascompte",
+                "given": "Jordi"
+            }
+        ],
+        "container-title": "Nature",
+        "id": "Bastolla2009ArcMut",
+        "issue": "7241",
+        "issued": {
+            "date-parts": [
+                [
+                    2009
+                ]
+            ]
+        },
+        "page": "1018-1020",
+        "publisher": "Springer Nature",
+        "title": "The architecture of mutualistic networks minimizes competition and increases biodiversity",
+        "type": "article-journal",
+        "volume": "458"
+    },
+    {
+        "DOI": "10.1101/2020.05.22.111344",
+        "author": [
+            {
+                "family": "Becker",
+                "given": "Daniel J."
+            },
+            {
+                "family": "Albery",
+                "given": "Gregory F."
+            },
+            {
+                "family": "Sjodin",
+                "given": "Anna R."
+            },
+            {
+                "family": "Poisot",
+                "given": "Timoth\u00e9e"
+            },
+            {
+                "family": "Dallas",
+                "given": "Tad A."
+            },
+            {
+                "family": "Eskew",
+                "given": "Evan A."
+            },
+            {
+                "family": "Farrell",
+                "given": "Maxwell J."
+            },
+            {
+                "family": "Guth",
+                "given": "Sarah"
+            },
+            {
+                "family": "Han",
+                "given": "Barbara A."
+            },
+            {
+                "family": "Simmons",
+                "given": "Nancy B."
+            },
+            {
+                "family": "Carlson",
+                "given": "Colin J."
+            }
+        ],
+        "chapter-number": "New Results",
+        "container-title": "bioRxiv",
+        "id": "Becker2020PreWil",
+        "issued": {
+            "date-parts": [
+                [
+                    2020
+                ]
+            ]
+        },
+        "page": "2020.05.22.111344",
+        "publisher": "Cold Spring Harbor Laboratory",
+        "title": "Predicting wildlife hosts of betacoronaviruses for SARS-CoV-2 sampling prioritization",
+        "type": "article-journal"
+    },
+    {
+        "DOI": "10.1137/141000671",
+        "author": [
+            {
+                "family": "Bezanson",
+                "given": "J."
+            },
+            {
+                "family": "Edelman",
+                "given": "A."
+            },
+            {
+                "family": "Karpinski",
+                "given": "S."
+            },
+            {
+                "family": "Shah",
+                "given": "V."
+            }
+        ],
+        "container-title": "SIAM Review",
+        "id": "Bezanson2017JulFre",
+        "issue": "1",
+        "issued": {
+            "date-parts": [
+                [
+                    2017
+                ]
+            ]
+        },
+        "page": "65-98",
+        "title": "Julia: A Fresh Approach to Numerical Computing",
+        "type": "article-journal",
+        "volume": "59"
+    },
+    {
+        "DOI": "10.1111/oik.02176",
+        "author": [
+            {
+                "family": "Borrelli",
+                "given": "Jonathan J."
+            }
+        ],
+        "container-title": "Oikos",
+        "id": "Borrelli2015SelIns",
+        "issue": "12",
+        "issued": {
+            "date-parts": [
+                [
+                    2015
+                ]
+            ]
+        },
+        "page": "1583-1588",
+        "title": "Selection against instability: Stable subgraphs are most frequent in empirical food webs",
+        "type": "article-journal",
+        "volume": "124"
+    },
+    {
+        "DOI": "10.1111/j.1461-0248.2006.00978.x",
+        "author": [
+            {
+                "family": "Brose",
+                "given": "Ulrich"
+            },
+            {
+                "family": "Williams",
+                "given": "Richard J."
+            },
+            {
+                "family": "Martinez",
+                "given": "Neo D."
+            }
+        ],
+        "container-title": "Ecology Letters",
+        "id": "Brose2006AllSca",
+        "issue": "11",
+        "issued": {
+            "date-parts": [
+                [
+                    2006
+                ]
+            ]
+        },
+        "page": "1228-1236",
+        "title": "Allometric scaling enhances stability in complex food webs",
+        "type": "article-journal",
+        "volume": "9"
+    },
+    {
+        "DOI": "10.1111/ele.12279",
+        "author": [
+            {
+                "family": "Chamberlain",
+                "given": "Scott A."
+            },
+            {
+                "family": "Bronstein",
+                "given": "Judith L."
+            },
+            {
+                "family": "Rudgers",
+                "given": "Jennifer A."
+            }
+        ],
+        "container-title": "Ecology Letters",
+        "id": "Chamberlain2014HowCon",
+        "issue": "7",
+        "issued": {
+            "date-parts": [
+                [
+                    2014
+                ]
+            ]
+        },
+        "page": "881-890",
+        "title": "How context dependent are species interactions?",
+        "type": "article-journal",
+        "volume": "17"
+    },
+    {
+        "DOI": "10.1111/brv.12433",
+        "author": [
+            {
+                "family": "Delmas",
+                "given": "Eva"
+            },
+            {
+                "family": "Besson",
+                "given": "Mathilde"
+            },
+            {
+                "family": "Brice",
+                "given": "Marie-H\u00e9l\u00e8ne"
+            },
+            {
+                "family": "Burkle",
+                "given": "Laura A."
+            },
+            {
+                "family": "Dalla Riva",
+                "given": "Giulio V."
+            },
+            {
+                "family": "Fortin",
+                "given": "Marie-Jos\u00e9e"
+            },
+            {
+                "family": "Gravel",
+                "given": "Dominique"
+            },
+            {
+                "family": "Guimar\u00e3es",
+                "given": "Paulo R."
+            },
+            {
+                "family": "Hembry",
+                "given": "David H."
+            },
+            {
+                "family": "Newman",
+                "given": "Erica A."
+            },
+            {
+                "family": "Olesen",
+                "given": "Jens M."
+            },
+            {
+                "family": "Pires",
+                "given": "Mathias M."
+            },
+            {
+                "family": "Yeakel",
+                "given": "Justin D."
+            },
+            {
+                "family": "Poisot",
+                "given": "Timoth\u00e9e"
+            }
+        ],
+        "container-title": "Biological Reviews",
+        "id": "Delmas2018AnaEco",
+        "issued": {
+            "date-parts": [
+                [
+                    2018
+                ]
+            ]
+        },
+        "page": "112540",
+        "title": "Analysing ecological networks of species interactions",
+        "type": "article-journal"
+    },
+    {
+        "DOI": "10.1016/j.laa.2010.06.040",
+        "author": [
+            {
+                "family": "Du",
+                "given": "Wenxue"
+            },
+            {
+                "family": "Li",
+                "given": "Xueliang"
+            },
+            {
+                "family": "Li",
+                "given": "Yiyang"
+            },
+            {
+                "family": "Severini",
+                "given": "Simone"
+            }
+        ],
+        "container-title": "Linear Algebra and its Applications",
+        "id": "Du2010NotNeu",
+        "issue": "11",
+        "issued": {
+            "date-parts": [
+                [
+                    2010
+                ]
+            ]
+        },
+        "page": "1722-1725",
+        "title": "A note on the von Neumann entropy of random graphs",
+        "type": "article-journal",
+        "volume": "433"
+    },
+    {
+        "DOI": "10.1111/j.1461-0248.2007.01037.x",
+        "author": [
+            {
+                "family": "Duffy",
+                "given": "J. Emmett"
+            },
+            {
+                "family": "Cardinale",
+                "given": "Bradley J."
+            },
+            {
+                "family": "France",
+                "given": "Kristin E."
+            },
+            {
+                "family": "McIntyre",
+                "given": "Peter B."
+            },
+            {
+                "family": "Th\u00e9bault",
+                "given": "Elisa"
+            },
+            {
+                "family": "Loreau",
+                "given": "Michel"
+            }
+        ],
+        "container-title": "Ecology Letters",
+        "id": "Duffy2007FunRol",
+        "issue": "6",
+        "issued": {
+            "date-parts": [
+                [
+                    2007
+                ]
+            ]
+        },
+        "page": "522-538",
+        "title": "The functional role of biodiversity in ecosystems: Incorporating trophic complexity",
+        "type": "article-journal",
+        "volume": "10"
+    },
+    {
+        "DOI": "10.1046/j.1461-0248.2002.00354.x",
+        "author": [
+            {
+                "family": "Dunne",
+                "given": "Jennifer A."
+            },
+            {
+                "family": "Williams",
+                "given": "Richard J."
+            },
+            {
+                "family": "Martinez",
+                "given": "Neo D."
+            }
+        ],
+        "container-title": "Ecology Letters",
+        "id": "Dunne2002NetStr",
+        "issue": "4",
+        "issued": {
+            "date-parts": [
+                [
+                    2002
+                ]
+            ]
+        },
+        "page": "558-567",
+        "title": "Network structure and biodiversity loss in food webs: Robustness increases with connectance",
+        "type": "article-journal",
+        "volume": "5"
+    },
+    {
+        "DOI": "10.1007/BF02288367",
+        "author": [
+            {
+                "family": "Eckart",
+                "given": "Carl"
+            },
+            {
+                "family": "Young",
+                "given": "Gale"
+            }
+        ],
+        "container-title": "Psychometrika",
+        "id": "Eckart1936AppOne",
+        "issue": "3",
+        "issued": {
+            "date-parts": [
+                [
+                    1936
+                ]
+            ]
+        },
+        "page": "211-218",
+        "title": "The approximation of one matrix by another of lower rank",
+        "type": "article-journal",
+        "volume": "1"
+    },
+    {
+        "DOI": "10.1038/srep05912",
+        "author": [
+            {
+                "family": "Feng",
+                "given": "Wenfeng"
+            },
+            {
+                "family": "Takemoto",
+                "given": "Kazuhiro"
+            }
+        ],
+        "container-title": "Scientific Reports",
+        "id": "Feng2015HetEco",
+        "issue": "1",
+        "issued": {
+            "date-parts": [
+                [
+                    2015
+                ]
+            ]
+        },
+        "page": "5912",
+        "title": "Heterogeneity in ecological mutualistic networks dominantly determines community stability",
+        "type": "article-journal",
+        "volume": "4"
+    },
+    {
+        "author": [
+            {
+                "family": "Forsythe",
+                "given": "George"
+            },
+            {
+                "family": "Moler",
+                "given": "Cleve"
+            }
+        ],
+        "id": "Forsythe1967ComSol",
+        "issued": {
+            "date-parts": [
+                [
+                    1967
+                ]
+            ]
+        },
+        "publisher": "Prentice Hall",
+        "publisher-place": "Englewood Cliffs, New Jersey",
+        "title": "Computer Solution of Linear Algebraic Systems",
+        "type": "book"
+    },
+    {
+        "DOI": "10.1111/j.1461-0248.2005.00868.x",
+        "author": [
+            {
+                "family": "Fortuna",
+                "given": "Miguel A."
+            },
+            {
+                "family": "Bascompte",
+                "given": "Jordi"
+            }
+        ],
+        "container-title": "Ecology Letters",
+        "id": "Fortuna2006HabLos",
+        "issue": "3",
+        "issued": {
+            "date-parts": [
+                [
+                    2006
+                ]
+            ]
+        },
+        "other-ids": "FortBasc06",
+        "page": "281-286",
+        "title": "Habitat loss and the structure of plant-animal mutualistic networks: Mutualistic networks and habitat loss",
+        "type": "article-journal",
+        "volume": "9"
+    },
+    {
+        "DOI": "10.1016/j.mex.2019.07.020",
+        "author": [
+            {
+                "family": "Ginebreda",
+                "given": "Antoni"
+            },
+            {
+                "family": "Sabater-Liesa",
+                "given": "Laia"
+            },
+            {
+                "family": "Barcel\u00f3",
+                "given": "Dami\u00e0"
+            }
+        ],
+        "container-title": "MethodsX",
+        "id": "Ginebreda2019QuaEco",
+        "issued": {
+            "date-parts": [
+                [
+                    2019
+                ]
+            ]
+        },
+        "page": "1668-1676",
+        "title": "Quantification of ecological complexity and resilience from multivariate biological metrics datasets using singular value decomposition entropy",
+        "type": "article-journal",
+        "volume": "6"
+    },
+    {
+        "author": [
+            {
+                "family": "Golub",
+                "given": "Gene H."
+            },
+            {
+                "family": "Reinsch",
+                "given": "Christian"
+            }
+        ],
+        "container-title": "Linear Algebra",
+        "id": "Golub1971SinVal",
+        "issued": {
+            "date-parts": [
+                [
+                    1971
+                ]
+            ]
+        },
+        "page": "134-151",
+        "publisher": "Springer",
+        "title": "Singular value decomposition and least squares solutions",
+        "type": "chapter"
+    },
+    {
+        "DOI": "10.1016/0024-3795(87)90114-5",
+        "author": [
+            {
+                "family": "Golub",
+                "given": "G. H."
+            },
+            {
+                "family": "Hoffman",
+                "given": "Alan"
+            },
+            {
+                "family": "Stewart",
+                "given": "G. W."
+            }
+        ],
+        "container-title": "Linear Algebra and its Applications",
+        "id": "Golub1987GenEck",
+        "issued": {
+            "date-parts": [
+                [
+                    1987
+                ]
+            ]
+        },
+        "page": "317-327",
+        "title": "A generalization of the Eckart-Young-Mirsky matrix approximation theorem",
+        "type": "article-journal",
+        "volume": "88-89"
+    },
+    {
+        "DOI": "10.1038/ncomms12457",
+        "author": [
+            {
+                "family": "Gravel",
+                "given": "Dominique"
+            },
+            {
+                "family": "Massol",
+                "given": "Fran\u00e7ois"
+            },
+            {
+                "family": "Leibold",
+                "given": "Mathew A."
+            }
+        ],
+        "container-title": "Nature Communications",
+        "id": "Gravel2016StaCom",
+        "issued": {
+            "date-parts": [
+                [
+                    2016
+                ]
+            ]
+        },
+        "page": "12457",
+        "title": "Stability and complexity in model meta-ecosystems",
+        "type": "article-journal",
+        "volume": "7"
+    },
+    {
+        "author": [
+            {
+                "family": "Gu",
+                "given": "Rongbao"
+            },
+            {
+                "family": "Shao",
+                "given": "Yanmin"
+            }
+        ],
+        "container-title": "Physica A: Statistical Mechanics and its Applications",
+        "id": "Gu2016HowLon",
+        "issue": "C",
+        "issued": {
+            "date-parts": [
+                [
+                    2016
+                ]
+            ]
+        },
+        "page": "150-161",
+        "publisher": "Elsevier",
+        "title": "How long the singular value decomposed entropy predicts the stock market?  Evidence from the Dow Jones Industrial Average Index",
+        "type": "article-journal",
+        "volume": "453"
+    },
+    {
+        "DOI": "10.1038/ncomms12573",
+        "author": [
+            {
+                "family": "Jacquet",
+                "given": "Claire"
+            },
+            {
+                "family": "Moritz",
+                "given": "Charlotte"
+            },
+            {
+                "family": "Morissette",
+                "given": "Lyne"
+            },
+            {
+                "family": "Legagneux",
+                "given": "Pierre"
+            },
+            {
+                "family": "Massol",
+                "given": "Fran\u00e7ois"
+            },
+            {
+                "family": "Archambault",
+                "given": "Philippe"
+            },
+            {
+                "family": "Gravel",
+                "given": "Dominique"
+            }
+        ],
+        "container-title": "Nature Communications",
+        "id": "Jacquet2016NoCom",
+        "issued": {
+            "date-parts": [
+                [
+                    2016
+                ]
+            ]
+        },
+        "page": "12573",
+        "title": "No complexitystability relationship in empirical ecosystems",
+        "type": "article-journal",
+        "volume": "7"
+    },
+    {
+        "DOI": "10.1038/nature11214",
+        "author": [
+            {
+                "family": "James",
+                "given": "Alex"
+            },
+            {
+                "family": "Pitchford",
+                "given": "Jonathan W."
+            },
+            {
+                "family": "Plank",
+                "given": "Michael J."
+            }
+        ],
+        "container-title": "Nature",
+        "id": "James2012DisNes",
+        "issue": "7406",
+        "issued": {
+            "date-parts": [
+                [
+                    2012
+                ]
+            ]
+        },
+        "page": "227-230",
+        "publisher": "Nature Publishing Group",
+        "title": "Disentangling nestedness from models of ecological complexity",
+        "type": "article-journal",
+        "volume": "487"
+    },
+    {
+        "author": [
+            {
+                "family": "Kirkpatrick",
+                "given": "Scott"
+            }
+        ],
+        "container-title": "Journal of statistical physics",
+        "id": "Kirkpatrick1984OptSim",
+        "issue": "5-6",
+        "issued": {
+            "date-parts": [
+                [
+                    1984
+                ]
+            ]
+        },
+        "page": "975-986",
+        "title": "Optimization by simulated annealing: Quantitative studies",
+        "type": "article-journal",
+        "volume": "34"
+    },
+    {
+        "DOI": "10.1007/s10144-018-0628-3",
+        "author": [
+            {
+                "family": "Landi",
+                "given": "Pietro"
+            },
+            {
+                "family": "Minoarivelo",
+                "given": "Henintsoa O."
+            },
+            {
+                "family": "Br\u00e4nnstr\u00f6m",
+                "given": "\u00c5ke"
+            },
+            {
+                "family": "Hui",
+                "given": "Cang"
+            },
+            {
+                "family": "Dieckmann",
+                "given": "Ulf"
+            }
+        ],
+        "container-title": "Population Ecology",
+        "id": "Landi2018ComSta",
+        "issue": "4",
+        "issued": {
+            "date-parts": [
+                [
+                    2018
+                ]
+            ]
+        },
+        "page": "319-345",
+        "title": "Complexity and stability of ecological networks: A review of the theory",
+        "type": "article-journal",
+        "volume": "60"
+    },
+    {
+        "author": [
+            {
+                "family": "Martinez",
+                "given": "Neo D."
+            }
+        ],
+        "container-title": "The American Naturalist",
+        "id": "Martinez1992ConCon",
+        "issue": "6",
+        "issued": {
+            "date-parts": [
+                [
+                    1992
+                ]
+            ]
+        },
+        "other-ids": "Mart92",
+        "page": "1208-1218",
+        "publisher": "[University of Chicago Press, American Society of Naturalists]",
+        "title": "Constant Connectance in Community Food Webs",
+        "type": "article-journal",
+        "volume": "139"
+    },
+    {
+        "DOI": "10.1038/261459a0",
+        "author": [
+            {
+                "family": "May",
+                "given": "Robert M."
+            }
+        ],
+        "container-title": "Nature",
+        "id": "May1976SimMat",
+        "issue": "5560",
+        "issued": {
+            "date-parts": [
+                [
+                    1976
+                ]
+            ]
+        },
+        "page": "459",
+        "title": "Simple mathematical models with very complicated dynamics",
+        "type": "article-journal",
+        "volume": "261"
+    },
+    {
+        "DOI": "10.1111/ele.12912",
+        "author": [
+            {
+                "family": "Maynard",
+                "given": "Daniel S."
+            },
+            {
+                "family": "Serv\u00e1n",
+                "given": "Carlos A."
+            },
+            {
+                "family": "Allesina",
+                "given": "Stefano"
+            }
+        ],
+        "container-title": "Ecology Letters",
+        "id": "Maynard2018NetSpa",
+        "issued": {
+            "date-parts": [
+                [
+                    2018
+                ]
+            ]
+        },
+        "page": "n/a-n/a",
+        "title": "Network spandrels reflect ecological assembly",
+        "type": "article-journal"
+    },
+    {
+        "DOI": "10.1098/rspb.2004.2909",
+        "author": [
+            {
+                "family": "Memmott",
+                "given": "J."
+            },
+            {
+                "family": "Waser",
+                "given": "N. M."
+            },
+            {
+                "family": "Price",
+                "given": "M. V."
+            }
+        ],
+        "container-title": "Proceedings of the Royal Society B: Biological Sciences",
+        "id": "Memmott2004TolPol",
+        "issue": "1557",
+        "issued": {
+            "date-parts": [
+                [
+                    2004
+                ]
+            ]
+        },
+        "page": "2605-2611",
+        "publisher": "The Royal Society",
+        "title": "Tolerance of pollination networks to species extinctions",
+        "type": "article-journal",
+        "volume": "271"
+    },
+    {
+        "author": [
+            {
+                "family": "Newman",
+                "given": "Mark E. J."
+            }
+        ],
+        "id": "Newman2010NetInt",
+        "issued": {
+            "date-parts": [
+                [
+                    2010
+                ]
+            ]
+        },
+        "publisher": "Oxford University Press",
+        "publisher-place": "New York, NY",
+        "title": "Networks. An introduction",
+        "type": "book"
+    },
+    {
+        "DOI": "10.1103/PhysRevE.70.066117",
+        "author": [
+            {
+                "family": "Park",
+                "given": "Juyong"
+            },
+            {
+                "family": "Newman",
+                "given": "M. E. J."
+            }
+        ],
+        "container-title": "Physical Review E",
+        "id": "Park2004StaMec",
+        "issue": "6",
+        "issued": {
+            "date-parts": [
+                [
+                    2004
+                ]
+            ]
+        },
+        "page": "066117",
+        "publisher": "American Physical Society",
+        "title": "Statistical mechanics of networks",
+        "type": "article-journal",
+        "volume": "70"
+    },
+    {
+        "DOI": "10.4018/978-1-60960-171-3.ch005",
+        "URL": "http://arxiv.org/abs/0812.2597",
+        "author": [
+            {
+                "family": "Passerini",
+                "given": "Filippo"
+            },
+            {
+                "family": "Severini",
+                "given": "Simone"
+            }
+        ],
+        "container-title": "arXiv:0812.2597 [cond-mat, physics:quant-ph, q-bio]",
+        "id": "Passerini2011NeuEnt",
+        "issued": {
+            "date-parts": [
+                [
+                    2011
+                ]
+            ]
+        },
+        "title": "The von Neumann entropy of networks",
+        "type": "article-journal"
+    },
+    {
+        "DOI": "10.1016/j.ecocom.2011.07.004",
+        "author": [
+            {
+                "family": "Phillips",
+                "given": "Jonathan D."
+            }
+        ],
+        "collection-title": "Special section: Complexity of Coupled Human and Natural Systems",
+        "container-title": "Ecological Complexity",
+        "id": "Phillips2011StrEco",
+        "issue": "4",
+        "issued": {
+            "date-parts": [
+                [
+                    2011
+                ]
+            ]
+        },
+        "page": "336-346",
+        "title": "The structure of ecological state transitions: Amplification, synchronization, and constraints in responses to environmental change",
+        "type": "article-journal",
+        "volume": "8"
+    },
+    {
+        "author": [
+            {
+                "family": "Pielou",
+                "given": "E. C."
+            }
+        ],
+        "id": "Pielou1975EcoDiv",
+        "issued": {
+            "date-parts": [
+                [
+                    1975
+                ]
+            ]
+        },
+        "publisher": "Wiley",
+        "publisher-place": "New York",
+        "title": "Ecological diversity",
+        "type": "book"
+    },
+    {
+        "DOI": "10.7717/peerj.251",
+        "author": [
+            {
+                "family": "Poisot",
+                "given": "Timoth\u00e9e"
+            },
+            {
+                "family": "Gravel",
+                "given": "Dominique"
+            }
+        ],
+        "container-title": "PeerJ",
+        "id": "Poisot2014WheEco",
+        "issued": {
+            "date-parts": [
+                [
+                    2014
+                ]
+            ]
+        },
+        "other-ids": "pois14wen",
+        "page": "e251",
+        "title": "When is an ecological network complex? Connectance drives degree distribution and emerging network properties",
+        "type": "article-journal",
+        "volume": "2"
+    },
+    {
+        "DOI": "10.1111/ecog.04310",
+        "author": [
+            {
+                "family": "Poisot",
+                "given": "Timoth\u00e9e"
+            },
+            {
+                "family": "Belisle",
+                "given": "Zacharie"
+            },
+            {
+                "family": "Hoebeke",
+                "given": "Laura"
+            },
+            {
+                "family": "Stock",
+                "given": "Michiel"
+            },
+            {
+                "family": "Szefer",
+                "given": "Piotr"
+            }
+        ],
+        "container-title": "Ecography",
+        "id": "Poisot2019EcoJl",
+        "issued": {
+            "date-parts": [
+                [
+                    2019
+                ]
+            ]
+        },
+        "title": "EcologicalNetworks.jl - analysing ecological networks",
+        "type": "article-journal"
+    },
+    {
+        "DOI": "10.1016/j.pt.2010.05.008",
+        "author": [
+            {
+                "family": "Poulin",
+                "given": "Robert"
+            }
+        ],
+        "container-title": "Trends in Parasitology",
+        "id": "Poulin2010NetAna",
+        "issue": "10",
+        "issued": {
+            "date-parts": [
+                [
+                    2010
+                ]
+            ]
+        },
+        "page": "492-498",
+        "title": "Network analysis shining light on parasite ecology and diversity",
+        "type": "article-journal",
+        "volume": "26"
+    },
+    {
+        "DOI": "10.1016/j.tree.2005.04.004",
+        "author": [
+            {
+                "family": "Proulx",
+                "given": "Stephen R."
+            },
+            {
+                "family": "Promislow",
+                "given": "Daniel E. L."
+            },
+            {
+                "family": "Phillips",
+                "given": "Patrick C."
+            }
+        ],
+        "container-title": "Trends in Ecology & Evolution",
+        "id": "Proulx2005NetThi",
+        "issue": "6",
+        "issued": {
+            "date-parts": [
+                [
+                    2005
+                ]
+            ]
+        },
+        "page": "345-353",
+        "title": "Network thinking in ecology and evolution",
+        "type": "article-journal",
+        "volume": "20"
+    },
+    {
+        "DOI": "10.1046/j.1461-0248.2001.00249.x",
+        "author": [
+            {
+                "family": "Rozdilsky",
+                "given": "Ian D."
+            },
+            {
+                "family": "Stone",
+                "given": "Lewi"
+            }
+        ],
+        "container-title": "Ecology Letters",
+        "id": "Rozdilsky2001ComCan",
+        "issue": "5",
+        "issued": {
+            "date-parts": [
+                [
+                    2001
+                ]
+            ]
+        },
+        "page": "397-400",
+        "title": "Complexity can enhance stability in competitive systems",
+        "type": "article-journal",
+        "volume": "4"
+    },
+    {
+        "DOI": "10.1101/340430",
+        "author": [
+            {
+                "family": "Saravia",
+                "given": "Leonardo A."
+            },
+            {
+                "family": "Marina",
+                "given": "Tomas Ignacio"
+            },
+            {
+                "family": "Troch",
+                "given": "Marleen De"
+            },
+            {
+                "family": "Momo",
+                "given": "Fernando R."
+            }
+        ],
+        "container-title": "bioRxiv",
+        "id": "Saravia2018EcoNet",
+        "issued": {
+            "date-parts": [
+                [
+                    2018
+                ]
+            ]
+        },
+        "page": "340430",
+        "title": "Ecological Network assembly: How the regional meta web influence local food webs",
+        "type": "article-journal"
+    },
+    {
+        "DOI": "10.1002/j.1538-7305.1948.tb01338.x",
+        "author": [
+            {
+                "family": "Shannon",
+                "given": "C. E."
+            }
+        ],
+        "container-title": "The Bell System Technical Journal",
+        "id": "Shannon1948MatThe",
+        "issue": "3",
+        "issued": {
+            "date-parts": [
+                [
+                    1948
+                ]
+            ]
+        },
+        "page": "379-423",
+        "title": "A mathematical theory of communication",
+        "type": "article-journal",
+        "volume": "27"
+    },
+    {
+        "DOI": "10.1038/ncomms2422",
+        "author": [
+            {
+                "family": "Staniczenko",
+                "given": "Phillip P. A."
+            },
+            {
+                "family": "Kopp",
+                "given": "Jason C."
+            },
+            {
+                "family": "Allesina",
+                "given": "Stefano"
+            }
+        ],
+        "container-title": "Nature Communications",
+        "id": "Staniczenko2013GhoNes",
+        "issue": "1",
+        "issued": {
+            "date-parts": [
+                [
+                    2013
+                ]
+            ]
+        },
+        "other-ids": "StanKopp13a",
+        "page": "1391",
+        "title": "The ghost of nestedness in ecological networks",
+        "type": "article-journal",
+        "volume": "4"
+    },
+    {
+        "author": [
+            {
+                "family": "Ulrich",
+                "given": "Werner"
+            },
+            {
+                "family": "Almeida-Neto",
+                "given": "M\u00e1rio"
+            },
+            {
+                "family": "Gotelli",
+                "given": "Nicholas J."
+            }
+        ],
+        "container-title": "Oikos",
+        "id": "Ulrich2009ConSG",
+        "issue": "1",
+        "issued": {
+            "date-parts": [
+                [
+                    2009
+                ]
+            ]
+        },
+        "page": "3-17",
+        "title": "A consumer\u2019s guide to nestedness analysis",
+        "type": "article-journal",
+        "volume": "118"
+    },
+    {
+        "DOI": "10.1038/s41559-017-0383-4",
+        "author": [
+            {
+                "family": "Valverde",
+                "given": "Sergi"
+            },
+            {
+                "family": "Pi\u00f1ero",
+                "given": "Jordi"
+            },
+            {
+                "family": "Corominas-Murtra",
+                "given": "Bernat"
+            },
+            {
+                "family": "Montoya",
+                "given": "Jose"
+            },
+            {
+                "family": "Joppa",
+                "given": "Lucas"
+            },
+            {
+                "family": "Sol\u00e9",
+                "given": "Ricard"
+            }
+        ],
+        "container-title": "Nature Ecology & Evolution",
+        "id": "Valverde2018ArcMut",
+        "issue": "1",
+        "issued": {
+            "date-parts": [
+                [
+                    2018
+                ]
+            ]
+        },
+        "page": "94",
+        "title": "The architecture of mutualistic networks as an evolutionary spandrel",
+        "type": "article-journal",
+        "volume": "2"
+    }
+]

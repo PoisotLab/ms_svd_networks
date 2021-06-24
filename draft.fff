@@ -1,0 +1,99 @@
+\begin{figure}
+\hypertarget{fig:size}{%
+\centering
+\includegraphics{figures/size_v_rankentropy.png}
+\caption{The relationship between network richness and relative rank
+deficiency, and SVD entropy. The different types of interactions are
+indicated by the colours.}\label{fig:size}
+}
+\end{figure}
+\efloatseparator
+ 
+\begin{figure}
+\hypertarget{fig:entropy_v_rank}{%
+\centering
+\includegraphics{figures/entropy_v_rank.png}
+\caption{The relationship between SVD entropy and the relative rank
+deficiency of different species interaction networks Colours indicate
+the different interaction types of the
+networks.}\label{fig:entropy_v_rank}
+}
+\end{figure}
+\efloatseparator
+ 
+\begin{figure}
+\hypertarget{fig:other}{%
+\centering
+\includegraphics{figures/others_v_entropy.png}
+\caption{The relationship between SVD entropy and the nestedness (left
+panel), spectral radius (central panel) and connectance (right panel) of
+ecological networks. Colours indicate the different interaction types of
+the networks.}\label{fig:other}
+}
+\end{figure}
+\efloatseparator
+ 
+\begin{figure}
+\hypertarget{fig:resilience}{%
+\centering
+\includegraphics{figures/entropy_v_AUCall.png}
+\caption{The relationship between SVD entropy and the area under an
+extinction curve (as a proxy for resilience to extinction) for both
+different extinction mechanisms (Random = the removal of a random
+species, Decreasing = the removal of species in order of decreasing
+number of interactions (i.e most to least number of interactions),
+Increasing = the removal of species in order of increasing number of
+interactions) as well as along different dimensions (species groups) of
+the network (All = any species, Top-level = only top-level species, and
+Bottom-level = only bottom- level species) Colours indicate the
+different interaction types of the networks.}\label{fig:resilience}
+}
+\end{figure}
+\efloatseparator
+ 
+\begin{figure}
+\hypertarget{fig:type}{%
+\centering
+\includegraphics{figures/interactiontype_v_entropy.png}
+\caption{The calculated SVD entropy of different interaction networks of
+different interaction types}\label{fig:type}
+}
+\end{figure}
+\efloatseparator
+ 
+\begin{figure}
+\hypertarget{fig:simann}{%
+\centering
+\includegraphics{figures/minmax_combined.png}
+\caption{The relationship between the maximum and minimum value of SVD
+entropy of a collection of random interaction networks (using simulated
+annealing) for a given connectance spanning from 0 to 1 (left panel) and
+how this relates to the relative rank deficiency of networks (right
+panel)}\label{fig:simann}
+}
+\end{figure}
+\efloatseparator
+ 
+\begin{figure}
+\hypertarget{fig:nullmod}{%
+\centering
+\includegraphics{figures/nullmodel_histogram.png}
+\caption{The counts of the \(z_i\)-scores of different types of networks
+for both Type I and Type II null models. Negative \(z_i\)-scores
+indicate networks with an SVD entropy that is lower \emph{i.e.} less
+complex than expected}\label{fig:nullmod}
+}
+\end{figure}
+\efloatseparator
+ 
+\begin{figure}
+\hypertarget{fig:larger}{%
+\centering
+\includegraphics{figures/nullmodel_richness.png}
+\caption{The logistic \(z_i\)-scores of different types of networks for
+both Type I and Type II null models compared to the species richness of
+the network. Where \(z_i\)-scores below 0.5 indicate networks with an
+SVD entropy that is lower \emph{i.e.} less complex than
+expected}\label{fig:larger}
+}
+\end{figure}
