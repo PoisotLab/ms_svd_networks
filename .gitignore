@@ -4,3 +4,7 @@ dist/
 references.json
 affiliations.json
 .vscode
+Manifest.toml
+
+#MacOS nonsense
+.DStore
